@@ -49,26 +49,11 @@ export default class retailGoods extends wepy.component {
     darkStar: '../../../common/image/dark-star.png',
     goods: [
       {
-<<<<<<< HEAD
-        goodsUrl: '../../../common/image/goods-bg1.jpg',
-=======
         goodsUrl: 'https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg',
->>>>>>> 2019.2.12
         title: '贡茶',
         shop:'品牌旗舰店',
          show:[
           {
-<<<<<<< HEAD
-            showBg:'../../../common/image/show-bg1.jpg',
-            showText:'可比克'
-          },
-          {
-            showBg:'../../../common/image/show-bg2.jpg',
-            showText:'豌豆'
-          },
-          {
-            showBg:'../../../common/image/show-bg3.jpg',
-=======
             showBg:'https://1h1d.cdn.jihuliwu.cn/images/show-bg1.jpg',
             showText:'可比克'
           },
@@ -78,7 +63,6 @@ export default class retailGoods extends wepy.component {
           },
           {
             showBg:'https://1h1d.cdn.jihuliwu.cn/images/show-bg3.jpg',
->>>>>>> 2019.2.12
             showText:'小拉面'
           }
         ],
@@ -108,26 +92,11 @@ export default class retailGoods extends wepy.component {
         ]
       },
       {
-<<<<<<< HEAD
-        goodsUrl: '../../../common/image/goods-bg1.jpg',
-=======
         goodsUrl: 'https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg',
->>>>>>> 2019.2.12
         title: '贡茶',
         shop:'品牌旗舰店',
         show:[
           {
-<<<<<<< HEAD
-            showBg:'../../../common/image/show-bg1.jpg',
-            showText:'可比克'
-          },
-          {
-            showBg:'../../../common/image/show-bg2.jpg',
-            showText:'豌豆'
-          },
-          {
-            showBg:'../../../common/image/show-bg3.jpg',
-=======
             showBg:'https://1h1d.cdn.jihuliwu.cn/images/show-bg1.jpg',
             showText:'可比克'
           },
@@ -137,7 +106,6 @@ export default class retailGoods extends wepy.component {
           },
           {
             showBg:'https://1h1d.cdn.jihuliwu.cn/images/show-bg3.jpg',
->>>>>>> 2019.2.12
             showText:'小拉面'
           }
         ],
@@ -176,11 +144,7 @@ export default class retailGoods extends wepy.component {
         isHideLoadMore: true,
         goods: [
       {
-<<<<<<< HEAD
-        goodsUrl: '../../../common/image/goods-bg1.jpg',
-=======
         goodsUrl: 'https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg',
->>>>>>> 2019.2.12
         title: '贡茶',
         qisong: '10',
         peisong: '3',

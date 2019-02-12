@@ -1,25 +1,487 @@
 <template>
-    <view class='container'>
+    <view class="container">
+        <view class="top">
+            <view>
+                 <label>
+                    <view class="checkbox {{select_all==true?'checkbox-active':''}}" bindtap="select_all"></view>
+                    <!-- <checkbox  class="radio-group" bindtap="select_all" checked="{{select_all}}"/> -->
+                    <text>全选</text>
+                </label>
+            </view>
+            <view class="btn">
+                <view>收藏</view>
+                <view>删除</view>
+            </view>
+        </view>
+        <view class="wrapper" wx:for="{{items}}">
+            <view class="header">
+                <label>
+                    <view class="checkbox {{item.checked==true?'checkbox-active':''}}" bindtap="select" data-index="{{index}}"></view>
+                    <!-- <checkbox class="radio-group" checked="{{item.checked}}"/> -->
+                    <i class="iconfont icon-shangdian"></i>
+                    <text>{{item.name}}</text>
+                </label>
+            </view>
+            <view class="content">
+                <view class="foods-bg">
+                    <image src="https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png">
+                </view>
+                <view class="foods-name">椰果泡芙芒果奶茶</view>
+                <view class="foods-price">
+                    <view>￥28.0</view>
+                     <view>x1</view>
+                </view>
+            </view>
+            <view class="total">
+                <text>合计</text>
+                <text>￥666.0</text>
+            </view>
+        </view>
+        <view class="maybe">
+            <view class="maybe-top">
+               <view class="left">
+                   <view></view>
+                   <view></view>
+                   <view></view>
+               </view>
+               <view class="center">
+                   <i class="iconfont icon-aixin"></i>
+                   <text>你可能还喜欢</text>
+                </view>
+               <view class="right">
+                   <view></view>
+                   <view></view>
+                   <view></view>
+               </view>
+            </view>
+            <view class="maybe-content">
+                <view class="box">
+                    <view class="box-bg">
+                        <image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg">
+                    </view>
+                    <view class="box-name">
+                        小休闲鞋小白鞋韩版 时...
+                    </view>
+                     <view class="box-price">
+                       ￥15.0
+                    </view>
+                    <view class="shop">
+                        <text><i class="iconfont icon-shangdian"></i> 隆江猪脚饭</text>
+                        <text>月销量9999</text>
+                    </view>
+                </view>
+                <view class="box">
+                    <view class="box-bg">
+                        <image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg">
+                    </view>
+                    <view class="box-name">
+                        小休闲鞋小白鞋韩版 时...
+                    </view>
+                     <view class="box-price">
+                       ￥15.0
+                    </view>
+                    <view class="shop">
+                        <text><i class="iconfont icon-shangdian"></i> 隆江猪脚饭</text>
+                        <text>月销量9999</text>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+                <view class="weui-loading"></view>
+                <view class="weui-loadmore__tips">正在加载</view>
+            </view>
+        </view>
+        <view class="settlement">
+            <view>
+                <text>合计：</text>
+                <text>￥10000</text>
+            </view>
+            <view bindtap="settlement">
+                <text>结算</text>
+            </view>
+        </view>
     </view>
 </template>
 
 <script>
-    import wepy from 'wepy';
-    export default class Example extends wepy.page {
-        config = {
-            navigationBarTitleText: "购物车",
-        };
-        data = {};
-        components = {};
-        methods = {};
-        events = {};
-        watch = {};
-        computed = {};
-        onLoad() {};
-        onShow() {};
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '购物车'
+  };
+  data = {
+    isHideLoadMore:false,
+    select_all:false,
+    checked:false,
+    middlearr:[],
+    temp:[],
+    items: [
+      { name: '贡茶', checked: false,id:1 },
+      { name: '喜茶', checked: false,id:2  },
+      { name: '一点点', checked: false,id:3  },
+      { name: '喜茶', checked: false,id:4  },
+      { name: '喜茶', checked: false,id:5  },
+      { name: '喜茶', checked: false,id:6  }
+    ]
+  };
+  components = {};
+  methods = {
+      select:function(e){
+            let that = this;
+            let arr = that.items
+            let temp = that.temp
+            let middlearr = that.middlearr
+            let i = e.currentTarget.dataset.index
+            that.items[i].checked = !that.checked
+            if(that.items[i].checked==true){
+               middlearr.push(arr[i]) 
+               for(let x = 0;x<middlearr.length;x++){
+                   if(temp.indexOf(middlearr[x]) == -1){
+                       temp.push(middlearr[x])
+                       console.log(temp);    
+                   }
+               }
+               
+                if(temp.length==arr.length){
+                    that.select_all = true
+                }else{
+                    that.select_all =  false
+                }      
+            }
+            that.checked = !that.checked
+      },
+    // 全选
+    select_all:function(){
+        let that = this;
+        let arr = that.items
+        for(let i = 0;i<arr.length;i++){
+            arr[i].checked = (!that.select_all)
+        }
+        that.items = arr
+        console.log(arr);
+        console.log( that.items);
+        that.checked = !that.checked
+        that.items = that.items
+        that.select_all = !that.select_all
+    },
+    settlement:function(){
+        wx.navigateTo({
+            url: '../settlement/settlement'
+        });
     }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
 </script>
 
 <style lang='less'>
-
+.container {
+  width: 100%;
+  height: 100%;
+  .top {
+    margin-bottom: 20rpx;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    height: 70rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    view:nth-child(1) {
+        label {
+            display: flex;
+            align-items: center;
+            .checkbox{
+                width: 30rpx;
+                height: 30rpx;
+                border-radius: 50%;
+                border: 2px #eeeeee solid;
+            }
+            .checkbox-active{
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAMAAAAocOYLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo0RDBEQUIxNzE0ODExMUU5OTcxRkQ4QTNFNzdGMUZFQyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo0RDBEQUIxODE0ODExMUU5OTcxRkQ4QTNFNzdGMUZFQyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjREMERBQjE1MTQ4MTExRTk5NzFGRDhBM0U3N0YxRkVDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjREMERBQjE2MTQ4MTExRTk5NzFGRDhBM0U3N0YxRkVDIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+SgSZHAAAAVlQTFRF3PH/EqD/O7H/Urr/DZ7/LKv/ptv/HqX/AZn/PLH/yur/PbH/dcj/jdH/xOf/CJz/CZ3/u+T/EaD/6fb/BZv/GaP/Wr3/3fH/q93/T7n/2/H/ccb/z+z/H6X/Q7T/OK//ZMH/rd7/r9//teH/csf/i9H/b8X/kdP/I6f/EJ//bMT/PrL/6/f/G6T/zev/ZsL/WLz/FqL/P7L/mtf/p9z/8/r/veX/JKf/5vX/IKb/K6r/dsj/DJ7/Jqj/asP/oNn/jNH/0+3/0u3/ntj//P7/YL//9fv/ndj/8fn/v+X/Dp//VLv/Kqr/Vbv/xuj/Kan/ldX/A5r/Sbb/idD/E6H/y+r/seD/ZcH/9vv/tOH/W73/8Pn/Lav/GqP/cMb/ktP/QLP/OrD/yen/Iab/YsD/L6z/5fX/RLT/BJv/Ma3/Nq//kNP/itD/hc7/pNv/FKH/4/T/AJn/////DTDyjQAAAHN0Uk5T////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AO+Lr34AAAFFSURBVHjadJPVcgMxDEUVaKChJmnSJKWUmRlTZmZmZvv/Hyov2N5dr150rTPjsXUloDxeSk+DGf/v/cUtiCKXO/lKwuPu3MZHssQaB1UyjweJPSpygjcQVcRM3kvUkdP5iseFk4LGfW6YlDE+ryT9bywNI69T4GdKm1juoXCpwJ4zStOaqoFVJ06w3oQ1WQ1ZJ39AnNdlGLwO/IM4auh2GLDjb8R75iEFhmvNhYAuWhE3ChdAb94+VsszKHwojsVlHfCh5dAQ1tNXZBdT97TgE7BpqDnmVh+2e+lRekw9fJqyaExMRH7sKYxz7V1jeNvymXWg7/wQxNtvLHgD/RmVGhtdtvaijfkfcfX/WpuPP1ce1+fvxAV/mfMbU+JOMf+BkBMfyvuzYLd5Mmnbv8Utida2OPYT/Zt6nTnyp8a6ZpOi+C/AAJsOhBZoI8+YAAAAAElFTkSuQmCC);
+                background-size: 100%;
+            }
+          text {
+            margin-left: 10rex;
+            font-size: 24rpx;
+            color: #000;
+            font-weight: bold;
+          }
+        }
+    }
+    .btn {
+      display: flex;
+      position: absolute;
+      right: 40rpx;
+      width: 300rpx;
+      view {
+        width: 130rpx;
+        height: 46rpx;
+        line-height: 46rpx;
+        box-sizing: border-box;
+        font-size: 24rpx;
+        text-align: center;
+        border-radius: 20rpx;
+      }
+      view:nth-child(1) {
+        color: #0099ff;
+        border: 1px #0099ff solid;
+        margin-right: 20rpx;
+      }
+      view:nth-child(2) {
+        color: #999999;
+        border: 1px #999999 solid;
+      }
+    }
+  }
+  .wrapper {
+    width: 100%;
+    background: #fff;
+    padding: 20rpx;
+    box-sizing: border-box;
+    margin-bottom: 16rpx;
+    .header {
+      width: 100%;
+      padding: 10rpx 0;
+      box-sizing: border-box;
+      border-bottom: 1px #eeeeee solid;
+        label {
+             display: flex;
+            align-items: center;
+            .checkbox{
+                width: 30rpx;
+                height: 30rpx;
+                border-radius: 50%;
+                border: 2px #eeeeee solid;
+            }
+            .checkbox-active{
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAMAAAAocOYLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo0RDBEQUIxNzE0ODExMUU5OTcxRkQ4QTNFNzdGMUZFQyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo0RDBEQUIxODE0ODExMUU5OTcxRkQ4QTNFNzdGMUZFQyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjREMERBQjE1MTQ4MTExRTk5NzFGRDhBM0U3N0YxRkVDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjREMERBQjE2MTQ4MTExRTk5NzFGRDhBM0U3N0YxRkVDIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+SgSZHAAAAVlQTFRF3PH/EqD/O7H/Urr/DZ7/LKv/ptv/HqX/AZn/PLH/yur/PbH/dcj/jdH/xOf/CJz/CZ3/u+T/EaD/6fb/BZv/GaP/Wr3/3fH/q93/T7n/2/H/ccb/z+z/H6X/Q7T/OK//ZMH/rd7/r9//teH/csf/i9H/b8X/kdP/I6f/EJ//bMT/PrL/6/f/G6T/zev/ZsL/WLz/FqL/P7L/mtf/p9z/8/r/veX/JKf/5vX/IKb/K6r/dsj/DJ7/Jqj/asP/oNn/jNH/0+3/0u3/ntj//P7/YL//9fv/ndj/8fn/v+X/Dp//VLv/Kqr/Vbv/xuj/Kan/ldX/A5r/Sbb/idD/E6H/y+r/seD/ZcH/9vv/tOH/W73/8Pn/Lav/GqP/cMb/ktP/QLP/OrD/yen/Iab/YsD/L6z/5fX/RLT/BJv/Ma3/Nq//kNP/itD/hc7/pNv/FKH/4/T/AJn/////DTDyjQAAAHN0Uk5T////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AO+Lr34AAAFFSURBVHjadJPVcgMxDEUVaKChJmnSJKWUmRlTZmZmZvv/Hyov2N5dr150rTPjsXUloDxeSk+DGf/v/cUtiCKXO/lKwuPu3MZHssQaB1UyjweJPSpygjcQVcRM3kvUkdP5iseFk4LGfW6YlDE+ryT9bywNI69T4GdKm1juoXCpwJ4zStOaqoFVJ06w3oQ1WQ1ZJ39AnNdlGLwO/IM4auh2GLDjb8R75iEFhmvNhYAuWhE3ChdAb94+VsszKHwojsVlHfCh5dAQ1tNXZBdT97TgE7BpqDnmVh+2e+lRekw9fJqyaExMRH7sKYxz7V1jeNvymXWg7/wQxNtvLHgD/RmVGhtdtvaijfkfcfX/WpuPP1ce1+fvxAV/mfMbU+JOMf+BkBMfyvuzYLd5Mmnbv8Utida2OPYT/Zt6nTnyp8a6ZpOi+C/AAJsOhBZoI8+YAAAAAElFTkSuQmCC);
+                background-size: 100%;
+            }
+          text {
+            font-size: 26rpx;
+            color: #000;
+            font-weight: bold;
+            margin-left: 10rpx;
+          }
+        }
+    }
+    .content{
+        width: 100%;
+        padding: 10rpx 0;
+        box-sizing: border-box;
+        border-bottom: 1px #eeeeee solid;
+        display: flex;
+        align-items: center;
+        .foods-bg{
+            width: 150rpx;
+            height: 150rpx;
+            border-bottom: 1px #eeeeee solid;
+            box-sizing: border-box;
+            image{
+                width: 150rpx;
+                height: 150rpx;
+                border-bottom: 1px #eeeeee solid;
+                box-sizing: border-box;
+            }
+        }
+        .foods-name{
+            font-size: 26rpx;
+            color: #333333;
+            padding-left: 10rpx;
+            width: 410rpx;
+            box-sizing: border-box;
+        }
+        .foods-price{
+            position: absolute;
+            right: 20rpx;
+            view:nth-child(1){
+                font-size: 24rpx;
+                color: #333333;
+            }
+            view:nth-child(2){
+                font-size: 22rpx;
+                color: #999999;
+            }
+        }
+    }
+    .total{
+        width: 100%;
+        padding: 20rpx 0;
+        text-align: right;
+        box-sizing: border-box;
+        text:nth-child(1){
+            font-size: 24rpx;
+            color: #3a4042;
+        }
+        text:nth-child(2){
+            margin-left: 10rpx;
+            font-size: 28rpx;
+            color: #e51919;
+        }
+    }
+  }
+  .maybe{
+    width: 100%;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    .maybe-top{
+        margin: 30rpx auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .left{
+            display: flex;
+            align-items: center;
+            view{
+                margin: 0 3px;
+            }
+            view:nth-child(1){
+                width: 2px;
+                height: 2px;
+                background: #0099ff;
+                border-radius: 50%;
+            }
+            view:nth-child(2){
+                width: 4px;
+                height: 4px;
+                background: #0099ff;
+                border-radius: 50%;
+            }
+            view:nth-child(3){
+                width: 6px;
+                height: 6px;
+                background: #0099ff;
+                border-radius: 50%;
+            }
+        }
+        .center{
+            letter-spacing:2px;
+            margin: 0 30rpx;
+            color: #0099ff;
+            font-size: 28rpx;
+            i{
+                color: #0099ff;
+            }
+        }
+        .right{
+            display: flex;
+            align-items: center;
+            view{
+                margin: 0 3px;
+            }
+            view:nth-child(3){
+                width: 2px;
+                height: 2px;
+                background: #0099ff;
+                border-radius: 50%;
+            }
+            view:nth-child(2){
+                width: 4px;
+                height: 4px;
+                background: #0099ff;
+                border-radius: 50%;
+            }
+            view:nth-child(1){
+                width: 6px;
+                height: 6px;
+                background: #0099ff;
+                border-radius: 50%;
+            }
+        }
+    }
+    .maybe-content{
+        width: 100%;
+        display: flex;
+        flex-flow: wrap;
+        >view:nth-child(even){
+            margin-left: 26rpx;
+        }
+        .box{
+            width: 340rpx;
+            height: 460rpx;
+            background: #fff;
+            .box-bg{
+                width: 100%;
+                height: 340rpx;
+                image{
+                    width: 100%;
+                    height: 340rpx;
+                }
+            }
+            .box-name{
+                width: 100%;
+                padding: 0 10rpx;
+                box-sizing: border-box;
+                font-size: 26rpx;
+                font-weight: bold;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+                line-height:120%;
+            }
+            .box-price{
+                color: #e51919;
+                font-size: 24rpx;
+            }
+            .shop{
+                font-size: 24rpx;
+                color: #6b6b6b;
+                width: 100%;
+                position: relative;
+                text{
+                    i{
+                        color: #6b6b6b;
+                        font-size: 30rpx;
+                    }
+                }
+                text:nth-child(2){
+                    position: absolute;
+                    right: 0;
+                }
+            }
+        }
+    }
+  }
+  .settlement{
+    width: 100%;
+    height: 90rpx;
+    border-bottom:1px #eeeeee solid;
+    border-top:1px #eeeeee solid;
+    box-sizing: border-box;
+    display: flex;
+    view:nth-child(1){
+        flex: 2;
+        height: 100%;
+        background: #fff;
+        line-height: 90rpx;
+        text-align: right;
+        padding-right: 30rpx;
+        box-sizing: border-box;
+        text:nth-child(1){
+            font-size: 24rpx;
+            color: #000000;
+            font-weight: bold;
+        }
+        text:nth-child(2){
+            font-size: 24rpx;
+            color: #e51919;
+        }
+    }
+    view:nth-child(2){
+        flex: 1;
+        height: 100%;
+        background: #0099ff;
+        text-align: center;
+        line-height: 90rpx;
+        font-size: 26rpx;
+        color: #fff;
+    }
+  }
+}
 </style>

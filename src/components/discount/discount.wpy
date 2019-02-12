@@ -64,11 +64,7 @@ export default class discount extends wepy.component {
     vip: [
       {
         logo: '../../../common/image/gongcha-logo.png',
-<<<<<<< HEAD
-        bg: '../../../common/image/vip-bg.png',
-=======
         bg: 'https://1h1d.cdn.jihuliwu.cn/images/vip-bg.png',
->>>>>>> 2019.2.12
         name: '御可贡茶VIP会员优惠卡',
         text: '持有此卡的用户到御可贡茶消费可享9折优惠'
       }

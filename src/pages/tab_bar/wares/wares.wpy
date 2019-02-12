@@ -85,11 +85,7 @@ export default class Example extends wepy.page {
     darkStar: '../../../common/image/dark-star.png',
     tips: [
       {
-<<<<<<< HEAD
-        img: '../../../common/image/wares-bg1.jpg',
-=======
         img: 'https://1h1d.cdn.jihuliwu.cn/images/wares-bg1.jpg',
->>>>>>> 2019.2.12
         tags: '零售',
         score: '3.2',
         mon: '1000',

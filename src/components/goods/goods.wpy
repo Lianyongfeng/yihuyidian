@@ -51,11 +51,7 @@ export default class goods extends wepy.component {
     darkStar: '../../../common/image/dark-star.png',
     goods: [
       {
-<<<<<<< HEAD
-        goodsUrl: '../../../common/image/goods-bg1.jpg',
-=======
         goodsUrl: 'https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg',
->>>>>>> 2019.2.12
         title: '贡茶',
         qisong: '10',
         peisong: '3',
@@ -88,11 +84,7 @@ export default class goods extends wepy.component {
         ]
       },
       {
-<<<<<<< HEAD
-        goodsUrl: '../../../common/image/goods-bg1.jpg',
-=======
         goodsUrl: 'https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg',
->>>>>>> 2019.2.12
         title: '贡茶',
         qisong: '10',
         peisong: '3',
@@ -134,11 +126,7 @@ export default class goods extends wepy.component {
         isHideLoadMore: true,
         goods: [
       {
-<<<<<<< HEAD
-        goodsUrl: '../../../common/image/goods-bg1.jpg',
-=======
         goodsUrl: 'https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg',
->>>>>>> 2019.2.12
         title: '贡茶',
         qisong: '10',
         peisong: '3',
@@ -171,11 +159,7 @@ export default class goods extends wepy.component {
         ]
       },
       {
-<<<<<<< HEAD
-        goodsUrl: '../../../common/image/goods-bg1.jpg',
-=======
         goodsUrl: 'https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg',
->>>>>>> 2019.2.12
         title: '贡茶',
         qisong: '10',
         peisong: '3',

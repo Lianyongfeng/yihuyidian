@@ -1,5 +1,114 @@
 <template>
-    <view class='container'>
+    <view class='my'>
+        <view class="top" wx:for="{{use}}">
+            <view class="header-bg">
+                <image src="{{item.pic}}" wx:if="{{bea==true}}"/>
+            </view>
+            <view class="sign" wx:if="{{bea==false}}" bindtap="sign">登录授权</view>
+            <view class="one" wx:if="{{bea==true}}">
+                <view class="name">{{item.name}}</view>
+                <view class="id">{{item.tel}}</view>
+                <view class="vip">
+                    <i class="iconfont icon-v"></i>
+                    <text>{{item.vip}}</text>
+                    <i class="iconfont icon-jiantou"></i>
+                </view>
+            </view>
+            <view class="two" wx:if="{{bea==true}}" bindtap="personal"><i class="iconfont icon-setting"></i></view>
+        </view>
+        <view class="body">
+            <view class="wrapper">
+                <view class="title"></view>
+                <view class="box">
+                    <view bindtap="collection">
+                        <i class="iconfont icon-shoucang"></i>
+                        <text>收藏</text>
+                    </view>
+                     <view bindtap="footprint">
+                        <i class="iconfont icon-zuji"></i>
+                        <text>足迹</text>
+                    </view>
+                     <view bindtap="reserve">
+                        <i class="iconfont icon-yuyue"></i>
+                        <text>预定</text>
+                    </view>
+                     <view bindtap="presell">
+                        <i class="iconfont icon-shangpin"></i>
+                        <text>预售</text>
+                    </view>
+                    <view bindtap="group">
+                        <i class="iconfont icon-tuangou"></i>
+                        <text>团购</text>
+                    </view>
+                </view>
+            </view>
+             <view class="wrapper">
+                <view class="title" bindtap="order_index" data-index="0">
+                    我的订单
+                    <i class="iconfont icon-jiantou"></i>
+                </view>
+                <view class="box">
+                    <view bindtap="order_index" data-index="1">
+                        <i class="iconfont icon-daifukuanwode"></i>
+                        <text>待付款</text>
+                    </view>
+                     <view bindtap="order_index" data-index="2">
+                        <i class="iconfont icon-fx-daifahuo"></i>
+                        <text>待发货</text>
+                    </view>
+                     <view bindtap="order_index" data-index="3">
+                        <i class="iconfont icon-yifahuo"></i>
+                        <text>待收货</text>
+                    </view>
+                     <view bindtap="order_index" data-index="4">
+                        <i class="iconfont icon-daipingjia"></i>
+                        <text>待评价</text>
+                    </view>
+                    <view bindtap="order_index" data-index="5">
+                        <i class="iconfont icon-shouhou"></i>
+                        <text>退款/退货</text>
+                    </view>
+                </view>
+            </view>
+             <view class="wrapper">
+                <view class="title">我的资产</view>
+                <view class="box">
+                    <view>
+                        <i class="iconfont icon-youhuiquan"></i>
+                        <text>抵用券</text>
+                    </view>
+                     <view>
+                        <i class="iconfont icon-huiyuan1"></i>
+                        <text>会员卡</text>
+                    </view>
+                     <view>
+                        <i class="iconfont icon-qianbao"></i>
+                        <text>钱包</text>
+                    </view>
+                     <view>
+                        <i class="iconfont icon-iconfontfenxiao"></i>
+                        <text>分销</text>
+                    </view>
+                </view>
+            </view>
+             <view class="wrapper">
+                <view class="title">更多</view>
+                <view class="box">
+                    <view>
+                        <i class="iconfont icon-shangdian"></i>
+                        <text>我要开店</text>
+                    </view>
+                     <view>
+                        <i class="iconfont icon-kefu"></i>
+                        <text>客服中心</text>
+                    </view>
+                     <view>
+                        <i class="iconfont icon-shuoming"></i>
+                        <text>关于</text>
+                    </view>
+                </view>
+            </view>
+        </view>
     </view>
 </template>
 
@@ -9,16 +118,209 @@
         config = {
             navigationBarTitleText: "我的",
         };
-        data = {};
+        data = {
+            use:[
+                {
+                    pic:"https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg",
+                    name:"一切取决于我",
+                    tel:"139****5678",
+                    vip:"黄金会员"
+                }
+            ],
+            bea:false,
+            index:''
+        };
         components = {};
-        methods = {};
+        methods = {
+            sign:function(){
+                 wx.navigateTo({
+                    url: '../sign/sign'
+                });
+            },
+            personal:function(){
+                wx.navigateTo({
+                    url: '../personal/personal'
+                });
+            },
+            collection:function(){
+                 wx.navigateTo({
+                    url: '../collection/collection'
+                });
+            },
+            footprint:function(){
+                 wx.navigateTo({
+                    url: '../footprint/footprint'
+                });
+            },
+            reserve:function(){
+                 wx.navigateTo({
+                    url: '../reserve/reserve'
+                });
+            },
+            presell:function(){
+                wx.navigateTo({
+                    url: '../presell/presell'
+                });
+            },
+            group:function(){
+                wx.navigateTo({
+                    url: '../group/group'
+                });
+            },
+            order:function(){
+                wx.navigateTo({
+                    url: '../order/order'
+                });
+            },
+            order_index:function(e){
+                this.index =  e.currentTarget.dataset.index
+                wx.setStorageSync('index', this.index);
+                 wx.navigateTo({
+                    url: '../order/order'
+                });
+            }
+        };
         events = {};
         watch = {};
         computed = {};
         onLoad() {};
-        onShow() {};
+        onShow() {
+            var that = this
+            wx.getStorage({
+      key: 'bea',
+      success: function(res) {
+        console.log(res.data);
+        that.bea = res.data;
+      },
+      fail: function(res) {
+        console.log(res);
+      },
+      complete: function(res) {
+        console.log(res);
+      }
+    });
+        };
     }
 </script>
 
 <style lang='less'>
+    .my{
+        width: 100%;
+        height: 100%;
+        .top{
+            width: 100%;
+            position: relative;
+            height:220rpx;
+            background: #0099ff;
+            .header-bg{
+                position: absolute;
+                width: 176rpx;
+                height: 176rpx;
+                border-radius: 50%;
+                box-shadow: 0px 2px 4px 0px #eeeeee;
+                left: 46rpx;
+                top: 72rpx;
+                background: #d2d2d2;
+                image{
+                    width: 176rpx;
+                    height: 176rpx;
+                    border-radius: 50%;
+                }
+            }
+            .one{
+                width: 400rpx;
+                position: absolute;
+                left: 250rpx;
+                bottom: 20rpx;
+                line-height: 120%;
+                .name{
+                    font-size: 32rpx;
+                    color: #ffffff;
+                    font-weight: bold;
+                }
+                .id{
+                    font-size: 24rpx;
+                    color: #ffffff;
+                }
+                .vip{
+                    width: 190rpx;
+                    height: 36rpx;
+                    background:linear-gradient(#ffd354,#ffba55);
+                    border-radius: 20rpx;
+                    display: flex;
+                    align-items: center;
+                    font-size: 24rpx;
+                    color: #fff;
+                    padding: 0 10rpx;
+                    box-sizing: border-box;
+                    i{
+                        color: #fff;
+                        font-size: 24rpx;
+                        margin: 0 5rpx;
+                    }
+                }
+            }
+            .two{
+                position: absolute;
+                top: 50%;
+                right: 30rpx;
+                i{
+                    color: #fff;
+                    font-size: 50rpx;
+                }
+            }
+            .sign{
+                position: absolute;
+                left: 260rpx;
+                top: 100rpx;
+                font-size: 32rpx;
+                color: #ffffff;
+                font-weight: bold;
+            }
+        }
+        .body{
+            width: 100%;
+            .wrapper{
+                width: 100%;
+                height: 220rpx;
+                border-bottom: 1px #eeeeee solid;
+                padding: 20rpx;
+                box-sizing: border-box;
+                .title{
+                    width: 100%;
+                    height: 40rpx;
+                    color: #333333;
+                    font-size: 28rpx;
+                    font-weight: bold;
+                    position: relative;
+                    i{
+                        position: absolute;
+                        right: 0;
+                    }
+                }
+                .box{
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    view{
+                        display: flex;
+                        justify-content: center;
+                        flex-flow: column;
+                        width: 130rpx;
+                        i{
+                            font-size: 60rpx;
+                            color: #6b6b6b;
+                            text-align: center;
+                        }
+                        text{
+                            font-size: 24rpx;
+                            color: #000000;
+                            display: block;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
 </style>

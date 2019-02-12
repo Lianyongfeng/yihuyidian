@@ -47,37 +47,6 @@ export default class all extends wepy.page {
             title: '美食',
             more: [
               {
-<<<<<<< HEAD
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-=======
                 image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
                 text: '烤鸡'
               },
@@ -107,7 +76,6 @@ export default class all extends wepy.page {
               },
               {
                 image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
->>>>>>> 2019.2.12
                 text: '烤鸡'
               }
             ]
@@ -195,37 +163,6 @@ export default class all extends wepy.page {
             title: '美食',
             more: [
               {
-<<<<<<< HEAD
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-=======
                 image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
                 text: '烤鸡'
               },
@@ -255,7 +192,6 @@ export default class all extends wepy.page {
               },
               {
                 image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
->>>>>>> 2019.2.12
                 text: '烤鸡'
               }
             ]
@@ -269,37 +205,6 @@ export default class all extends wepy.page {
             title: '美食',
             more: [
               {
-<<<<<<< HEAD
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-=======
                 image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
                 text: '烤鸡'
               },
@@ -329,7 +234,6 @@ export default class all extends wepy.page {
               },
               {
                 image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
->>>>>>> 2019.2.12
                 text: '烤鸡'
               }
             ]
@@ -417,37 +321,6 @@ export default class all extends wepy.page {
             title: '美食',
             more: [
               {
-<<<<<<< HEAD
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-=======
                 image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
                 text: '烤鸡'
               },
@@ -477,7 +350,6 @@ export default class all extends wepy.page {
               },
               {
                 image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
->>>>>>> 2019.2.12
                 text: '烤鸡'
               }
             ]
@@ -489,39 +361,6 @@ export default class all extends wepy.page {
         classify: [
           {
             title: '美食',
-<<<<<<< HEAD
-            more: [
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-                text: '烤鸡'
-              },
-              {
-                image: '../../../common/image/more1.png',
-=======
            more: [
               {
                 image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
@@ -553,7 +392,6 @@ export default class all extends wepy.page {
               },
               {
                 image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
->>>>>>> 2019.2.12
                 text: '烤鸡'
               }
             ]

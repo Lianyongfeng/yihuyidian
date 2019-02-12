@@ -30,7 +30,7 @@
             </view>
         </view>
         <view class="shop-bg">
-           <navigator><image src="../../../common/image/shop-bg1.jpg" mode="widthFix"/><navigator/>
+           <navigator><image src="https://1h1d.cdn.jihuliwu.cn/images/shop-bg1.jpg" mode="widthFix"/><navigator/>
         </view>
     </view>
 </template>
@@ -43,12 +43,12 @@ export default class shop extends wepy.component {
   };
   data = {
     swiperImg: [
-      '../../../common/image/shop-swiper-bg1.jpg',
-      '../../../common/image/shop-swiper-bg1.jpg',
-      '../../../common/image/shop-swiper-bg1.jpg'
+      'https://1h1d.cdn.jihuliwu.cn/images/shop-swiper-bg1.jpg',
+      'https://1h1d.cdn.jihuliwu.cn/images/shop-swiper-bg1.jpg',
+      'https://1h1d.cdn.jihuliwu.cn/images/shop-swiper-bg1.jpg'
     ],
     shopBg:[
-         '../../../common/image/shop-bg1.jpg'
+         'https://1h1d.cdn.jihuliwu.cn/images/shop-bg1.jpg'
     ],
     indicatorDots: true,
     autoplay: true,

@@ -31,13 +31,8 @@ export default class Example extends wepy.page {
         textOne:
           '看过《复仇者联盟3》还没过瘾的朋友们可不要错过这期“跑男”了，在最新一期的预告片中，“复联3”的英雄们将出现在节目中。虽然很多观众可能还记得上次漫威中国让英雄们“靠边站”的事件，但想必上次吸取了教训之后，这次的活动应该会做的更好吧。',
         img: [
-<<<<<<< HEAD
-          '../../../common/image/page-bg1.jpg',
-          '../../../common/image/page-bg2.jpg'
-=======
           'https://1h1d.cdn.jihuliwu.cn/images/page-bg1.jpg',
           'https://1h1d.cdn.jihuliwu.cn/images/page-bg2.jpg'
->>>>>>> 2019.2.12
         ],
         textTwo:
           '浙江卫视综艺节目《奔跑吧》官方微博今天发布了新一期的预告，漫威电影《复仇者联盟3》中的超级英雄们将为节目发布任务。预告中“钢铁侠”小罗伯特唐尼、“蜘蛛侠”汤姆·赫兰德、“洛基”汤姆·希德勒斯顿、“浩克/班纳博士”马克·鲁法洛亮相。'
