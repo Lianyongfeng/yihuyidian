@@ -1,0 +1,115 @@
+<template>
+    <view class='articleDetails-wrapper' wx:for="{{articleDetails}}">
+        <view class="title">{{item.title}}</view>
+        <view class="name">
+            <text>{{item.name}}</text>
+            <text>{{item.time}}</text>
+        </view>
+        <view class="content">
+           <text>{{item.textOne}}</text>
+           <view wx:for="{{item.img}}" wx:for-item="imgItem">
+               <image src="{{imgItem}}"  mode="widthFix">
+           </view>
+           <text>{{item.textTwo}}</text>
+        </view>
+         <button open-type='share' class="share">我要分享这篇文章</button>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '文章详情'
+  };
+  data = {
+    articleDetails: [
+      {
+        title: '漫威《复仇者联盟3》英雄 将上“跑男”',
+        name: '店铺名称',
+        time: '2018-05-20',
+        textOne:
+          '看过《复仇者联盟3》还没过瘾的朋友们可不要错过这期“跑男”了，在最新一期的预告片中，“复联3”的英雄们将出现在节目中。虽然很多观众可能还记得上次漫威中国让英雄们“靠边站”的事件，但想必上次吸取了教训之后，这次的活动应该会做的更好吧。',
+        img: [
+<<<<<<< HEAD
+          '../../../common/image/page-bg1.jpg',
+          '../../../common/image/page-bg2.jpg'
+=======
+          'https://1h1d.cdn.jihuliwu.cn/images/page-bg1.jpg',
+          'https://1h1d.cdn.jihuliwu.cn/images/page-bg2.jpg'
+>>>>>>> 2019.2.12
+        ],
+        textTwo:
+          '浙江卫视综艺节目《奔跑吧》官方微博今天发布了新一期的预告，漫威电影《复仇者联盟3》中的超级英雄们将为节目发布任务。预告中“钢铁侠”小罗伯特唐尼、“蜘蛛侠”汤姆·赫兰德、“洛基”汤姆·希德勒斯顿、“浩克/班纳博士”马克·鲁法洛亮相。'
+      }
+    ]
+  };
+  components = {};
+  methods = {
+    onShareAppMessage: function(res) {
+      if (res.from === 'button') {
+      }
+      return {
+        title: '文章分享',
+        desc: '文章分享',
+        path: 'pages/tab_bar/articleDetails/articleDetails',
+        success: function(res) {
+          console.log('成功', res);
+        }
+      };
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.articleDetails-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 30rpx 20rpx;
+  box-sizing: border-box;
+  background: #fff;
+}
+.articleDetails-wrapper .title {
+  font-size: 34rpx;
+  color: #000000;
+}
+.articleDetails-wrapper .name {
+  font-size: 22rpx;
+  padding: 16rpx 0;
+  box-sizing: border-box;
+}
+.articleDetails-wrapper .name text:nth-child(1) {
+  color: #0099ff;
+}
+.articleDetails-wrapper .name text:nth-child(2) {
+  color: #999999;
+  margin-left: 30rpx;
+}
+.articleDetails-wrapper .content {
+  padding: 20rpx 10rpx;
+  box-sizing: border-box;
+  border-top: 1px #eeeeee solid;
+  font-size: 26rpx;
+  color: #000;
+}
+.articleDetails-wrapper .content image {
+  width: 100%;
+}
+.articleDetails-wrapper .share {
+  margin: 50rpx auto;
+  background: #0099ff;
+  color: #fff;
+  width: 260rpx;
+  height: 80rpx;
+  font-size: 26rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 10rpx;
+}
+</style>

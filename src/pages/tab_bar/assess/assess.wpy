@@ -1,0 +1,174 @@
+<template>
+  <view class="assess-wrapper">
+      <view class="title">
+        <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+        <view bindtap="assess" data-index="1" class="{{index==1?'active':''}}">
+            <i class="iconfont icon-haoping"></i>
+            <text>好评</text>
+        </view>
+        <view bindtap="assess" data-index="2" class="{{index==2?'active':''}}">
+            <i class="iconfont icon-zhongping"></i>
+             <text>中评</text>
+        </view>
+        <view bindtap="assess" data-index="3" class="{{index==3?'active':''}}">
+            <i class="iconfont icon-bottom-comment"></i>
+            <text>差评</text>
+        </view>
+      </view>
+      <view class="content">
+          <view class="text">
+            <textarea placeholder="商品满足您的期待吗？说说您的心得，分享给想买的他/她们吧"></textarea>
+          </view>
+          <view class="bg">
+              <image src="../../../common/image/upload.png" />
+          </view>
+      </view>
+      <view class="shop">
+          <view class="top">
+              <i class="iconfont icon-shangdian"></i>
+              <text>店铺评分</text>
+          </view>
+          <view class="describe">
+            <view class="text">描述相符</view>
+            <view>
+                <image wx:for="{{num}}" bindtap="describe" src="{{imgIndex<activeIndex?activeImg:img}}"  data-index="index"/>
+            </view>
+          </view>
+          <view class="logistics">
+            <view class="text">物流服务</view>
+          </view>
+          <view class="service">
+            <view class="text">服务态度</view>
+          </view>
+      </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '评价'
+  };
+  data = {
+      index:1,
+      img:'../../../common/image/assess-star.png',
+      activeImg:'../../../common/image/assess-star-active.png',
+      activeIndex:0,
+      num:[
+          {},{},{},{},{}
+      ]
+  };
+  components = {};
+  methods = {
+      assess:function(e){
+          this.index =  e.currentTarget.dataset.index
+      },
+      describe:function(e){
+          this.activeIndex =  e.currentTarget.dataset.index
+           console.log(this.activeIndex)
+      }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {
+  }
+}
+</script>
+
+<style lang='less'>
+.assess-wrapper{
+    width: 100%;
+    height: 100%;
+    .title{
+        width: 100%;
+        background: #fff;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        height: 107rpx;
+        border-bottom: 1px #e5e5e5 solid;
+        display: flex;
+        align-items: center;
+        view:nth-child(1){
+            width: 66rpx;
+            height: 66rpx;
+            border: 1px #eeeeee solid;
+            margin-right: 60rpx;
+            image{
+                width: 65rpx;
+                height: 65rpx;
+            }
+        }
+        view:nth-child(2),view:nth-child(3){
+            margin-right: 100rpx;
+        }
+        view{
+            display: flex;
+            align-items: center;
+            font-size: 24rpx;
+            color: #999999;
+            i{
+                font-size: 40rpx;
+                 color: #999999;
+            }
+            text{
+                margin-left: 18rpx;
+            }
+        }
+        .active{
+            color:#0099ff;
+            i{
+                color: #0099ff;
+            }
+        }
+    }
+    .content{
+        width: 100%;
+        padding: 20rpx;
+        box-sizing: border-box;
+        background: #fff;
+        .text{
+            width: 100%;
+            textarea{
+                width: 100%;
+                font-size: 24rpx;
+                min-height: 180rpx;
+            }
+        }
+        .bg{
+            width: 160rpx;
+            height: 160rpx;
+            image{
+                width: 160rpx;
+                height: 160rpx;
+            }
+        }
+    }
+    .shop{
+        width: 100%;
+        padding: 20rpx;
+        box-sizing: border-box;
+        background: #fff;
+        margin-top: 10rpx;
+        .top{
+            width: 100%;
+            i{
+                font-size: 24rpx;
+            }
+            text{
+                color: #3a4042;
+                font-size: 24rpx;
+                margin-left: 20rpx;
+            }
+        }
+        view{
+                image{
+                    width: 36rpx;
+                    height: 36rpx;
+                }
+            }
+    }
+}
+</style>

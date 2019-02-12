@@ -1,0 +1,107 @@
+<template>
+    <view class='systemInfo'>
+        <view class="wrapper" bindtap="orderLogistics">
+            <view class="left">
+                <view class="tips">你购买的商品已发货</view>
+                <view class="text">小米MIX2S手机壳mix2s保护套全包边硅胶透明软壳超薄男女款防摔2s</view>
+                <view class="time">2018-05-20</view>
+            </view>
+            <view class="right">
+                <image src="https://1h1d.cdn.jihuliwu.cn/images/systemInfo-news-bg1.png"/>
+            </view>
+        </view>
+        <view class="wrapper">
+            <view class="left">
+                <view class="tips">您的提现已成功</view>
+                <view class="text">
+                    <view>
+                        <text space="nbsp">提现到:李某 \n            中国银行（后4位）</text>
+                    </view>
+                </view>
+                <view class="time">2018-05-20</view>
+            </view>
+            <view class="right">
+                <image src="https://1h1d.cdn.jihuliwu.cn/images/systemInfo-news-bg1.png"/>
+            </view>
+        </view>
+        <view class="wrapper">
+            <view class="left">
+                <view class="tips">你购买的商品已发货</view>
+                <view class="text">小米MIX2S手机壳mix2s保护套全包边硅胶透明软壳超薄男女款防摔2s</view>
+                <view class="time">2018-05-20</view>
+            </view>
+            <view class="right">
+                <image src="https://1h1d.cdn.jihuliwu.cn/images/systemInfo-news-bg1.png"/>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy';
+    export default class Example extends wepy.page {
+        config = {
+            navigationBarTitleText: "系统通知",
+        };
+        data = {};
+        components = {};
+        methods = {
+            orderLogistics:function(){
+                wx.navigateTo({
+                    url: '../orderLogistics/orderLogistics'
+                });
+            },
+            
+        };
+        events = {};
+        watch = {};
+        computed = {};
+        onLoad() {};
+        onShow() {};
+    }
+</script>
+<style lang='less'>
+.systemInfo{
+    width: 100%;
+    height: 100%;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    .wrapper{
+        margin: 18rpx 0;
+        width: 100%;
+        padding: 20rpx;
+        box-sizing: border-box;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        border-radius: 20rpx;
+        .left{
+            flex: 2;
+            margin-right: 80rpx;
+            .tips{
+                font-size: 28rpx;
+                color: #000000;
+                font-weight: bold;
+                margin-bottom: 30rpx;
+            }
+            .text{
+                line-height: 150%;
+                font-size: 24rpx;
+                color: #2b2b2b;
+            }
+            .time{
+                font-size: 22rpx;
+                color: #999999;
+                margin-top: 10rpx;
+            }
+        }
+        .right{
+            flex: 1;
+            image{
+                width: 170rpx;
+                height: 170rpx;
+            }
+        }
+    }
+}
+</style>

@@ -1,0 +1,120 @@
+<template>
+    <view class='collection'>
+        <view class="wrapper" wx:for="{{4}}">
+            <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+            <view class="right">
+                <view class="name">抹茶奶盖奶茶</view>
+                <view class="shop">
+                    <i class="iconfont icon-shangdian"></i>
+                    <text>御可贡茶</text>
+                </view>
+                <view class="mon">
+                    <text>月销量233份</text>
+                    <text>好评率98%</text>
+                </view>
+                <view class="tag">
+                    <text>奶盖</text>
+                    <text>奶盖</text>
+                    <text>奶盖</text>
+                </view>
+                <view class="money">
+                    <text>￥18.0</text>
+                    <i class="iconfont icon-jiarugouwuche"></i>
+                </view>
+            </view>
+        </view>
+        <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy';
+    export default class Example extends wepy.page {
+        config = {
+            navigationBarTitleText: "收藏",
+        };
+        data = {
+        };
+        components = {};
+        methods = {
+        };
+        events = {};
+        watch = {};
+        computed = {};
+        onLoad() {};
+        onShow() {};
+    }
+</script>
+
+<style lang='less'>
+.collection{
+    width: 100%;
+    height: 100%;
+    .wrapper{
+        width: 100%;
+        background: #fff;
+        margin-top: 10rpx;
+        display: flex;
+        .bg{
+            width: 250rpx;
+            height: 250rpx;
+            image{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .right{
+            flex: 2;
+            padding: 10rpx 20rpx;
+            box-sizing: border-box;
+            .name{
+                font-size: 28rpx;
+                color: #333333;
+            }
+            .shop{
+                font-size: 20rpx;
+                color: #999999;
+                i{
+                    font-size: 26rpx;
+                    color: #999999;
+                    margin-right: 5rpx;
+                }
+            }
+            .mon{
+                font-size: 20rpx;
+                color: #999999;
+                text:nth-child(2){
+                    margin-left: 20rpx;
+                }
+            }
+            .tag{
+                text{
+                    padding: 5rpx 15rpx;
+                    box-sizing: border-box;
+                    border-radius: 20rpx;
+                    font-size: 22rpx;
+                    color: #0099ff;
+                    border:1px #0099ff solid;
+                    margin-right: 10rpx;
+                }
+            }
+            .money{
+                position: relative;
+                text{
+                    font-size: 28rpx;
+                    color: #e51919;
+                }
+                i{
+                    font-size: 40rpx;
+                    color: #0099ff;
+                    position: absolute;
+                    right: 0;
+                }
+            }
+        }
+    }
+}
+</style>

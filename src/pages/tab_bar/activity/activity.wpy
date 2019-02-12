@@ -1,0 +1,118 @@
+<template>
+    <view class='activity'>
+        <view class="wrapper" bindtap="wares">
+            <view class="header">
+                <view class="header-bg">
+                    <image src="../../../common/image/activity-shop-bg1.png" />
+                </view>
+                <view class="shop-name">贡茶（朝阳新区店）</view>
+                <view class="time">2018-05-20</view>
+            </view>
+            <view class="bg"></view>
+            <view class="page-text">开业1周年，回馈新老客户，现在起7天内，买1送1，多买多送抹茶奶盖奶茶满1888减1850，限时优惠，赶紧来吧，别再错过了！</view>
+        </view>
+        <view class="wrapper" bindtap="wares">
+            <view class="header">
+                <view class="header-bg">
+                    <image src="../../../common/image/activity-shop-bg1.png" />
+                </view>
+                <view class="shop-name">贡茶（朝阳新区店）</view>
+                <view class="time">2018-05-20</view>
+            </view>
+            <view class="bg"></view>
+            <view class="page-text">开业1周年，回馈新老客户，现在起7天内，买1送1，多买多送抹茶奶盖奶茶满1888减1850，限时优惠，赶紧来吧，别再错过了！</view>
+        </view>
+        <view class="wrapper" bindtap="wares">
+            <view class="header">
+                <view class="header-bg">
+                    <image src="../../../common/image/activity-shop-bg1.png" />
+                </view>
+                <view class="shop-name">贡茶（朝阳新区店）</view>
+                <view class="time">2018-05-20</view>
+            </view>
+            <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/shop-swiper-bg1.jpg" /></view>
+            <view class="page-text">开业1周年，回馈新老客户，现在起7天内，买1送1，多买多送抹茶奶盖奶茶满1888减1850，限时优惠，赶紧来吧，别再错过了！</view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy';
+    export default class Example extends wepy.page {
+        config = {
+            navigationBarTitleText: "系统通知",
+        };
+        data = {};
+        components = {};
+        methods = {
+            wares:function(){
+               wx.navigateTo({
+                    url: '../wares/wares'
+                });
+            }       
+        };
+        events = {};
+        watch = {};
+        computed = {};
+        onLoad() {};
+        onShow() {};
+    }
+</script>
+<style lang='less'>
+.activity{
+    width: 100%;
+    height: 100%;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    .wrapper{
+        width: 100%;
+        padding: 18rpx;
+        box-sizing: border-box;
+        background: #fff;
+        border-radius: 20rpx;
+        margin: 18rpx 0;
+        .header{
+            padding: 10rpx 0;
+            box-sizing: border-box;
+            border-bottom: 1px #eeeeee solid;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            .header-bg{
+                width: 66rpx;
+                height: 66rpx;
+                border:1px #eeeeee solid;
+                image{
+                    width: 66rpx;
+                    height: 66rpx;
+                }
+            }
+            .shop-name{
+                font-size: 26rpx;
+                font-weight: bold;
+                margin-left: 20rpx;
+            }
+            .time{
+                position: absolute;
+                right: 0;
+                color: #999999;
+                font-size: 22rpx;
+            }
+        }
+        .bg{
+            width: 100%;
+            margin: 10rpx 0;
+            image{
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        .page-text{
+            font-size: 24rpx;
+            color: #000;
+        }
+    }
+
+}
+</style>

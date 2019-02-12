@@ -1,0 +1,163 @@
+<template>
+    <view class='chat'>
+        <view class="wrapper">
+            <view class="header">
+                <image src="../../../common/image/usePic1.png"/>
+            </view>
+            <view class="right">
+                <view class="top">
+                    <view class="name">小王</view>
+                    <view class="time">05月10日 12:30</view>
+                </view>
+                <view class="problem">请问产品包邮吗？</view>
+                <view class="board">
+                    <view class="shop">
+                        <text>商家：</text>
+                        <text>包邮的亲</text>
+                    </view>
+                    <view class="user">
+                        <text>用户：</text>
+                        <text>好滴</text>
+                    </view>
+                </view>
+                <view class="comment">
+                    <input type="text" placeholder='留言'>
+                    <i class="iconfont icon-message-zm"></i>
+                </view>
+            </view>
+        </view>
+        <view class="wrapper">
+            <view class="header">
+                <image src="../../../common/image/usePic1.png"/>
+            </view>
+            <view class="right">
+                <view class="top">
+                    <view class="name">小王</view>
+                    <view class="time">05月10日 12:30</view>
+                </view>
+                <view class="problem">请问产品包邮吗？</view>
+                <view class="board">
+                    <view class="shop">
+                        <text>商家：</text>
+                        <text>包邮的亲</text>
+                    </view>
+                    <view class="user">
+                        <text>用户：</text>
+                        <text>好滴</text>
+                    </view>
+                </view>
+                <view class="comment">
+                    <input type="text" placeholder='留言'>
+                    <i class="iconfont icon-message-zm"></i>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy';
+    export default class Example extends wepy.page {
+        config = {
+            navigationBarTitleText: "贡茶",
+        };
+        data = {};
+        components = {};
+        methods = {
+        };
+        events = {};
+        watch = {};
+        computed = {};
+        onLoad() {};
+        onShow() {};
+    }
+</script>
+<style lang='less'>
+.chat{
+    width: 100%;
+    height: 100%;
+    .wrapper{
+        padding: 20rpx;
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+        background: #fff;
+        margin: 18rpx 0;
+        .header{
+            width: 72rpx;
+            height: 72rpx;
+            border-radius: 50%;
+            image{
+                width: 72rpx;
+                height: 72rpx;
+                border-radius: 50%;
+            }
+        }
+        .right{
+            width: 620rpx;
+            padding-left: 20rpx;
+            box-sizing: border-box;
+            margin-top: 20rpx;
+            .top{
+                display: flex;
+                align-items: center;
+                position: relative;
+                .name{
+                    font-size: 26rpx;
+                    color: #0099ff;
+                }
+                .time{
+                    position: absolute;
+                    right: 0;
+                    font-size: 20rpx;
+                    color: #999999;
+                }
+            }
+            .problem{
+                margin: 20rpx 0;
+                font-size: 24rpx;
+                font-weight: bold;
+            }
+            .board{
+                .shop,.user{
+                    text:nth-child(odd){
+                        font-size: 24rpx;
+                        color: #0099ff;
+                        font-weight: bold;
+                    }
+                    text:nth-child(even){
+                        font-size: 24rpx;
+                        color: #000;
+                        font-weight: bold;
+                    }
+                }
+            }
+            .comment{
+                width: 600rpx;
+                display: flex;
+                align-items: center;
+                position: relative;
+                input{
+                    width: 100%;
+                    border:1px #eeeeee solid;
+                    height: 40rpx;
+                    border-radius: 10rpx;
+                    font-size: 22rpx;
+                    padding-left: 10rpx;
+                    padding-right: 20rpx;
+                    box-sizing: border-box;
+                }
+                input::-webkit-input-placeholder {
+                    color: #999999;
+                    font-size: 22rpx;
+                }
+                i{
+                    font-size: 30rpx;
+                    right: 10rpx;
+                    position: absolute;
+                }
+            }
+        }
+    }
+}
+</style>

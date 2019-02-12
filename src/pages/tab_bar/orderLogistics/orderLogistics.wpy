@@ -1,0 +1,120 @@
+<template>
+    <view class='orderLogistics'>
+        <view class="wrapper">
+            <view class="box">
+                <view class="left">
+                    <view class="name">小米MIX2S手机壳mix2s保护套全包边硅胶透明软壳超薄男女款防摔2s</view>
+                    <view class="order">
+                        <text>订单已签收</text>
+                        <text>签收时间：05月20日11:11</text>
+                    </view>
+                </view>
+                <view class="right">
+                    <image src="https://1h1d.cdn.jihuliwu.cn/images/systemInfo-news-bg1.png"/>
+                </view>
+            </view>
+            <view class="footer">
+                <view>邮政快递 3359037881487</view>
+                <view>
+                    <i class="iconfont icon-dianhua"></i>
+                    <text>联系配送员</text>
+                </view>
+            </view>
+        </view>
+        <logistics/>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy';
+    import Logistics from '../../../components/logistics/logistics';
+    export default class Example extends wepy.page {
+        config = {
+            navigationBarTitleText: "订单物流",
+        };
+        data = {};
+        components = {
+            logistics:Logistics
+        };
+        methods = {};
+        events = {};
+        watch = {};
+        computed = {};
+        onLoad() {};
+        onShow() {};
+    }
+</script>
+<style lang='less'>
+.orderLogistics{
+    width: 100%;
+    height: 100%;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    .wrapper{
+        margin: 18rpx 0;
+        width: 100%;
+        padding: 20rpx;
+        box-sizing: border-box;
+        background: #fff;
+        border-radius: 20rpx;
+        .box{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            .left{
+                flex: 5;
+                margin-right: 30rpx;
+                .name{
+                    font-weight: bold;
+                    font-size: 24rpx;
+                    color: #000000;
+                }
+                .order{
+                    margin-top: 20rpx;
+                    text{
+                        display: block;
+                    }
+                    text:nth-child(1){
+                        font-size: 28rpx;
+                        color: #0099ff;
+                    }
+                     text:nth-child(2){
+                        font-size: 24rpx;
+                        color: #999;
+                    }
+                }
+            }
+            .right{
+                flex: 2;
+                width: 170rpx;
+                height: 170rpx;
+                image{
+                    width: 170rpx;
+                    height: 170rpx;
+                }
+            }
+        }
+        .footer{
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-top: 30rpx;
+            view:nth-child(1){
+                font-size: 22rpx;
+                color: #999999;
+            }
+            view:nth-child(2){
+                position: absolute;
+                right: 0;
+                font-size: 22rpx;
+                color: #0099ff;
+                i{
+                    font-size: 30rpx;
+                    color: #0099ff;
+                }
+            }
+        }
+    }
+}
+</style>

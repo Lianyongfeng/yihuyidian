@@ -1,0 +1,125 @@
+<template>
+    <view class='footprint'>
+        <view class="wrapper">
+            <view class="date">05-20</view>
+            <view class="box">
+                <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                <view class="right">
+                    <view>新会生晒小青柑茶叶普洱茶8年宫廷熟普陈皮柑普橘熟茶礼盒装500g</view>
+                    <view>￥188.0</view>
+                </view>
+            </view>
+            <view class="box">
+                <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                <view class="right">
+                    <view>新会生晒小青柑茶叶普洱茶8年宫廷熟普陈皮柑普橘熟茶礼盒装500g</view>
+                    <view>￥188.0</view>
+                </view>
+            </view>
+            <view class="box">
+                <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                <view class="right">
+                    <view>新会生晒小青柑茶叶普洱茶8年宫廷熟普陈皮柑普橘熟茶礼盒装500g</view>
+                    <view>￥188.0</view>
+                </view>
+            </view>
+        </view>
+        <view class="wrapper">
+            <view class="date">05-21</view>
+            <view class="box">
+                <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                <view class="right">
+                    <view>新会生晒小青柑茶叶普洱茶8年宫廷熟普陈皮柑普橘熟茶礼盒装500g</view>
+                    <view>￥188.0</view>
+                </view>
+            </view>
+            <view class="box">
+                <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                <view class="right">
+                    <view>新会生晒小青柑茶叶普洱茶8年宫廷熟普陈皮柑普橘熟茶礼盒装500g</view>
+                    <view>￥188.0</view>
+                </view>
+            </view>
+             <view class="box">
+                <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                <view class="right">
+                    <view>新会生晒小青柑茶叶普洱茶8年宫廷熟普陈皮柑普橘熟茶礼盒装500g</view>
+                    <view>￥188.0</view>
+                </view>
+            </view>
+            <view class="box">
+                <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                <view class="right">
+                    <view>新会生晒小青柑茶叶普洱茶8年宫廷熟普陈皮柑普橘熟茶礼盒装500g</view>
+                    <view>￥188.0</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy';
+    export default class Example extends wepy.page {
+        config = {
+            navigationBarTitleText: "足迹",
+        };
+        data = {
+        };
+        components = {};
+        methods = {
+        };
+        events = {};
+        watch = {};
+        computed = {};
+        onLoad() {};
+        onShow() {};
+    }
+</script>
+
+<style lang='less'>
+.footprint{
+    width: 100%;
+    height: 100%;
+    .wrapper{
+        width: 100%;
+        .date{
+            padding: 10rpx 20rpx;
+            box-sizing: border-box;
+            font-size: 26rpx;
+            color: #333333;
+        }
+        .box{
+            padding: 10rpx 0;
+            box-sizing: border-box;
+            background: #fff;
+            display: flex;
+            .bg{
+                width: 200rpx;
+                height: 200rpx;
+                image{
+                    width: 200rpx;
+                    height: 200rpx;
+                }
+            }
+            .right{
+                padding-left: 20rpx;
+                box-sizing: border-box;
+                display: flex;
+                flex-flow: wrap;
+                view:nth-child(1){
+                    align-self: flex-start;
+                    font-size: 24rpx;
+                    color: #000000;
+                    font-weight: bold;
+                }
+                view:nth-child(2){
+                    align-self: flex-end;
+                    color: #e83333;
+                    font-size: 28rpx;
+                }
+            }
+        }
+    }
+}
+</style>

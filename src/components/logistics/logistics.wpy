@@ -1,0 +1,234 @@
+<template>
+    <view class='logistics-wrapper'>
+        <view class="information active">
+            <view class="time"></view>
+            <view class="center">
+                <view><i class="iconfont icon-shouhuoshou--"></i></view>
+                <view class="dotted"></view>
+            </view>
+            <view class="text">[收货地址]广东省广州市番禺区天安节能科技园23号楼</view>
+        </view>
+        <view class="information active">
+            <view class="time">
+                <view>05-20</view>
+                <view>10:00</view>
+            </view>
+            <view class="center">
+                <view><i class="iconfont icon-duigou"></i></view>
+                <view class="solid"></view>
+            </view>
+            <view class="text">已签收</view>
+        </view>
+        <view class="information">
+            <view class="time">
+                <view>05-19</view>
+                <view>10:00</view>
+            </view>
+            <view class="center">
+                <view><i class="iconfont icon-geren"></i></view>
+                <view class="solid"></view>
+            </view>
+            <view class="text"></view>
+        </view>
+         <view class="information">
+            <view class="time">
+                <view>05-18</view>
+                <view>10:00</view>
+            </view>
+            <view class="center">
+                <view><i class="iconfont icon-kuaidi"></i></view>
+                <view class="solid"></view>
+            </view>
+            <view class="text">
+                <view>运输中</view>
+                <view>[广东广州番禺龙美分部]已收入</view>
+            </view>
+        </view>
+        <view class="information">
+            <view class="time">
+                <view>05-18</view>
+                <view>8:00</view>
+            </view>
+            <view class="center">
+                <view class="spot"></view>
+                <view class="solid"></view>
+            </view>
+            <view class="text">
+                <view>快件已到达[广东广州番禺龙美分部]</view>
+            </view>
+        </view>
+        <view class="information">
+            <view class="time">
+                <view>05-17</view>
+                <view>18:00</view>
+            </view>
+            <view class="center">
+                <view class="spot"></view>
+                <view class="solid"></view>
+            </view>
+            <view class="text">
+                <view>由[广东广州中转站]发往[广州番禺中转站]</view>
+            </view>
+        </view>
+        <view class="information">
+            <view class="time">
+                <view>05-17</view>
+                <view>16:00</view>
+            </view>
+            <view class="center">
+                <view><i class="iconfont icon-kuaidizhongyaoshuoming"></i></view>
+                <view class="solid"></view>
+            </view>
+            <view class="text">
+                <view>已揽件</view>
+                <view>[广东广州白云永泰营业点]业务员[徐某]已收件</view>
+            </view>
+        </view>
+        <view class="information">
+            <view class="time">
+                <view>05-16</view>
+                <view>18:00</view>
+            </view>
+            <view class="center">
+                <view><i class="iconfont icon-mendian"></i></view>
+                <view></view>
+            </view>
+            <view class="text">
+                <view>已发货</view>
+                <view>卖家发货</view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy';
+   export default class logistics extends wepy.component {
+        config = {
+            navigationBarTitleText: "",
+        };
+        data = {};
+        components = {};
+        methods = {};
+        events = {};
+        watch = {};
+        computed = {};
+        onLoad() {};
+        onShow() {};
+    }
+</script>
+
+<style lang='less'>
+.logistics-wrapper{
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+    padding-top: 20rpx;
+    box-sizing: border-box;
+    padding-bottom: 40rpx;
+    border-radius: 20rpx;
+    .information{
+        width: 100%;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        display: flex;
+        line-height: 100%;
+        .time{
+            flex: none;
+            width: 70rpx;
+            margin-right: 10rpx;
+            view:nth-child(1){
+                color: #999;
+                font-size: 24rpx;
+            }
+            view:nth-child(2){
+                color: #999;
+                font-size: 18rpx;
+            }
+        }
+        .center{
+            width: 46rpx;
+            view{
+                line-height: 100%;
+                width: 100%;
+                i{
+                    font-size: 50rpx;
+                    color: #999999;
+                    line-height: 100%;
+                }
+            }
+            .spot{
+                width: 10px;
+                height: 10px;
+                background: #999999;
+                border-radius: 50%;
+                margin: 0 auto;
+            }
+            .solid{
+                width: 1px;
+                height: 62rpx;
+                box-sizing: border-box;
+                border-right: 1px solid #999999;
+                margin: 0 auto;
+            }
+        }
+        .text{
+            font-size: 24rpx;
+            color: #999999;
+            margin-left: 20rpx;
+            view:nth-child(2){
+                font-size: 20rpx;
+            }
+        }
+    }
+    .active{
+        width: 100%;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        display: flex;
+        line-height: 100%;
+        .time{
+            flex: none;
+            width: 70rpx;
+            margin-right: 10rpx;
+        }
+        .center{
+            width: 46rpx;
+            view{
+                line-height: 100%;
+                width: 100%;
+                i{
+                    font-size: 50rpx;
+                    color: #0099ff;
+                    line-height: 100%;
+                }
+            }
+            .dotted{
+                width: 1px;
+                height: 64rpx;
+                box-sizing: border-box;
+                border-right: 1px dotted #0099ff;
+                margin: 0 auto;
+            }
+            .solid{
+                width: 1px;
+                height: 62rpx;
+                box-sizing: border-box;
+                border-right: 1px solid #999999;
+                margin: 0 auto;
+            }
+        }
+         .text{
+            font-size: 24rpx;
+            color: #000;
+            font-weight: bold;
+            margin-left: 20rpx;
+            view:nth-child(2){
+                font-size: 20rpx;
+            }
+        }
+    }
+}
+</style>

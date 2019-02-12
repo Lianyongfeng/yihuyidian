@@ -1,0 +1,3597 @@
+<template>
+    <view class='foods-wrapper'>
+        <scroll-view class='foods-nav' scroll-y='true' scroll-into-view="nav{{status}}" scroll-with-animation="true">
+             <view bindtap='getStatus' wx:for="{{foods}}" id='nav{{index}}' wx:for-item="oItem" wx:key="{{index}}" class="one {{index === status ? 'nav-active' : ''}}" data-index="{{index}}">{{oItem.nav}}</view>
+        </scroll-view>   
+        <scroll-view scroll-with-animation="true" class='details' scroll-y='true' scroll-into-view="nav{{status}}" bindscroll='scroll'>
+          <!-- 商品 -->
+          <view  wx:for="{{foods}}" wx:for-item="aItem" class='details-box' wx:for-index="parentIndex" id='nav{{parentIndex}}'>
+            <view wx:for="{{aItem.details}}" wx:for-item="bItem" class='bWrapper'>
+              <view class='img-wrapper' bindtap='substance' data-pic="{{bItem.pic}}" data-name="{{bItem.name}}" data-mon="{{bItem.mon}}" data-price="{{bItem.price}}" data-number="{{bItem.number}}"  data-item-index="{{index}}" data-parentIndex="{{parentIndex}}"><image src='{{bItem.pic}}'/></view>
+              <view class='text' bindtap='substance' data-name="{{bItem.name}}" data-mon="{{bItem.mon}}" data-price="{{bItem.price}}" data-pic="{{bItem.pic}}" data-number="{{bItem.number}}"  data-item-index="{{index}}" data-parentIndex="{{parentIndex}}">
+                <view class='name'>{{bItem.name}}</view>
+                <view class='mon'>月销{{bItem.mon}}</view>
+                <view class='price'>￥{{bItem.price}}</view>
+              </view>
+              <view class='order'>
+                <view catchtap='sign' hidden='{{bItem.number==0}}' data-item-index="{{index}}" data-parentIndex="{{parentIndex}}">
+                  <i class="iconfont icon-jianhao"></i>
+                </view>
+                <view hidden='{{bItem.number==0}}' data-index='{{index}}'>{{bItem.number}}</view>
+                <view catchtap='add' data-item-index="{{index}}" data-parentIndex="{{parentIndex}}">
+                  <i class="iconfont icon-jiahao-copy"></i>
+                </view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+        <!-- 购物车 -->
+        <view class='cart'>
+          <view class="cart-logo {{totalPrice!=0?'cart-logo-active':''}}" bindtap='cartMore'>
+            <image src='{{totalPrice==0?cartLogo:cartLogoActive}}'/>
+            <view class='totalCount' hidden="{{totalCount==0}}">{{totalCount}}</view>
+          </view>
+          <view class='total' bindtap='cartMore'>
+            <view hidden="{{totalPrice==0}}">￥{{totalPrice}}</view>
+            <view hidden="{{totalPrice==0}}">{{peisong}}</view>
+            <view hidden="{{totalPrice!=0}}">{{no}}</view>
+            </view>
+          <view class="settlement {{totalPrice!=0?'settlement-active':''}}" bindtap="settlement">去结算</view>
+        </view>
+        <!-- 购物车详情 -->
+        <view class='{{cartMoreClass}}'>
+          <view class='cart-wrapper'>
+            <view class='title'>
+              <view>购物车</view>
+              <view class='del' bindtap='delCart'>
+                  <i class="iconfont icon-shanchu"></i>
+                  <text>删除</text>
+              </view>
+            </view>
+            <scroll-view class='content' scroll-y='true'>
+              <view wx:for="{{carArray}}" class='single-wrapper' hidden='{{item.number<=0}}'>
+                <view>
+                  {{item.name}}
+
+                </view>
+                <view wx:if="{{item.number > 0}}" class='price'>
+                  <text>￥{{item.price*item.number}}</text>
+                </view>
+                <view class='control'>
+                  <view catchtap='shopSign' data-item-index="{{item.index}}" data-parentIndex="{{item.parentIndex}}">
+                    <i class="iconfont icon-jianhao"></i>
+                  </view>
+                  <view>{{item.number}}</view>
+                  <view catchtap='shopAdd' data-item-index="{{item.index}}" data-parentIndex="{{item.parentIndex}}">
+                    <i class="iconfont icon-jiahao-copy"></i>
+                  </view>
+                </view>
+              </view>
+            </scroll-view>
+          </view>
+          <view class='cart-none' bindtap='cartMore'></view>
+        </view>
+        <!-- 商品详情 -->
+        <scroll-view scroll-y='true' class='{{substance}}' wx:for="{{carArray}}">
+          <view class="substance-box">
+            <i class="iconfont icon-taicangsifa- fork" bindtap="fork"></i>
+            <view class='substance-bg'>
+              <image src='{{item.pic}}'/>
+            </view>
+            <view class='substance-content'>
+              <view class="substance-name">
+                <text>{{item.name}}</text>
+                <button open-type="share"><i class="iconfont icon-fenxiang"></i></button>
+              </view>
+              <view class="substance-mon">月售 {{item.mon}}</view>
+              <view class='substance-price'>
+                <text>￥{{item.price}}</text>
+                <text> 起</text>
+                <view class='substance-control'>
+                    <view wx:if="{{item.number > 0}}" data-item-index="{{item.index}}" data-parentIndex="{{item.parentIndex}}" catchtap='substanceSign'>
+                      <i class="iconfont icon-jianhao"></i>
+                    </view>
+                    <view wx:if="{{item.number > 0}}" >{{item.number}}</view>
+                   <view data-item-index="{{item.index}}" data-parentIndex="{{item.parentIndex}}" catchtap='substanceAdd'>
+                     <i class="iconfont icon-jiahao-copy"></i>
+                    </view>
+                </view>
+              </view>
+            </view>
+            <view class="substance-shop" wx:for="{{shopMore}}" wx:for-item="shopItem">
+              <view class="shop-img">
+                <image src="{{shopItem.shopImg}}" />
+              </view>
+              <view class="shop-name">
+                <view>
+                  {{shopItem.shopName}}
+                </view>
+                <view>
+                  <image src="{{shopItem.shopStars > index ?(shopItem.shopStars-index < 1 ? halfStar:brightStar) : darkStar}}" wx:for="{{5}}" data-index='{{index}}'/>
+                  <text>{{shopItem.shopStars}}</text>
+                </view>
+              </view>
+              <view class="shop-join"><navigator url="../../../pages/tab_bar/wares/wares" open-type="redirect" hover-class="other-navigator-hover">进店</navigator></view>
+            </view>
+            <view class="substance-evaluate">
+              <view class="evaluate-title">
+                商品评价({{item.evaluate.length}})
+              </view>
+              <view wx:if="{{item.evaluate.length <=0}}" class="no-evaluate">暂无用户评价</view>
+              <view wx:for="{{item.evaluate}}" wx:for-item="evaluateItem" wx:if="{{item.evaluate.length > 0}}" class="evaluateItem-content">
+                <view>
+                  <image src="{{evaluateItem.usePic}}">
+                </view>
+                <view>
+                  <view>{{evaluateItem.useName}}</view>
+                  <view>{{evaluateItem.useAssess}}</view>
+                  <view>{{evaluateItem.useTime}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+        <!-- 选择页面 -->
+        <view class="{{show}}" wx:for="{{carArray}}">
+          <view class="flavor-box">
+            <view class="flavor-top">
+              <view class="flavor-pc"><image src="{{item.pic}}"></view>
+              <view class="flavor-name">
+                <view>{{item.name}}</view>
+                <view>
+                  <text>￥</text>
+                  <text>{{item.price}}</text>
+                </view>
+                <view>月销量：{{item.mon}}件</view>
+              </view>
+              <view class="flavor-fork">
+                <i class="iconfont icon-taicangsifa- fork" bindtap="flavorFork"></i>
+              </view>
+            </view>
+            <view class="flavor-content" wx:for="{{item.flavor}}" wx:for-item="flavorItem">
+              <view class="standard-wrapper">
+                <view class="standard-name">规格</view>
+                <view class="standard">
+                  <radio-group>
+                    <label class="radio {{standardCheckVal==index?'radio-active':''}}" wx:for="{{flavorItem.standard}}" wx:for-item="standardItem" bindtap="standardChange" data-index="{{index}}" wx:for-index="index">
+                      <radio value="{{standardItem}}"/>
+                      <text>{{standardItem}}</text>
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+              <view class="taste-wrapper">
+                <view class="taste-name">口味</view>
+                <view class="taste">
+                  <radio-group>
+                    <label class="radio {{tasteCheckVal==index?'radio-active':''}}" wx:for="{{flavorItem.taste}}" data-index="{{index}}" wx:for-item="tasteItem" bindtap="tasteChange" wx:for-index="index">
+                      <radio value="{{tasteItem}}"/>
+                      <text>{{tasteItem}}</text>
+                    </label>
+                  </radio-group>
+                </view>
+              </view>
+            </view>
+            <view class="flavor-bottom">
+              <view class="flavor-control">
+                <view>购买数量</view>
+                <view class="control-wrapper">
+                  <view wx:if="{{item.number > 0}}" data-item-index="{{item.index}}" data-parentIndex="{{item.parentIndex}}" catchtap='sign'>
+                    <i class="iconfont icon-jianhao"></i>
+                  </view>
+                  <view wx:if="{{item.number > 0}}" >{{item.number}}</view>
+                  <view data-item-index="{{item.index}}" data-parentIndex="{{item.parentIndex}}" catchtap='add'>
+                    <i class="iconfont icon-jiahao-copy"></i>
+                  </view>
+                </view>
+              </view>
+              <view class="promptly" bindtap="promptly">立即添加</view>
+            </view>
+          </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class foods extends wepy.component {
+  config = {
+    navigationBarTitleText: ''
+  };
+  data = {
+    halfStar: '../../../common/image/half-star.png',
+    brightStar: '../../../common/image/bright-star.png',
+    darkStar: '../../../common/image/dark-star.png',
+    shopMore:[
+      {
+        shopStars:3.8,
+        shopName:'贡茶',
+        shopImg:'../../../common/image/substance-shop-bg.jpg'
+      }
+    ],
+    status: 0,
+    standardCheckVal:0,
+    tasteCheckVal:0,
+    substance: 'substance-wrapper',
+    peisong: '配送费￥5',
+    no: '为选购商品',
+    show:'flavor-wrapper',
+    hide:'flavor-none',
+    cartLogo: '../../../common/image/cart.png',
+    cartLogoActive: '../../../common/image/cart-active.png',
+    cartMoreClass: 'cart-more',
+    settlement: 'settlement',
+    heightArr: [],
+    totalPrice: 0,
+    totalCount: 0,
+    signDisplay: 'none',
+    containerH: 0,
+    fold: false,
+    carArray: [],
+    foods: [
+      {
+        nav: '热销',
+        num: 0,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 23,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              },
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              },
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 33,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 3,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+           flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 5,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 83,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 23,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 13,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        nav: '团购',
+        num: 1,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 3,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 1,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 27,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 25,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 24,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 27,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 15,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 14,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        nav: '预售',
+        num: 2,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 81,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 9.9,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 8.9,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 10.99,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 5.9,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 7.9,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 2,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 40,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        nav: '冷饮',
+        num: 3,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 50,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 60,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 13,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 16,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 13,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 1,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 15,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        nav: '零食',
+        num: 4,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 13,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 13,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 13,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 5,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 4,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 6,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 7,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        nav: '奶制品',
+        num: 5,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 10,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 19,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 55,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 77,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 88,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 88,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 88,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 88,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        nav: '面食大米',
+        num: 6,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 88,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+<<<<<<< HEAD
+                usePic:'../../../common/image/usePic1.png',
+=======
+                usePic:'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        nav: '面食大米',
+        num: 7,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 101,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 13,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        nav: '面食大米',
+        num: 8,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 13,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        nav: '面食大米',
+        num: 9,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 8,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 13,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        nav: '面食大米',
+        num: 10,
+        details: [
+          {
+            id: 0,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: '可比克',
+            mon: '233',
+            price: 13,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 3,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 4,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 5,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 6,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+              {
+                standard:['大','中','小'],
+                taste:['香辣','烤肉','番茄']
+              }
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          },
+          {
+            id: 7,
+            name: '可比克',
+            mon: '233',
+            price: 20,
+<<<<<<< HEAD
+            pic: '../../../common/image/kbk-bg.png',
+=======
+            pic: 'https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png',
+>>>>>>> 2019.2.12
+            number: 0,
+            flavor:[
+            ],
+            evaluate:[
+              {
+                usePic:'../../../common/image/usePic1.png',
+                useName:'李狗蛋',
+                useAssess:'非常奈斯',
+                useTime:'2018-05-15'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  components = {};
+  methods = {
+    // 购物车添加
+    add: function(e) {
+      this.cartAdd(e);
+      for(let i = 0;i<this.carArray.length;i++){
+        if(this.carArray[i].flavor.length!=0){
+          this.show ='flavor-wrapper'
+        }else{
+          this.show ='flavor-none'
+        }
+      }
+      // this.flavorFork(e)
+      this.calTotalPrice();
+    },
+    // 购物车删除
+    sign: function(e) {
+       this.foods = this.foods;
+      this.carArray = this.carArray;
+      this.cartSign(e);
+      // this.flavorFork(e)
+      this.calTotalPrice();
+    },
+    scroll: function(e) {},
+    getStatus: function(e) {
+      this.status = e.currentTarget.dataset.index;
+    },
+    // 购物车显示
+    cartMore: function(e) {
+      if (!this.data.totalCount) {
+        return;
+      }
+      this.fold = !this.data.fold;
+      var fold = this.data.fold;
+      this.cartShow(fold);
+    },
+    // 商品属性选择
+    standardChange:function(e){
+      this.standardCheckVal=e.currentTarget.dataset.index
+      console.log(e.currentTarget.dataset.index);
+      
+    },
+    tasteChange:function(e){
+      this.tasteCheckVal=e.currentTarget.dataset.index
+      console.log(e.currentTarget.dataset.index);
+    },
+    // 清空购物车
+    delCart: function(e) {
+      this.cartMoreClass = 'cart-more';
+      this.totalPrice = 0;
+      this.totalCount = 0;
+      this.carArray = [];
+      var foods = this.data.foods;
+      for (var i = 0; i < foods.length; i++) {
+        for (var j = 0; j < foods[i].details.length; j++) {
+          if (foods[i].details[j].number != 0) {
+            foods[i].details[j].number = 0;
+          }
+        }
+      }
+    },
+    shopAdd: function(e) {
+      this.cartAdd(e);
+      this.flavorFork(e)
+      this.calTotalPrice();
+    },
+    shopSign: function(e) {
+      this.cartSign(e);
+      this.flavorFork(e)
+       this.calTotalPrice();
+    },
+    // 选择页面
+    flavorFork:function(e){
+      this.show="flavor-none"
+      // this.foods = this.foods
+      // this.carArray = this.carArray
+      this.flavorFork(e)
+      this.calTotalPrice();
+      console.log(this.show);
+      
+    },
+    // 详情页
+    substance: function(e) {
+      this.substance = 'substance-active';
+      var index = e.currentTarget.dataset.itemIndex;
+      var parentIndex = e.currentTarget.dataset.parentindex;
+      var number = this.data.foods[parentIndex].details[index].number;
+      var price = this.data.foods[parentIndex].details[index].price;
+      var name = this.data.foods[parentIndex].details[index].name;
+      var pic = this.data.foods[parentIndex].details[index].pic;
+      var flavor = this.data.foods[parentIndex].details[index].flavor;
+      var evaluate = this.data.foods[parentIndex].details[index].evaluate;
+      var mark = 'a' + index + 'b' + parentIndex;
+      var obj = {
+        price: price,
+        number: number,
+        mark: mark,
+        name: name,
+        parentIndex: parentIndex,
+        index: index,
+        pic:pic,
+        flavor:flavor,
+        evaluate:evaluate
+      };
+      var carArray1 = this.carArray.filter(item => item.mark != mark);
+      carArray1.push(obj);
+      this.carArray = carArray1;
+      console.log(this.carArray);
+      this.show ='flavor-none'
+    },
+    substanceAdd:function(e){
+      this.cartAdd(e);
+      for(let i = 0;i<this.carArray.length;i++){
+        if(this.carArray[i].flavor.length!=0){
+          this.show ='flavor-wrapper'
+        }else{
+          this.show ='flavor-none'
+        }
+      }
+      // this.flavorFork(e)
+      this.calTotalPrice();
+    },
+    promptly:function(e){
+      this.show="flavor-hide"
+      this.calTotalPrice();
+       console.log(this.show);
+    },
+    substanceSign:function(e){
+      this.cartSign(e);
+      this.flavorFork(e)
+      this.calTotalPrice();
+    },
+    fork: function() {
+      this.substance = 'substance-wrapper';
+       this.foods = this.foods;
+      this.carArray = this.carArray;
+    },
+    onShareAppMessage: function(ops) {
+      if (ops.from === 'button') {
+        // 来自页面内转发按钮
+        console.log(ops.target);
+      }
+      return {
+        title: 'xx小程序',
+        path: 'pages/index/index',
+        success: function(res) {
+          // 转发成功
+          console.log('转发成功:' + JSON.stringify(res));
+        },
+        fail: function(res) {
+          // 转发失败
+          console.log('转发失败:' + JSON.stringify(res));
+        }
+      };
+    },
+    // 结算
+    settlement:function(){
+       wx.setStorage({
+         key:'key',
+         data:this.carArray,
+         success:function(res){
+          wx.navigateTo({
+            url: '../../../pages/tab_bar/settlement/settlement'
+          });
+         }
+       })
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad(option) {}
+  onShow() {}
+  calTotalPrice() {
+    // 计算总价
+    var carArray = this.carArray;
+    var totalPrice = 0;
+    var totalCount = 0;
+    for (var i = 0; i < carArray.length; i++) {
+      totalPrice += carArray[i].price * carArray[i].number;
+      totalCount += carArray[i].number;
+    }
+    this.totalPrice = totalPrice;
+    this.totalCount = totalCount;
+  }
+  cartShow(fold) {
+    if (fold == false) {
+      this.cartMoreClass = 'cart-more-active';
+    } else {
+      this.cartMoreClass = 'cart-more';
+    }
+  }
+  cartAdd(e) {
+    // 增加
+    var index = e.currentTarget.dataset.itemIndex;
+    var parentIndex = e.currentTarget.dataset.parentindex;
+    this.data.foods[parentIndex].details[index].number++;
+    var number = this.data.foods[parentIndex].details[index].number;
+    var price = this.data.foods[parentIndex].details[index].price;
+    var name = this.data.foods[parentIndex].details[index].name;
+    var pic = this.data.foods[parentIndex].details[index].pic;
+    var mon = this.data.foods[parentIndex].details[index].mon;
+    var flavor = this.data.foods[parentIndex].details[index].flavor;
+    var evaluate = this.data.foods[parentIndex].details[index].evaluate;
+    var mark = 'a' + index + 'b' + parentIndex;
+    var obj = {
+      price: price,
+      number: number,
+      mark: mark,
+      name: name,
+      parentIndex: parentIndex,
+      index: index,
+      pic:pic,
+      flavor:flavor,
+      mon:mon,
+      evaluate:evaluate
+    };
+    var carArray1 = this.carArray.filter(item => item.mark != mark);
+    carArray1.push(obj);
+    this.carArray = carArray1;
+  }
+  cartSign(e) {
+    // 减少
+    var index = e.currentTarget.dataset.itemIndex;
+    var parentIndex = e.currentTarget.dataset.parentindex;
+    this.data.foods[parentIndex].details[index].number--;
+    var number = this.data.foods[parentIndex].details[index].number;
+    var price = this.data.foods[parentIndex].details[index].price;
+    var name = this.data.foods[parentIndex].details[index].name;
+    var pic = this.data.foods[parentIndex].details[index].pic;
+    var flavor = this.data.foods[parentIndex].details[index].flavor;
+    var mon = this.data.foods[parentIndex].details[index].mon;
+    var evaluate = this.data.foods[parentIndex].details[index].evaluate;
+    var mark = 'a' + index + 'b' + parentIndex;
+    var obj = {
+      price: price,
+      number: number,
+      mark: mark,
+      name: name,
+      parentIndex: parentIndex,
+      index: index,
+      pic:pic,
+      flavor:flavor,
+      mon:mon,
+      evaluate:evaluate
+    };
+    var carArray1 = this.carArray.filter(item => item.mark != mark);
+    carArray1.push(obj);
+    this.carArray = carArray1;
+    this.foods = this.foods;
+    // 关闭弹窗
+    var count1 = 0;
+    for (let i = 0; i < carArray1.length; i++) {
+      if (carArray1[i].number == 0) {
+        count1++;
+      }
+    }
+    if (count1 == carArray1.length) {
+      console.log(number);
+      if (number == 0) {
+        console.log(number);
+        this.data.carArray = [];
+        this.cartMoreClass = 'cart-more';
+        this.totalPrice = 0;
+        this.totalCount = 0;
+      }
+    }
+  }
+   flavorFork(e){
+      this.show="flavor-none"
+    }
+}
+</script>
+
+<style lang='less'>
+.foods-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+}
+.foods-wrapper .foods-nav {
+  width: 140rpx;
+  height: 824rpx;
+  background: #f1f1f1;
+}
+.foods-wrapper .foods-nav view {
+  width: 100%;
+  background: #f1f1f1;
+  padding-top: 28rpx;
+  padding-bottom: 28rpx;
+  box-sizing: border-box;
+  text-align: center;
+  color: #888888;
+  font-size: 26rpx;
+}
+.foods-wrapper .foods-nav .nav-active {
+  background: #fff;
+  color: #333;
+}
+.foods-wrapper .details {
+  width: 610rpx;
+  height: 740rpx;
+  background: #fff;
+  position: absolute;
+  margin-bottom: 80rpx;
+  right: 0;
+  top: 0;
+}
+.foods-wrapper .details .details-box {
+  width: 100%;
+  padding-left: 32rpx;
+  box-sizing: border-box;
+}
+.foods-wrapper .details view .bWrapper {
+  display: flex;
+  width: 100%;
+  padding: 20rpx 0;
+  box-sizing: border-box;
+  border-bottom: 1px #eeeeee solid;
+  position: relative;
+}
+.foods-wrapper .details view .bWrapper .img-wrapper {
+  width: 100rpx;
+  height: 100rpx;
+  border: 1px #eeeeee solid;
+}
+.foods-wrapper .details .bWrapper image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.foods-wrapper .details view .bWrapper .text {
+  margin-left: 20rpx;
+}
+.foods-wrapper .details view .bWrapper .text .name {
+  font-size: 26rpx;
+  color: #333333;
+}
+.foods-wrapper .details view .bWrapper .text .mon {
+  font-size: 22rpx;
+  color: #888888;
+}
+.foods-wrapper .details view .bWrapper .text .price {
+  font-size: 28rpx;
+  color: #ff4646;
+}
+.foods-wrapper .details view .bWrapper .order {
+  position: absolute;
+  right: 30rpx;
+  bottom: 26rpx;
+  display: flex;
+}
+.foods-wrapper .details view .bWrapper .order view {
+  margin: 0 10rpx;
+}
+
+.foods-wrapper .details view .bWrapper .order .iconfont {
+  color: #0099ff;
+  font-size: 32rpx;
+}
+// 购物车
+.foods-wrapper .cart {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 90rpx;
+  background: #47464b;
+  z-index: 100;
+  overflow: hidden;
+  display: flex;
+}
+.foods-wrapper .cart .cart-logo {
+  width: 140rpx;
+  height: 100%;
+  background: #3d3d3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.foods-wrapper .cart .cart-logo-active {
+  background: #0099ff;
+}
+.foods-wrapper .cart .cart-logo .totalCount {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  background: #e31c1c;
+  font-size: 18rpx;
+  line-height: 30rpx;
+  text-align: center;
+  color: #fff;
+  position: absolute;
+  right: 24rpx;
+  top: 14rpx;
+}
+.foods-wrapper .cart .cart-logo image {
+  width: 51rpx;
+  height: 51rpx;
+}
+.foods-wrapper .cart .total {
+  width: 400rpx;
+  height: 100%;
+  display: flex;
+  color: #6b6b6b;
+  font-size: 24rpx;
+  padding-left: 20rpx;
+  padding-top: 8rpx;
+  padding-bottom: 8rpx;
+  box-sizing: border-box;
+  flex-flow: wrap;
+  align-items: center;
+}
+.foods-wrapper .cart .total view {
+  width: 100%;
+}
+.foods-wrapper .cart .total view:nth-child(1) {
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #fff;
+}
+.foods-wrapper .cart .total view:nth-child(2) {
+  font-size: 20rpx;
+  color: #fff;
+}
+.foods-wrapper .cart .settlement {
+  width: 220rpx;
+  height: 100%;
+  background: #535257;
+  display: flex;
+  font-size: 28rpx;
+  color: #888888;
+  line-height: 90rpx;
+  justify-content: center;
+  align-items: center;
+}
+.foods-wrapper .cart .settlement-active { 
+  background: #37ca72;
+  color: #fff;
+}
+.foods-wrapper .cart-more {
+  height: 0;
+  display: none;
+}
+.foods-wrapper .cart-more-active {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.3);
+}
+.foods-wrapper .cart-more-active .cart-wrapper {
+  width: 100%;
+  background: #fff;
+  position: fixed;
+  bottom: 90rpx;
+  left: 0;
+}
+.foods-wrapper .cart-more-active .cart-wrapper .title {
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+  background: #ecf0f3;
+  font-size: 28rpx;
+  color: #000000;
+  position: relative;
+}
+.foods-wrapper .cart-more-active .cart-wrapper .title .del {
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+}
+.foods-wrapper .cart-more-active .cart-wrapper .title .del text {
+  color: #999999;
+  font-size: 22rpx;
+  margin-left: 10rpx;
+}
+.foods-wrapper .cart-more-active .cart-wrapper .title .del .iconfont {
+  color: #999999;
+  font-size: 32rpx;
+
+}
+.foods-wrapper .cart-more-active .cart-wrapper .content {
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  width: 100%;
+  max-height: 600rpx;
+}
+.foods-wrapper .cart-more-active .cart-wrapper .content .single-wrapper {
+  padding: 30rpx 0;
+  box-sizing: border-box;
+  border-bottom: 1px #eeeeee solid;
+  width: 100%;
+  overflow: hidden;
+}
+.foods-wrapper .cart-more-active .cart-wrapper .content .single-wrapper > view {
+  float: left;
+}
+.foods-wrapper
+  .cart-more-active
+  .cart-wrapper
+  .content
+  .single-wrapper
+  view:nth-child(1) {
+  width: 440rpx;
+  font-size: 26rpx;
+  color: #333333;
+  height: 40rpx;
+}
+.foods-wrapper .cart-more-active .cart-wrapper .content .single-wrapper .price {
+  width: 120rpx;
+  height: 40rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #ea2a2a;
+}
+
+.foods-wrapper
+  .cart-more-active
+  .cart-wrapper
+  .content
+  .single-wrapper
+  .control {
+  font-size: 28rpx;
+  color: #333333;
+  height: 40rpx;
+  overflow: hidden;
+}
+.foods-wrapper
+  .cart-more-active
+  .cart-wrapper
+  .content
+  .single-wrapper
+  .control
+  .iconfont {
+    color: #0099ff;
+    font-size: 32rpx;
+}
+.foods-wrapper
+  .cart-more-active
+  .cart-wrapper
+  .content
+  .single-wrapper
+  .control
+  > view {
+  float: left;
+  width: 40rpx;
+  height: 100%;
+  line-height: 40rpx;
+}
+.foods-wrapper
+  .cart-more-active
+  .cart-wrapper
+  .content
+  .single-wrapper
+  .control
+  > view:nth-child(2) {
+  width: auto;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.foods-wrapper .cart-more-active .cart-none {
+  width: 100%;
+  height: 100%;
+}
+// 详情页
+.foods-wrapper .substance-wrapper {
+  bottom: 100%;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 20;
+}
+.foods-wrapper
+  .substance-wrapper
+  .substance-box {
+  width: 100%;
+  height: 100%;
+}
+.foods-wrapper .substance-active {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  z-index: 20;
+  top: 0;
+  background: #eeeeee;
+}
+.foods-wrapper
+  .substance-active
+  .substance-box {
+  width: 100%;
+  height: auto;
+  min-height: 1400rpx;
+  position: relative;
+}
+.foods-wrapper
+  .substance-active
+  .substance-box
+  .fork {
+  font-size: 40rpx;
+  color: #999999;
+  position: absolute;
+  right: 40rpx;
+  top: 40rpx;
+}
+.foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-bg {
+  width: 750rpx;
+  height: 750rpx;
+  overflow: hidden;
+}
+.foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-bg
+  image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content {
+  background: #fff;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-name {
+  font-size: 28rpx;
+  color: #000000;
+  position: relative;
+}
+.foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-name
+  button {
+  width: 32rpx;
+  height: 32rpx;
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  position: absolute;
+  top: 50%;
+  right: 20rpx;
+  border-radius: 0;
+  transform: translateY(-50%);
+  line-height: 100%;
+}
+.foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-name
+button::after{
+border: none;
+}
+.foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-name
+  .iconfont {
+ font-size: 32rpx;
+ color: #000000;
+}
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-mon {
+  font-size: 24rpx;
+  color: #999999;
+}
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-price{
+    position: relative;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-price text:nth-child(1){
+    font-size: 28rpx;
+    color: #e91919;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-price text:nth-child(2){
+    font-size: 24rpx;
+    color: #e91919;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-price
+  .substance-control{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20rpx;
+    display: flex;
+
+  }
+    .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-price
+  .substance-control view{
+    line-height: 100%;
+  }
+    .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-price
+  .substance-control view:nth-child(2){
+    margin: 0 10rpx;
+    font-size: 32rpx;
+    line-height: 100%;
+    height: 100%;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-content
+  .substance-price
+  .substance-control .iconfont{
+      color: #0099ff;
+      font-size: 32rpx;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-shop{
+    width: 100%;
+    padding: 20rpx;
+    background: #fff;
+    box-sizing: border-box;
+    margin-top: 16rpx;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+      .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-shop .shop-img{
+    width: 66rpx;
+    height: 66rpx;
+  }
+    .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-shop .shop-img image{
+    width: 66rpx;
+    height: 66rpx;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-shop
+  .shop-name{
+    font-size: 26rpx;
+    color: #000000;
+    line-height: 100%;
+    margin-left: 20rpx;
+  }
+   .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-shop
+  .shop-name view:nth-child(1){
+    margin: 10rpx 0;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-shop
+  .shop-name image{
+    width: 18rpx;
+    height: 18rpx;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-shop
+  .shop-name text{
+    font-size: 22rpx;
+    color: #999999;
+    margin-left: 10rpx;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box
+  .substance-shop .shop-join{
+    width: 110rpx;
+    height: 44rpx;
+    line-height: 44rpx;
+    font-size: 24rpx;
+    color: #fff;
+    background: #0099ff;
+    text-align: center;
+    border-radius: 30rpx;
+    position: absolute;
+    right: 20rpx;
+    bottom: 20rpx;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box .substance-evaluate{
+    width: 100%;
+    padding: 20rpx;
+    margin-top: 16rpx;
+    background: #fff;
+    box-sizing: border-box;
+  }
+    .foods-wrapper
+  .substance-active
+  .substance-box .evaluate-title{
+    font-size: 26rpx;
+    color: #888888;
+  }
+   .foods-wrapper
+  .substance-active
+  .substance-box .no-evaluate{
+    font-size: 26rpx;
+    text-align: center;
+    color: #000000;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box .evaluateItem-content{
+    display: flex;
+    padding-top: 20rpx;
+    padding-bottom: 40rpx;
+    box-sizing: border-box;
+    border-bottom: 1px #cccccc solid;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box .evaluateItem-content view:nth-child(1) image{
+    width: 50rpx;
+    height: 50rpx;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box .evaluateItem-content>view:nth-child(2){
+    font-size: 26rpx;
+    color: #000000;
+    margin-left: 24rpx;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box .evaluateItem-content>view:nth-child(2) view:nth-child(2){
+    color: #6b6b6b;
+    font-size: 24rpx;
+  }
+  .foods-wrapper
+  .substance-active
+  .substance-box .evaluateItem-content>view:nth-child(2) view:nth-child(3){
+    color: #999999;
+    font-size: 22rpx;
+  }
+  // 商品类别
+  .foods-wrapper .flavor-wrapper{
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+  }
+ .foods-wrapper .flavor-wrapper .flavor-box{
+   width: 100%;
+   background: #fff;
+   position: absolute;
+   bottom: 0;
+ }
+  .foods-wrapper .flavor-wrapper .flavor-box .flavor-top{
+    padding: 20rpx;
+    box-sizing: border-box;
+    display: flex;
+    position: relative;
+  }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-top image{
+   width: 200rpx;
+   height: 200rpx;
+   border-radius: 10rpx;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-top .flavor-name{
+   padding-left: 30rpx;
+   box-sizing: border-box;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-top .flavor-name view:nth-child(1){
+   font-size: 28rpx;
+   color: #000000;
+ }
+   .foods-wrapper .flavor-wrapper .flavor-box .flavor-top .flavor-name view:nth-child(2) text:nth-child(1){
+   font-size: 26rpx;
+   color: #e91919;
+ }
+  .foods-wrapper .flavor-wrapper .flavor-box .flavor-top .flavor-name view:nth-child(2) text:nth-child(2){
+   font-size: 34rpx;
+   color: #e91919;
+ }
+  .foods-wrapper .flavor-wrapper .flavor-box .flavor-top .flavor-name view:nth-child(3){
+   font-size: 26rpx;
+   color: #999999;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-top .flavor-fork{
+   position: absolute;
+   top: 0;
+   right: 20rpx;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-top .flavor-fork i{
+   font-size: 32rpx;
+   color: #999999;
+ }
+ .foods-wrapper .flavor-none{
+   display: none;
+ }
+  .foods-wrapper .flavor-hide{
+   display: none;
+ }
+  .foods-wrapper .flavor-wrapper .flavor-box .flavor-content{
+    padding: 0 20rpx;
+    box-sizing: border-box;
+  }
+   .foods-wrapper .flavor-wrapper .flavor-box .flavor-content .standard-wrapper {
+     margin-top: 40rpx;
+   }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-content .standard-wrapper .standard-name{
+   color: #000000;
+   font-size: 24rpx;
+   margin-bottom: 18rpx;
+ }
+  .foods-wrapper .flavor-wrapper .flavor-box .flavor-content .standard-wrapper radio-group{
+    width: 100%;
+  }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-content .standard-wrapper .radio{
+   margin-right:20rpx;
+   padding: 8rpx 28rpx;
+   background: #eeeeee;
+   color: #000;
+   font-size: 26rpx;
+   text-align: center;
+   border-radius: 40rpx;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-content .taste-wrapper {
+     margin-top: 40rpx;
+   }
+  .foods-wrapper .flavor-wrapper .flavor-box .flavor-content .taste-wrapper .taste-name{
+   color: #000000;
+   font-size: 24rpx;
+   margin-bottom: 18rpx;
+ }
+   .foods-wrapper .flavor-wrapper .flavor-box .flavor-content .taste-wrapper radio-group{
+    width: 100%;
+  }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-content .taste-wrapper .taste .radio{
+   margin-right:20rpx;
+   padding: 8rpx 28rpx;
+   background: #eeeeee;
+   color: #000;
+   font-size: 26rpx;
+   text-align: center;
+   border-radius: 40rpx;
+   box-sizing: border-box;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-content .taste-wrapper .taste .radio-active{
+    margin-right:20rpx;
+   padding: 8rpx 28rpx;
+   font-size: 26rpx;
+   text-align: center;
+   border-radius: 40rpx;
+   box-sizing: border-box;
+   background: #0099ff;
+   color: #fff;
+ }
+  .foods-wrapper .flavor-wrapper .flavor-box .flavor-content .standard-wrapper .standard .radio-active{
+     margin-right:20rpx;
+   padding: 8rpx 28rpx;
+   font-size: 26rpx;
+   text-align: center;
+   border-radius: 40rpx;
+   box-sizing: border-box;
+   background: #0099ff;
+   color: #fff;
+ }
+  radio{
+   text-align: center;
+   display: none;
+ }
+
+radio .wx-radio-input{ 
+    height:0; 
+    width: 0;
+    margin-top: 0;
+    border-radius: 0;
+    border: none;
+    font-size: 0;
+    background: none;
+ }
+
+radio .wx-radio-input.wx-radio-input-checked{
+   border: none;
+   background: none;
+}
+radio .wx-radio-input.wx-radio-input-checked::before{
+   border-radius: 0;
+   width: 0; 
+   height: 0; 
+   line-height: 0;
+   text-align: center;
+   font-size:0;
+   color:#fff;
+   background: none;
+   border: none;
+    transform:translate(-50%, -50%) scale(1);
+   -webkit-transform:translate(-50%, -50%) scale(1);
+
+}
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-bottom .flavor-control{
+   width: 100%;
+   padding: 0 20rpx;
+   box-sizing: border-box;
+   margin: 20rpx 0;
+   position: relative;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-bottom .flavor-control view:nth-child(1){
+   font-size: 28rpx;
+ }
+  .foods-wrapper .flavor-wrapper .flavor-box .flavor-bottom .flavor-control view:nth-child(1){
+   font-size: 28rpx;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-bottom .flavor-control .control-wrapper{
+   display: flex;
+   line-height: 100%;
+   position: absolute;
+   right: 20rpx;
+   z-index: 10;
+   top: 0;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-bottom .flavor-control .control-wrapper view{
+   margin: 0 5rpx;
+   font-size: 32rpx;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-bottom .flavor-control .control-wrapper view i{
+   color: #0099ff;
+    font-size: 32rpx;
+ }
+ .foods-wrapper .flavor-wrapper .flavor-box .flavor-bottom  .promptly{
+   text-align: center;
+   background: #0099ff;
+   color: #fff;
+   font-size: 28rpx;
+   height: 76rpx;
+   line-height: 76rpx;
+ }
+</style>

@@ -1,0 +1,210 @@
+<template>
+  <view class="sign">
+    <view class="tips">本次操作需要短信确认，请输入所收到的短信验证码</view>
+    <view class="form">
+      <view class="phone">
+        <text>手机号</text>
+        <input
+          placeholder="请输入手机号码"
+          type="number"
+          maxlength="11"
+          bindinput="accountInput"
+          auto-focus
+        >
+      </view>
+      <view class="code">
+        <text class="num">验证码</text>
+        <input placeholder="填写验证码" type="number" bindinput="codeInput">
+        <button
+          class="btn"
+          bindtap="clickGainCode"
+        >{{tipsCode}}</button>
+      </view>
+    </view>
+    <view class="confirm">
+      <view bindtap="confirm">确定登录</view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '微信授权登录'
+  };
+  data = {
+    userAccount: '',
+    userPassword: '',
+    codeNum: '',
+    tipsCode: '获取短信验证码',
+    timeNum: 60,
+    clikType: false,
+  };
+  components = {};
+  methods = {
+    clickGainCode(e) {
+      if (!this.data.clikType) {
+        this.gainCode();
+      }
+    },
+    accountInput(e) {
+      // console.log(e)
+      this.userAccount = e.detail.value;
+    },
+    //监听输入验证码
+    codeInput(e) {
+      this.setData({
+        codeNum: e.detail.value
+      });
+    },
+    confirm:function(){
+      let bea = true
+      wx.setStorageSync("bea", bea);
+      wx.switchTab({
+      url: '../my/my', 
+      success (res) {
+    let page = getCurrentPages().pop()
+    if (page == undefined || page == null) {
+      return
+    }
+    page.onLoad()
+  }
+    })
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+  gainCode() {
+    let that = this;
+    let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    if (this.data.userAccount == '') {
+      wx.showToast({
+        title: '手机号不能为空',
+        icon: 'none'
+      });
+    } else if (!myreg.test(this.data.userAccount)) {
+      wx.showToast({
+        title: '请输入正确的手机号',
+        icon: 'none'
+      });
+    } else {
+      that.setData({
+        clikType: true,
+        timeNum: 60,
+        tipsCode: that.data.timeNum + 's'
+      });
+      
+      if (this.data.timeNum < 0) {
+      } else {
+        that.getTime();
+      }
+    }
+  }
+  getTime() {
+    let that = this;
+    let timer = setInterval(function() {
+      that.data.timeNum--;
+      if (that.data.timeNum <= 0) {
+        that.setData({
+          tipsCode: '重新获取验证码',
+          clikType: false
+        });
+        that.timeNum = 60
+        clearInterval(timer);
+        
+      } else {
+        that.setData({
+          tipsCode: that.data.timeNum + 's'
+        });
+      }
+    }, 1000);
+  }
+}
+</script>
+
+<style lang='less'>
+.sign {
+  width: 100%;
+  height: 100%;
+  .tips {
+    width: 100%;
+    padding: 20rpx;
+    box-sizing: border-box;
+    font-size: 22rpx;
+    color: #6b6b6b;
+  }
+  .form {
+    width: 100%;
+    .phone {
+      width: 100%;
+      background: #fff;
+      padding: 20rpx;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px #eeeeee solid;
+      text {
+        font-size: 26rpx;
+        color: #000000;
+        flex: 1;
+      }
+      input {
+        flex: 4;
+        font-size: 26rpx;
+      }
+      input::-webkit-input-placeholder {
+        color: #999999;
+      }
+    }
+    .code {
+      width: 100%;
+      background: #fff;
+      padding: 20rpx;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px #eeeeee solid;
+      .num {
+        flex: 1;
+        font-size: 26rpx;
+        color: #000000;
+      }
+      input {
+        flex: 3;
+        font-size: 26rpx;
+      }
+      .btn {
+        flex: 1;
+        height: 56rpx;
+        line-height: 56rpx;
+        color: #ffff;
+        font-size: 24rpx;
+        background: #19a3ff;
+        text-align: center;
+        border-radius: 10rpx;
+      }
+    }
+  }
+  .confirm{
+    width: 100%;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 20rpx;
+    view{
+      width: 100%;
+      height: 72rpx;
+      background: #0099ff;
+      font-size: 26rpx;
+      color: #fefefe;
+      line-height: 72rpx;
+      text-align: center;
+      border-radius: 26rpx;
+    }
+  }
+}
+</style>

@@ -1,0 +1,408 @@
+<template>
+    <view class='container'>
+        <view class='header'>
+            <view class='left' bindtap='location'>
+                <image src='../../../common/image/location-logo.png'>
+                <text>{{address}}</text>
+            </view>
+            <view class='content' bindtap='search'>
+                <image src='../../../common/image/search.png'>
+                <input placeholder='搜索商家、商品名称'>
+            </view>
+            <view class='right' bindtap='scan'>
+                <image src='../../../common/image/sao.png'>
+            </view>
+        </view>
+        <view class='assortment'>
+            <swiper indicator-dots="{{indicatorDots}}"  indicator-indicator-color='{{indicatorColor}}' indicator-active-color="{{indicatorActiveColor}}">
+                <block wx:for="{{imgUrls}}" wx:for-item='imgItem' wx:for-index='imgIndex' wx:for-key='imgKey'>
+                    <swiper-item>
+                        <view wx:for="{{imgItem.goods}}" wx:for-index="goodsIndex" wx:for-item="goodsItem" wx:key="goodsIkey" class='wrapper' bindtap='jump' data-text='{{goodsItem.classify}}'>
+                          <view class='tag' style='background:{{goodsItem.background}};'>
+                            <image src='{{goodsItem.url}}'>
+                          </view>
+                          <text>{{goodsItem.classify}}</text>
+                        </view>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+        <view class='advertisement'>
+          <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for='{{adImg}}' wx:for-item='adItem'>
+              <swiper-item>
+                <image src='{{adItem}}'>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+        <view class='change'>
+          <swiper display-multiple-items="{{display}}">
+              <block wx:for="{{imgUrls}}" wx:for-item='imgItem' wx:for-index='imgIndex' wx:for-key='imgKey'>
+                  <swiper-item wx:for="{{imgItem.goods}}" wx:for-index="goodsIndex" wx:for-item="goodsItem" wx:key="goodsIkey" class='wrapper'>
+                    <view class='tag' style='background:{{goodsItem.background}};'>
+                      <image src='{{goodsItem.url}}'>
+                    </view>
+                  </swiper-item>
+              </block>
+          </swiper>
+        </view>
+        <tabs/>
+        <goods/>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import Tabs from '../../../components/tabs/tabs';
+import Goods from '../../../components/goods/goods';
+var QQMapWX = require('../../../qqmap-wx-jssdk.min.js');
+var qqmapsdk;
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '一户一店'
+  };
+  data = {
+    adImg: [
+      '../../../common/image/ad-bg1.jpg',
+      '../../../common/image/ad-bg2.jpg',
+      '../../../common/image/ad-bg3.jpg'
+    ],
+    imgUrls: [
+      {
+        goods: [
+          {
+            classify: '特价',
+            url: '../../../common/image/tj.png',
+            background: 'linear-gradient(#ff8b56, #ff5f3c)'
+          },
+          {
+            classify: '团购',
+            url: '../../../common/image/tg.png',
+            background: 'linear-gradient(#a981f0, #574aca)'
+          },
+          {
+            classify: '美食',
+            url: '../../../common/image/ms.png',
+            background: 'linear-gradient(#ff9240, #ff7d28)'
+          },
+          {
+            classify: '娱乐',
+            url: '../../../common/image/yl.png',
+            background: 'linear-gradient(#52c2f4, #1982dd)'
+          },
+          {
+            classify: '住宿',
+            url: '../../../common/image/zs.png',
+            background: 'linear-gradient(#9a8781, #916a5d)'
+          },
+          {
+            classify: '生鲜',
+            url: '../../../common/image/sx.png',
+            background: 'linear-gradient(#9fee3d, #64d420)'
+          },
+          {
+            classify: '零售',
+            url: '../../../common/image/ls.png',
+            background: 'linear-gradient(#34e8d1, #19c6b0)'
+          },
+          {
+            classify: '电商',
+            url: '../../../common/image/ds.png',
+            background: 'linear-gradient(#f87069, #e9362e)'
+          },
+          {
+            classify: '详细分类',
+            url: '../../../common/image/fl.png',
+            background: 'linear-gradient(#73e0d4, #28a3be)'
+          },
+          {
+            classify: '频道定制',
+            url: '../../../common/image/dz.png',
+            background: 'linear-gradient(#ff96b9, #f75588)'
+          }
+        ]
+      }
+    ],
+    indicatorDots: true,
+    autoplay: true,
+    interval: 5000,
+    duration: 1000,
+    indicatorColor: '#c9c9c9',
+    circular: false,
+    indicatorActiveColor: '#1a83de',
+    address: '',
+    display: 5
+  };
+  components = {
+    tabs: Tabs,
+    goods: Goods
+  };
+  methods = {
+    location: function() {
+      var that = this;
+      wx.chooseLocation({
+        type: 'wgs84',
+        success(res) {
+          const latitude = res.latitude;
+          const longitude = res.longitude;
+          qqmapsdk.reverseGeocoder({
+            location: {
+              latitude: latitude,
+              longitude: longitude
+            },
+            success: function(res) {
+              that.setData({
+                address: res.result.address_component.city
+              });
+            },
+            fail: function(res) {
+              that.setData({
+                address: '获取位置失败'
+              });
+            }
+          });
+        }
+      });
+    },
+    scan: function() {
+      wx.scanCode({
+        success: res => {
+          console.log(res);
+        }
+      });
+    },
+    search: function() {
+      wx.navigateTo({
+        url: '../search/search'
+      });
+    },
+    jump: function(e) {
+      var value = e.currentTarget.dataset.text;
+      if (value == '零售') {
+        wx.navigateTo({
+          url: '../retail/retail'
+        });
+      }
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad(options) {
+    if (options.address != null && options.address != '') {
+      this.setData({
+        address: options.address
+      });
+    } else {
+      qqmapsdk = new QQMapWX({
+        key: 'FQUBZ-PPM34-QODUZ-XF6L5-KPT2Z-OWBYD'
+      });
+      var that = this;
+      wx.getLocation({
+        type: 'wgs84',
+        success(res) {
+          const latitude = res.latitude;
+          const longitude = res.longitude;
+          qqmapsdk.reverseGeocoder({
+            location: {
+              latitude: latitude,
+              longitude: longitude
+            },
+            success: function(res) {
+              that.setData({
+                address: res.result.address_component.city
+              });
+            },
+            fail: function(res) {
+              that.setData({
+                address: '获取位置失败'
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+  onShow() {
+    qqmapsdk = new QQMapWX({
+      key: 'FQUBZ-PPM34-QODUZ-XF6L5-KPT2Z-OWBYD'
+    });
+    var that = this;
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {
+        const latitude = res.latitude;
+        const longitude = res.longitude;
+        qqmapsdk.reverseGeocoder({
+          location: {
+            latitude: latitude,
+            longitude: longitude
+          },
+          success: function(res) {
+            that.setData({
+              address: res.result.address_component.city
+            });
+          },
+          fail: function(res) {
+            that.setData({
+              address: '获取位置失败'
+            });
+          }
+        });
+      }
+    });
+  }
+}
+</script>
+<style lang='less'>
+.container {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+.header {
+  width: 100%;
+  background: #0099ff;
+  height: 90rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.header .left {
+  display: flex;
+  align-items: center;
+}
+.header .left image {
+  width: 32rpx;
+  height: 40rpx;
+}
+.header .left text {
+  font-size: 28rpx;
+  color: #fff;
+  margin-left: 5rpx;
+}
+.header .content {
+  display: flex;
+  align-items: center;
+  width: 530rpx;
+  height: 70rpx;
+  background: #fff;
+  border-radius: 50rpx;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  margin-left: 10rpx;
+}
+.header .content image {
+  width: 24rpx;
+  height: 24rpx;
+}
+.header .content input {
+  font-size: 24rpx;
+  margin-left: 10rpx;
+}
+.header .right image {
+  width: 39rpx;
+  height: 39rpx;
+  vertical-align: middle;
+  margin-left: 10rpx;
+}
+.assortment {
+  width: 100%;
+  padding: 0 20rpx;
+  height: 380rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.assortment swiper {
+  height: 100%;
+  height: 380rpx;
+  overflow: hidden;
+}
+.assortment swiper-item {
+  overflow: hidden;
+}
+.assortment .wrapper {
+  float: left;
+  width: 120rpx;
+  height: 140rpx;
+  text-align: center;
+  margin: 20rpx 10rpx 0 10rpx;
+}
+.assortment .wrapper text {
+  font-size: 24rpx;
+  margin-top: 6rpx;
+}
+.assortment .wrapper .tag {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
+  margin: 0 auto;
+}
+.assortment .wrapper .tag image {
+  width: 62rpx;
+  height: 62rpx;
+}
+.advertisement {
+  width: 100%;
+  height: 200rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.advertisement swiper {
+  width: 100%;
+  height: 200rpx;
+  overflow: hidden;
+}
+.advertisement image {
+  width: 100%;
+}
+.advertisement .wx-swiper-dots.wx-swiper-dots-horizontal {
+  margin-bottom: 2rpx;
+}
+.advertisement .wx-swiper-dot {
+  width: 20rpx;
+  display: inline-flex;
+  height: 5rpx;
+  justify-content: space-between;
+}
+.advertisement .wx-swiper-dot::before {
+  content: '';
+  flex-grow: 1;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8rpx;
+}
+.advertisement .wx-swiper-dot-active::before {
+  background: #0099ff;
+}
+.change {
+  width: 100%;
+  height: 130rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  display: none;
+}
+.change swiper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.change .tag {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 16rpx;
+}
+.change image {
+  width: 62rpx;
+  height: 62rpx;
+}
+</style>

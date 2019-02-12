@@ -1,0 +1,390 @@
+<template>
+  <view class="takeawayOrder-wrapper">
+    <view class="takeawayOrder-top">
+      <view class="left">
+        <view>商家未发货</view>
+        <view>{{takeawayOrderTime}}</view>
+      </view>
+      <view>
+        <i class="iconfont icon-jiantou"></i>
+      </view>
+    </view>
+    <view class="takeawayOrder-address">
+      <view>
+        <i class="iconfont icon-location"></i>
+      </view>
+      <view wx:for="{{address}}">
+        <view class="contacts-wrapper">
+          <text>收货人：{{item.contactsName}}</text>
+          <text>{{item.contactsTel}}</text>
+        </view>
+        <view>收货地址：{{item.contactsAddress}}</view>
+      </view>
+      <view>
+        <i class="iconfont icon-jiantou"></i>
+      </view>
+    </view>
+    <view class="order-wrapper">
+      <view class="order-title">
+        <view>
+          <image src="../../../common/image/gongcha-logo.png">
+        </view>
+        <text>贡茶</text>
+      </view>
+      <view class="order-content">
+        <view wx:for="{{foods}}" class="order-details">
+          <image src="{{item.pic}}">
+          <text>{{item.name}}</text>
+          <view>
+            <view>￥{{item.price}}</view>
+            <view>x {{item.number}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="totalPrice">
+      <view bindtap="contact">
+        <i class="iconfont icon-dianhua"></i>
+        <text>联系商家</text>
+      </view>
+      <view>
+        <text>实付</text>
+        <text>￥{{totalPrice}}</text>
+      </view>
+    </view>
+    <view class="remarks">
+      <text>备注</text>
+    </view>
+    <view class="down-time">
+      <text>创建时间</text>
+      <text>{{downTime}}</text>
+    </view>
+    <view class="order-button">
+      <view>退货/退款</view>
+      <view>确认收货</view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '订单详情'
+  };
+  data = {
+    takeawayOrderTime: '',
+    address: [],
+    foods: [],
+    totalPrice: 0,
+    tel: '13916412536',
+    downTime: ''
+  };
+  components = {};
+  methods = {
+    contact: function() {
+      wx.makePhoneCall({
+        phoneNumber: this.tel
+      });
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow(res) {
+    var that = this;
+    Date.prototype.Format = function(fmt) {
+      var o = {
+        'M+': this.getMonth() + 1, //月份
+        'd+': this.getDate(), //日
+        'H+': this.getHours(), //小时
+        'm+': this.getMinutes(), //分
+        's+': this.getSeconds(), //秒
+        'q+': Math.floor((this.getMonth() + 3) / 3), //季度
+        S: this.getMilliseconds() //毫秒
+      };
+      if (/(y+)/.test(fmt))
+        fmt = fmt.replace(
+          RegExp.$1,
+          (this.getFullYear() + '').substr(4 - RegExp.$1.length)
+        );
+      for (var k in o)
+        if (new RegExp('(' + k + ')').test(fmt))
+          fmt = fmt.replace(
+            RegExp.$1,
+            RegExp.$1.length == 1
+              ? o[k]
+              : ('00' + o[k]).substr(('' + o[k]).length)
+          );
+      return fmt;
+    };
+
+    var date = new Date().Format('yyyy-MM-dd HH:mm:ss');
+    that.takeawayOrderTime = date;
+    wx.getStorage({
+      key: 'order',
+      success: function(res) {
+        console.log(res);
+        that.foods = res.data;
+        var foods = that.foods;
+        var totalPrice = 0;
+        var totalCount = 0;
+        for (var i = 0; i < foods.length; i++) {
+          totalPrice += foods[i].price * foods[i].number;
+        }
+        that.totalPrice = totalPrice;
+      },
+      fail: function(res) {
+        console.log(res);
+      },
+      complete: function(res) {
+        console.log(res);
+      }
+    });
+    wx.getStorage({
+      key: 'takeawayOrderAddress',
+      success: function(res) {
+        console.log(res);
+        that.address = res.data;
+      },
+      fail: function(res) {
+        console.log(res);
+      },
+      complete: function(res) {
+        console.log(res);
+      }
+    });
+    wx.getStorage({
+      key: 'takeawayOrderTime',
+      success: function(res) {
+        console.log(res);
+        that.downTime = res.data;
+      },
+      fail: function(res) {
+        console.log(res);
+      },
+      complete: function(res) {
+        console.log(res);
+      }
+    });
+  }
+}
+</script>
+
+<style lang='less'>
+.takeawayOrder-wrapper .takeawayOrder-top {
+  width: 100%;
+  padding: 40rpx 20rpx;
+  box-sizing: border-box;
+  background: #0099ff;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.takeawayOrder-wrapper .takeawayOrder-top .left {
+  font-size: 28rpx;
+  color: #fff;
+}
+.takeawayOrder-wrapper .takeawayOrder-top > view:nth-child(2) {
+  font-size: 28rpx;
+  color: #fff;
+  position: absolute;
+  right: 20rpx;
+}
+.takeawayOrder-wrapper .takeawayOrder-address {
+  display: flex;
+  width: 100%;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  background: #fff;
+  align-items: center;
+}
+.takeawayOrder-wrapper .takeawayOrder-address view i {
+  font-size: 40rpx;
+  color: #0099ff;
+}
+.takeawayOrder-wrapper .takeawayOrder-address > view:nth-child(2) {
+  font-size: 30rpx;
+  color: #6b6b6b;
+  width: 600rpx;
+  margin: 0 20rpx;
+}
+.takeawayOrder-wrapper
+  .takeawayOrder-address
+  > view:nth-child(2)
+  view:nth-child(1) {
+  position: relative;
+}
+.takeawayOrder-wrapper
+  .takeawayOrder-address
+  > view:nth-child(2)
+  view:nth-child(1)
+  text:nth-child(2) {
+  position: absolute;
+  right: 0;
+}
+.takeawayOrder-wrapper .takeawayOrder-address view:nth-child(3) i {
+  color: #999999;
+}
+.takeawayOrder-wrapper .order-wrapper {
+  background: #fff;
+  padding: 20rpx;
+  box-sizing: border-box;
+  margin-top: 10rpx;
+}
+.takeawayOrder-wrapper .order-wrapper .order-title {
+  width: 100%;
+  border-bottom: 1px #eeeeee solid;
+  display: flex;
+  align-items: center;
+  padding-bottom: 20rpx;
+  box-sizing: border-box;
+}
+.takeawayOrder-wrapper .order-wrapper .order-title > view {
+  width: 58rpx;
+  height: 58rpx;
+  border: 1px #eeeeee solid;
+  border-radius: 50%;
+}
+.takeawayOrder-wrapper .order-wrapper .order-title image {
+  width: 58rpx;
+  height: 58rpx;
+}
+.takeawayOrder-wrapper .order-wrapper .order-title text {
+  font-size: 26rpx;
+  color: #000;
+  margin-left: 20rpx;
+}
+.takeawayOrder-wrapper .order-wrapper .order-content {
+  width: 100%;
+  border-bottom: 1px #eeeeee solid;
+  padding-bottom: 40rpx;
+  box-sizing: border-box;
+}
+.takeawayOrder-wrapper .order-wrapper .order-content .order-details {
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.takeawayOrder-wrapper .order-wrapper .order-content .order-details image {
+  width: 150rpx;
+  height: 150rpx;
+}
+.takeawayOrder-wrapper .order-wrapper .order-content .order-details text {
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  color: #333333;
+}
+.takeawayOrder-wrapper .order-wrapper .order-content .order-details > view {
+  position: absolute;
+  right: 0;
+}
+.takeawayOrder-wrapper
+  .order-wrapper
+  .order-content
+  .order-details
+  > view
+  view:nth-child(1) {
+  font-size: 26rpx;
+  color: #333333;
+}
+.takeawayOrder-wrapper
+  .order-wrapper
+  .order-content
+  .order-details
+  > view
+  view:nth-child(2) {
+  font-size: 24rpx;
+  color: #999999;
+}
+.takeawayOrder-wrapper .totalPrice {
+  width: 100%;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.takeawayOrder-wrapper .totalPrice > view:nth-child(1) {
+  font-size: 22rpx;
+  color: #0099ff;
+  display: flex;
+  align-items: center;
+}
+.takeawayOrder-wrapper .totalPrice > view:nth-child(1) text {
+  margin-left: 10rpx;
+}
+.takeawayOrder-wrapper .totalPrice > view:nth-child(2) {
+  position: absolute;
+  right: 20rpx;
+}
+.takeawayOrder-wrapper .totalPrice > view:nth-child(2) text:nth-child(1) {
+  font-size: 26rpx;
+  color: #000;
+}
+.takeawayOrder-wrapper .totalPrice > view:nth-child(2) text:nth-child(2) {
+  font-size: 36rpx;
+  color: #e02020;
+}
+.takeawayOrder-wrapper .remarks {
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+  margin-top: 10rpx;
+  border-bottom: 1px #eeeeee solid;
+  background: #fff;
+  font-size: 28rpx;
+  color: #000;
+  position: relative;
+}
+.takeawayOrder-wrapper .down-time{
+  width: 100%;
+  background: #fff;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.takeawayOrder-wrapper .down-time text:nth-child(1){
+  color: #888888;
+  font-size: 28rpx;
+}
+.takeawayOrder-wrapper .down-time text:nth-child(2){
+  color: #333333;
+  font-size: 26rpx;
+  position: absolute;
+  right: 20rpx;
+}
+.takeawayOrder-wrapper .order-button{
+  margin-top: 70rpx;
+  margin-bottom: 10rpx;
+  width: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+}
+.takeawayOrder-wrapper .order-button view:nth-child(1){
+  width: 350rpx;
+  height: 66rpx;
+  background: #bfbfbf;
+  line-height: 66rpx;
+  text-align: center;
+  border-radius: 40rpx;
+}
+.takeawayOrder-wrapper .order-button view:nth-child(2){
+  width: 350rpx;
+  height: 66rpx;
+  background: #0099ff;
+  line-height: 66rpx;
+  text-align: center;
+  margin-left: 10rpx;
+  border-radius: 40rpx;
+}
+</style>

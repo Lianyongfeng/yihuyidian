@@ -1,0 +1,207 @@
+<template>
+    <view class='shop-wrapper'>
+        <swiper class='swiper' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-active-color="{{indicatorDotsActive}}" indicator-color="{{indicatorColor}}">
+            <block wx:for="{{swiperImg}}">
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image"/>
+                </swiper-item>
+            </block>
+        </swiper>
+        <view class='shop-tips' wx:for="{{tip}}" wx:for-item='item'>
+            <view class='notice'>{{item.notice}}</view>
+            <view class="discount">
+                <view wx:for="{{item.discount}}" wx:for-item='discountItem'>
+                    <image src='{{discountItem.img}}'/>
+                    <text>{{discountItem.text}}</text>
+                </view>
+            </view>
+            <view class="gprs" wx:for="{{item.gprs}}" wx:for-item='gprsItem'>
+                <image src='{{gprsItem.grpsLogo}}'/>
+                <text>{{gprsItem.gprsText}}</text>
+            </view>
+             <view class="tel" wx:for="{{item.tel}}" wx:for-item='telItem' bindtap="tel" data-tel="{{telItem.telText}}">
+                <image src='{{telItem.telLogo}}'/>
+                <text>{{telItem.telText}}</text>
+                <image src='{{telItem.telArrow}}' class='tel-Arrow'/>
+            </view>
+            <view class="time" wx:for="{{item.time}}" wx:for-item='timeItem'>
+                <image src='{{timeItem.timeLogo}}'/>
+                <text>{{timeItem.timeText}}</text>
+            </view>
+        </view>
+        <view class="shop-bg">
+<<<<<<< HEAD
+           <navigator><image src="../../../common/image/shop-bg1.jpg" mode="widthFix"/><navigator/>
+=======
+           <navigator><image src="https://1h1d.cdn.jihuliwu.cn/images/shop-bg1.jpg" mode="widthFix"/><navigator/>
+>>>>>>> 2019.2.12
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class shop extends wepy.component {
+  config = {
+    navigationBarTitleText: ''
+  };
+  data = {
+    swiperImg: [
+<<<<<<< HEAD
+      '../../../common/image/shop-swiper-bg1.jpg',
+      '../../../common/image/shop-swiper-bg1.jpg',
+      '../../../common/image/shop-swiper-bg1.jpg'
+    ],
+    shopBg:[
+         '../../../common/image/shop-bg1.jpg'
+=======
+      'https://1h1d.cdn.jihuliwu.cn/images/shop-swiper-bg1.jpg',
+      'https://1h1d.cdn.jihuliwu.cn/images/shop-swiper-bg1.jpg',
+      'https://1h1d.cdn.jihuliwu.cn/images/shop-swiper-bg1.jpg'
+    ],
+    shopBg:[
+         'https://1h1d.cdn.jihuliwu.cn/images/shop-bg1.jpg'
+>>>>>>> 2019.2.12
+    ],
+    indicatorDots: true,
+    autoplay: true,
+    interval: 5000,
+    duration: 1000,
+    indicatorDotsActive: '#2a8ce5',
+    indicatorColor: '#dcdcdc',
+    tip: [
+      {
+        notice: '公告:欢迎光临，用餐高峰期请提前下单，谢谢。',
+        discount: [
+          {
+            img: '../../../common/image/sign.png',
+            text: '满999立加1元，满999立加1元，满999立加1元'
+          },
+          {
+            img: '../../../common/image/sign.png',
+            text: '会员可7折购买全部商品'
+          }
+        ],
+        gprs: [
+          {
+            grpsLogo: '../../../common/image/gprs-logo.png',
+            gprsText: '广东省广州市番禺区天安节能科技园'
+          }
+        ],
+        tel: [
+          {
+            telLogo: '../../../common/image/tel-logo.png',
+            telText: '020-88888888',
+            telArrow: '../../../common/image/tel-arrow.png'
+          }
+        ],
+        time: [
+          {
+            timeLogo: '../../../common/image/time-logo.png',
+            timeText: '营业时间：  9：00-22:00'
+          }
+        ]
+      }
+    ]
+  };
+  events = {};
+  watch = {};
+  methods = {
+    tel: function(e) {
+      wx.makePhoneCall({
+        phoneNumber: e.currentTarget.dataset.tel
+      });
+    }
+  };
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.shop-wrapper {
+  width: 100%;
+  height: 100%;
+}
+.shop-wrapper .swiper {
+  width: 100%;
+  height: 280rpx;
+}
+.shop-wrapper .swiper .slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.shop-wrapper .shop-tips {
+  font-size: 26rpx;
+  color: #000000;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  border-bottom: 16rpx #eeeeee solid;
+}
+.shop-wrapper .shop-tips > view {
+  border-bottom: 1px #eeeeee solid;
+  padding: 20rpx 0;
+  box-sizing: border-box;
+}
+.shop-wrapper .shop-tips .discount > view {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+}
+.shop-wrapper .shop-tips .discount > view image {
+  width: 26rpx;
+  height: 26rpx;
+  margin-right: 20rpx;
+}
+.shop-wrapper .shop-tips .discount > view text {
+  line-height: 0;
+}
+.shop-wrapper .shop-tips .gprs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.shop-wrapper .shop-tips .gprs image {
+  width: 22rpx;
+  height: 26rpx;
+  margin-right: 20rpx;
+}
+.shop-wrapper .shop-tips .tel {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.shop-wrapper .shop-tips .tel image {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 20rpx;
+}
+.shop-wrapper .shop-tips .tel .tel-Arrow {
+  position: absolute;
+  right: 4rpx;
+  width: 9rpx;
+  height: 17rpx;
+  margin: 0;
+}
+.shop-wrapper .shop-tips .time {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.shop-wrapper .shop-tips .time image {
+  width: 22rpx;
+  height: 26rpx;
+  margin-right: 20rpx;
+}
+.shop-wrapper .shop-bg{
+    width: 100%;
+    height: 100%;
+}
+.shop-wrapper .shop-bg image{
+    width: 100%;
+    // height: 2400rpx;
+}
+</style>

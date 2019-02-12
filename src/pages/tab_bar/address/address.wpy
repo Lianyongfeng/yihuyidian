@@ -1,0 +1,150 @@
+<template>
+  <view class="address">
+    <view class="contacts-name">
+      <input placeholder="联系人" placeholder-style="color:#999999;" bindinput="contactsName">
+    </view>
+    <view class="contacts-tel">
+      <input
+        placeholder="联系电话"
+        placeholder-style="color:#999999;"
+        type="number"
+        bindinput="contactsTel"
+      >
+    </view>
+    <view class="contacts-address">
+      <view>详细地址</view>
+      <view bindtap="getAddress">
+        <i class="iconfont icon-shiliangzhinengduixiang"></i>快速定位
+      </view>
+      <view class="textarea-wrapper">
+        <textarea value="{{getAddress}}" bindinput="contactsAddress"/>
+      </view>
+    </view>
+    <view class="preservation" bindtap="preservation">保存</view>
+  </view>
+</template>
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '新增收货地址'
+  };
+  data = {
+    getAddress: '',
+    address: [],
+    contactsName:'',
+    contactsTel:'',
+    contactsAddress:''
+  };
+  components = {};
+  methods = {
+    getAddress: function(res) {
+      var that = this;
+      wx.chooseLocation({
+        type: 'wgs84',
+        success(res) {
+          const latitude = res.latitude;
+          const longitude = res.longitude;
+          // console.log(res.address);
+          that.getAddress = res.address;
+        }
+      });
+    },
+    contactsName: function(e) {
+      this.contactsName = e.detail.value
+    },
+    contactsTel: function(e) {
+      this.contactsTel = e.detail.value
+    },
+    contactsAddress: function(e) {
+      this.contactsAddress = e.detail.value
+      console.log(e.detail.value);
+      
+    },
+    preservation:function(){
+      let contactsAddress = this.contactsAddress?this.contactsAddress:this.getAddress
+      var obj ={
+        contactsName:this.contactsName,
+        contactsTel:this.contactsTel,
+        contactsAddress:contactsAddress
+      }
+      wx.setStorageSync("obj", obj);
+      wx.redirectTo({
+        url: '../settlement/settlement',
+      });
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.address {
+  width: 100%;
+  padding: 0 20rpx;
+  height: 100%;
+  padding-bottom: 40rpx;
+  box-sizing: border-box;
+  background: #fff;
+}
+.address > view {
+  padding: 30rpx 0;
+  box-sizing: border-box;
+  border-bottom: 1px #cccccc solid;
+}
+.address input {
+  font-size: 30rpx;
+  color: #000;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+}
+.address .contacts-address {
+  width: 100%;
+  font-size: 30rpx;
+  position: relative;
+}
+.address .contacts-address view:nth-child(1) {
+  color: #999999;
+}
+.address .contacts-address view:nth-child(2) {
+  color: #0099ff;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  top: 10rpx;
+}
+.address .contacts-address view i {
+  font-size: 50rpx;
+  color: #0099ff;
+}
+.address .contacts-address view textarea {
+  font-size: 30rpx;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  color: #000;
+  width: 100%;
+}
+.address .contacts-address .textarea-wrapper {
+  margin-top: 20rpx;
+}
+.address .preservation {
+  width: 100%;
+  height: 70rpx;
+  background: #0099ff;
+  color: #fff;
+  text-align: center;
+  border-radius: 30rpx;
+  font-size: 30rpx;
+  line-height: 70rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 30rpx;
+  left: 0;
+}
+</style>

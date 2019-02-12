@@ -1,0 +1,796 @@
+<template>
+<view class='container'>
+    <view class='header'>
+        <form class='searchForm' bindsubmit='searchSubmitFn'>
+            <view class='left'>
+                <image src='../../../common/image/search.png'/>
+                <input placeholder='搜索商家、商品名称' value="{{searchValue}}" name='input' focus="{{focus}}" />
+                <image src='../../../common/image/fork.png' bindtap='clearInput' class='fork'/>
+            </view>
+            <button formType='submit' class='searchBtn'>搜索</button>
+        </form>
+    </view>
+    <view class='all-body'>
+        <view class='name'>
+            <view wx:for="{{all}}" wx:for-item="oItem" wx:key="{{index}}" class="one {{currentTab==index?'active':''}}" bindtap="switchTab" data-current="{{index}}">{{oItem.name}}</view>
+        </view>
+        <view class='more'>
+            <swiper class='swiper-wrapper' vertical="{{vertical}}" current="{{currentTab}}" bindchange="swiperTab">
+                <swiper-item class="swiper-box" wx:for="{{all}}" wx:for-item="aItem">
+                    <view wx:for="{{aItem.classify}}" wx:for-item="bItem" class='bWrapper'>
+                        <view class='title'>{{bItem.title}}</view>
+                        <view class='sWrapper' wx:for="{{bItem.more}}">
+                            <image src='{{item.image}}' />
+                            <text>{{item.text}}</text>
+                        </view>
+                    </view>
+                </swiper-item>
+            </swiper>
+        </view>
+    </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class all extends wepy.page {
+  config = {
+    navigationBarTitleText: '全部分类'
+  };
+  data = {
+    vertical: true,
+    all: [
+      {
+        name: '推荐',
+        classify: [
+          {
+            title: '美食',
+            more: [
+              {
+<<<<<<< HEAD
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+=======
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+>>>>>>> 2019.2.12
+                text: '烤鸡'
+              }
+            ]
+          },
+          {
+            title: '女装',
+            more: [
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: '美食',
+        classify: [
+          {
+            title: '女装',
+            more: [
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              }
+            ]
+          },
+          {
+            title: '美食',
+            more: [
+              {
+<<<<<<< HEAD
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+=======
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+>>>>>>> 2019.2.12
+                text: '烤鸡'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: '娱乐',
+        classify: [
+          {
+            title: '美食',
+            more: [
+              {
+<<<<<<< HEAD
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+=======
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+>>>>>>> 2019.2.12
+                text: '烤鸡'
+              }
+            ]
+          },
+          {
+            title: '女装',
+            more: [
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: '服装',
+        classify: [
+          {
+            title: '女装',
+            more: [
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              }
+            ]
+          },
+          {
+            title: '美食',
+            more: [
+              {
+<<<<<<< HEAD
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+=======
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+>>>>>>> 2019.2.12
+                text: '烤鸡'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: '酒店住宿',
+        classify: [
+          {
+            title: '美食',
+<<<<<<< HEAD
+            more: [
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: '../../../common/image/more1.png',
+=======
+           more: [
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+                text: '烤鸡'
+              },
+              {
+                image: 'https://1h1d.cdn.jihuliwu.cn/images/more1.png',
+>>>>>>> 2019.2.12
+                text: '烤鸡'
+              }
+            ]
+          },
+          {
+            title: '女装',
+            more: [
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              },
+              {
+                image: '../../../common/image/more2.png',
+                text: '连衣裙'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+  components = {};
+  methods = {
+    clearInput: function() {
+      var that = this;
+      that.setData({
+        searchValue: ''
+      });
+    },
+    switchTab: function(e) {
+      var that = this;
+      if (this.data.currentTab === e.target.dataset.current) {
+        return false;
+      } else {
+        that.setData({
+          currentTab: e.target.dataset.current
+        });
+      }
+    },
+    swiperTab: function(e) {
+      var that = this;
+      var activeTabIndex = e.detail.current;
+      that.setData({
+        currentTab: activeTabIndex
+      });
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {
+    var that = this;
+    that.setData({
+      currentTab: 0
+    });
+  }
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.container {
+  width: 100%;
+  height: 100%;
+}
+.header {
+  width: 100%;
+  background: #0099ff;
+  height: 90rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.header .searchForm {
+  width: 100%;
+  display: flex;
+  height: 70rpx;
+  position: relative;
+  align-items: center;
+}
+.header .searchForm .left {
+  display: flex;
+  background: #fff;
+  width: 620rpx;
+  height: 70rpx;
+  border-radius: 50rpx;
+  align-items: center;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.header .searchForm .left image {
+  width: 24rpx;
+  height: 24rpx;
+}
+.header .searchForm .left .fork {
+  position: absolute;
+  right: 20rpx;
+  z-index: 10;
+}
+.header .searchForm .left input {
+  width: 620rpx;
+  height: 100%;
+  font-size: 26rpx;
+  margin-left: 10rpx;
+}
+.header .searchForm .searchBtn {
+  flex: none;
+  position: absolute;
+  font-size: 26rpx;
+  color: #fff;
+  background: none;
+  border: none;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  padding: 0;
+  width: 70rpx;
+}
+.header .searchForm .searchBtn::after {
+  border: none;
+}
+.all-body {
+  width: 100%;
+  height: 100%;
+}
+.all-body .name {
+  width: 190rpx;
+  left: 0;
+  box-sizing: border-box;
+  height: 100%;
+  background: #eeeeee;
+  position: fixed;
+  font-size: 26rpx;
+  color: #000000;
+  text-align: center;
+}
+.all-body .name .one {
+  padding: 24rpx 0;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+.all-body .name .active {
+  background: #fff;
+}
+.all-body .more {
+  width: 560rpx;
+  height: 100%;
+  position: fixed;
+  background: #fff;
+  right: 0;
+}
+.all-body .more .swiper-wrapper {
+  width: 100%;
+  height: 100%;
+}
+.all-body .more .swiper-wrapper .swiper-box {
+  width: 100%;
+  height: 100%;
+}
+.all-body .more .swiper-wrapper .swiper-box .bWrapper {
+  width: 100%;
+  height: 400rpx;
+  display: flex;
+  flex-flow: wrap;
+}
+.all-body .more .swiper-wrapper .swiper-box .bWrapper .title {
+  width: 100%;
+  font-size: 28rpx;
+  color: #0099ff;
+  text-align: center;
+  padding: 24rpx 0;
+  box-sizing: border-box;
+  position: relative;
+}
+.all-body .more .swiper-wrapper .swiper-box .bWrapper .title::after {
+  content: '';
+  width: 60rpx;
+  height: 1px;
+  background: #0099ff;
+  position: absolute;
+  left: 32%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.all-body .more .swiper-wrapper .swiper-box .bWrapper .title::before {
+  content: '';
+  width: 60rpx;
+  height: 1px;
+  background: #0099ff;
+  position: absolute;
+  right: 32%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.all-body .more .swiper-wrapper .swiper-box .bWrapper .sWrapper {
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+  width: 140rpx;
+  height: 150rpx;
+  margin-top: 10rpx;
+}
+.all-body .more .swiper-wrapper .swiper-box .bWrapper .sWrapper image {
+  width: 100rpx;
+  height: 91rpx;
+}
+.all-body .more .swiper-wrapper .swiper-box .bWrapper .sWrapper text {
+  width: 100%;
+  font-size: 26rpx;
+  color: #000;
+  text-align: center;
+}
+</style>

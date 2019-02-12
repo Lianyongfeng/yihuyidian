@@ -1,0 +1,648 @@
+<template>
+    <view class="order">
+        <view class="nav">
+            <view class="{{index==0?'active':''}}" data-index="0" bindtap="tab">全部</view>
+            <view class="{{index==1?'active':''}}" data-index="1" bindtap="tab">代付款</view>
+            <view class="{{index==2?'active':''}}" data-index="2" bindtap="tab">待发货</view>
+            <view class="{{index==3?'active':''}}" data-index="3" bindtap="tab">待收货</view>
+            <view class="{{index==4?'active':''}}" data-index="4" bindtap="tab">待评价</view>
+        </view>
+        <view class="case" wx:if="{{index==0}}">
+            <view class="wrapper">
+                <view class="title">
+                    <view class="left">
+                        <i class="iconfont icon-shangdian"></i>
+                        <text>贡茶</text>
+                        <i class="iconfont icon-jiantou"></i>
+                    </view>
+                    <view class="right">待付款</view>
+                </view>
+                <view class="box" bindtap="obligation">
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="bottom">
+                    <view class="totalprice">共1件商品  合计：￥998.00（含运费￥0.00）</view>
+                    <view>
+                        <text>取消订单</text>
+                        <text bindtap="obligation">立即付款</text>
+                    </view>
+                </view>
+            </view>
+            <view class="wrapper">
+                <view class="title">
+                    <view class="left">
+                        <i class="iconfont icon-shangdian"></i>
+                        <text>贡茶</text>
+                        <i class="iconfont icon-jiantou"></i>
+                    </view>
+                    <view class="right">卖家未发货</view>
+                </view>
+                <view class="box" bindtap="takeawayOrder">
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="bottom">
+                    <view class="totalprice">共1件商品  合计：￥998.00（含运费￥0.00）</view>
+                    <view>
+                        <text>取消订单</text>
+                        <text bindtap="takeawayOrder">提醒发货</text>
+                    </view>
+                </view>
+            </view>
+            <view class="wrapper">
+                <view class="title">
+                    <view class="left">
+                        <i class="iconfont icon-shangdian"></i>
+                        <text>贡茶</text>
+                        <i class="iconfont icon-jiantou"></i>
+                    </view>
+                    <view class="right">卖家已发货</view>
+                </view>
+                <view class="box" bindtap="receiving">
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="bottom">
+                    <view class="totalprice">共1件商品  合计：￥998.00（含运费￥0.00）</view>
+                    <view>
+                        <text bindtap="refund">退货/退款</text>
+                        <text>查看物流</text>
+                        <text bindtap="receiving">确定送达</text>
+                    </view>
+                </view>
+            </view>
+             <view class="wrapper">
+                <view class="title">
+                    <view class="left">
+                        <i class="iconfont icon-shangdian"></i>
+                        <text>贡茶</text>
+                        <i class="iconfont icon-jiantou"></i>
+                    </view>
+                    <view class="right">交易完成</view>
+                </view>
+                <view class="box">
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="bottom">
+                    <view class="totalprice">共1件商品  合计：￥998.00（含运费￥0.00）</view>
+                    <view>
+                        <text bindtap="refund">退货/退款</text>
+                        <text>删除订单</text>
+                        <text>立即评价</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="case" wx:if="{{index==1}}">
+            <view class="wrapper">
+                <view class="title">
+                    <view class="left">
+                        <i class="iconfont icon-shangdian"></i>
+                        <text>贡茶</text>
+                        <i class="iconfont icon-jiantou"></i>
+                    </view>
+                    <view class="right">待付款</view>
+                </view>
+                <view class="box" bindtap="obligation">
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="bottom">
+                    <view class="totalprice">共1件商品  合计：￥998.00（含运费￥0.00）</view>
+                    <view>
+                        <text>取消订单</text>
+                        <text bindtap="obligation">立即付款</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="case" wx:if="{{index==2}}">
+             <view class="wrapper">
+                <view class="title">
+                    <view class="left">
+                        <i class="iconfont icon-shangdian"></i>
+                        <text>贡茶</text>
+                        <i class="iconfont icon-jiantou"></i>
+                    </view>
+                    <view class="right">卖家未发货</view>
+                </view>
+                <view class="box" bindtap="takeawayOrder">
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="bottom">
+                    <view class="totalprice">共1件商品  合计：￥998.00（含运费￥0.00）</view>
+                    <view>
+                        <text>取消订单</text>
+                        <text bindtap="takeawayOrder">提醒发货</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="case" wx:if="{{index==3}}">
+            <view class="wrapper">
+                <view class="title">
+                    <view class="left">
+                        <i class="iconfont icon-shangdian"></i>
+                        <text>贡茶</text>
+                        <i class="iconfont icon-jiantou"></i>
+                    </view>
+                    <view class="right">卖家已发货</view>
+                </view>
+                <view class="box">
+                    <view class="commodity" bindtap="receiving">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="bottom">
+                    <view class="totalprice">共1件商品  合计：￥998.00（含运费￥0.00）</view>
+                    <view>
+                        <text bindtap="refund">退货/退款</text>
+                        <text>查看物流</text>
+                        <text bindtap="receiving">确定送达</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="case" wx:if="{{index==4}}">
+            <view class="wrapper">
+                <view class="title">
+                    <view class="left">
+                        <i class="iconfont icon-shangdian"></i>
+                        <text>贡茶</text>
+                        <i class="iconfont icon-jiantou"></i>
+                    </view>
+                    <view class="right">交易完成</view>
+                </view>
+                <view class="box">
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                    <view class="commodity">
+                        <view class="bg"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                        <view class="name">
+                            <text>御可贡茶</text>
+                            <text>冰/多糖</text>
+                        </view>
+                        <view class="price">
+                            <text>x1</text>
+                            <text>￥88.0</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="bottom">
+                    <view class="totalprice">共1件商品  合计：￥998.00（含运费￥0.00）</view>
+                    <view>
+                        <text bindtap="refund">退货/退款</text>
+                        <text>删除订单</text>
+                        <text bindtap="notEvaluated">立即评价</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '全部订单'
+  };
+  data = {
+      index:0,
+  };
+  components = {};
+  methods = {
+      tab:function(e){
+           this.index = e.currentTarget.dataset.index
+      },
+      obligation:function(){
+           wx.navigateTo({
+                    url: '../payment/payment'
+                });
+      },
+      takeawayOrder:function(){
+          wx.navigateTo({
+                    url: '../takeawayOrder/takeawayOrder'
+                });
+      },
+      receiving:function(){
+           wx.navigateTo({
+                    url: '../receiving/receiving'
+                });
+      },
+      refund:function(){
+           wx.navigateTo({
+                    url: '../refund/refund'
+                });
+      },
+      notEvaluated:function(){
+           wx.navigateTo({
+                    url: '../notEvaluated/notEvaluated'
+                });
+      }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {
+       var that = this
+        wx.getStorage({
+      key: 'index',
+      success: function(res) {
+        console.log(res.data);
+        that.index = res.data;
+      },
+      fail: function(res) {
+        console.log(res);
+      },
+      complete: function(res) {
+        console.log(res);
+      }
+    });
+  }
+}
+</script>
+
+<style lang='less'>
+.order{
+    width: 100%;
+    height: 100%;
+    .nav{
+        width: 100%;
+        height: 74rpx;
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        align-items: center;
+        view{
+            width: auto;
+            height: 100%;
+            line-height: 74rpx;
+            font-size: 24rpx;
+            box-sizing: border-box;
+        }
+        .active{
+            border-bottom: 5rpx #0099ff solid;
+            color: #0099ff;
+        }
+    }
+    .case{
+        width: 100%;
+        .wrapper{
+            width: 100%;
+            padding: 20rpx;
+            box-sizing: border-box;
+            background: #fff;
+            margin-top: 8rpx;
+            .title{
+                width: 100%;
+                height: 74rpx;
+                border-bottom: 1px #e5e5e5 solid;
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                position: relative;
+                .left{
+                    font-size: 28rpx;
+                    color: #000000;
+                    i{
+                        font-size: 28rpx;
+                        color: #999999;
+                    }
+                    text{
+                        margin: 0 5rpx;
+                    }
+                }
+                .right{
+                    position: absolute;
+                    right: 0;
+                    color: #1280e0;
+                    font-size: 24rpx;
+                }
+            }
+            .box{
+                padding: 20rpx 0;
+                box-sizing: border-box;
+                width: 100%;
+                position: relative;
+                .commodity{
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    margin-top: 20rpx;
+                    .bg{
+                        width: 64rpx;
+                        height: 64rpx;
+                        image{
+                            height: 64rpx;
+                            width: 64rpx;
+                        }
+                    }
+                    .name{
+                        margin-left: 30rpx;
+                        width: 450rpx;
+                        display: flex;
+                        flex-flow: column;
+                        text:nth-child(1){
+                            font-size: 24rpx;
+                            color: #000000;
+                            font-weight: bold;
+                        }
+                        text:nth-child(2){
+                            font-size: 22rpx;
+                            color: #888888;
+                        }
+                    }
+                    .price{
+                        position: absolute;
+                        right: 0;
+                        text:nth-child(1){
+                            font-size: 20rpx;
+                            color: #333333;
+                            margin-right: 30rpx;
+                        }
+                        text:nth-child(2){
+                            font-size: 24rpx;
+                            color: #333333;
+                        }
+                    }
+                }
+            }
+            .bottom{
+                width: 100%;
+                padding: 18rpx 0;
+                box-sizing: border-box;
+                .totalprice{
+                    text-align: right;
+                    color: #6b6b6b;
+                    font-size: 20rpx;
+                }
+                view:nth-child(2){
+                    text-align: right;
+                    text{
+                        padding: 8rpx  16rpx;
+                        box-sizing: border-box;
+                        border-radius: 30rpx; 
+                        font-size: 22rpx;
+                    }
+                    text:nth-child(1){
+                        color: #6b6b6b;
+                        border:1px #c9c9c9 solid;
+                    }
+                    text:nth-child(2){
+                        color: #6b6b6b;
+                        border:1px #c9c9c9 solid;
+                        margin-left: 20rpx;
+                    }
+                    text:last-child{
+                        color: #1280e0;
+                        border:1px #1280e0 solid;
+                        margin-left: 20rpx;
+                    }
+                }
+
+            }
+        }
+    }
+}
+</style>

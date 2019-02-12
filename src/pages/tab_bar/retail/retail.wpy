@@ -1,0 +1,87 @@
+<template>
+    <view class='retail'>
+        <view class='header'>
+            <view class='content' bindtap='search'>
+                <image src='../../../common/image/search.png'>
+                <input placeholder='搜索商家、商品名称'>
+            </view>
+            <view class='right' bindtap='shop'>
+                <image src='../../../common/image/shop-logo.png'>
+            </view>
+        </view>
+        <tabs/>
+        <retailGoods/>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import Tabs from '../../../components/tabs/tabs';
+import retailGoods from '../../../components/retailGoods/retailGoods';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '零售'
+  };
+  data = {};
+  components = {
+    tabs: Tabs,
+    retailGoods:retailGoods
+  };
+  methods = {
+    search: function() {
+      wx.navigateTo({
+        url: '../search/search'
+      });
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.retail {
+  width: 100%;
+  height: 100%;
+}
+.retail .header {
+  width: 100%;
+  background: #0099ff;
+  height: 90rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.retail .header .content {
+  display: flex;
+  align-items: center;
+  width: 630rpx;
+  height: 70rpx;
+  background: #fff;
+  border-radius: 50rpx;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  margin-left: 10rpx;
+}
+.retail .header .content image {
+  width: 24rpx;
+  height: 24rpx;
+}
+.retail .header .content input {
+  font-size: 24rpx;
+  margin-left: 10rpx;
+}
+.retail .header .right image {
+  width: 44rpx;
+  height: 44rpx;
+  vertical-align: middle;
+  margin-left: 10rpx;
+}
+.retail .tabs-wrapper{
+    margin-top: 0;
+}
+</style>

@@ -1,0 +1,273 @@
+<template>
+    <view class="vip">
+        <view class="top">
+            <view class="head"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+            <view class="integral">
+                <text>一切取决于我</text>
+                <text>2333积分</text>
+            </view>
+            <view class="grade">
+                <i class="iconfont icon-v"></i>
+                <text>黄金会员</text>
+            </view>
+        </view>
+        <view class="progress">
+            <view class="branch">
+                <text>2333</text>
+            </view>
+            <progress percent="40" activeColor="#fff" backgroundColor="#0068ae" border-radius="3rpx" stroke-width="6rpx"/>
+            <view class="text">
+                <text>升级</text>
+                <text>再获取2667积分就能升级为铂金会员</text>
+            </view>
+        </view>
+        <view class="content">
+            <view class="left">
+                <view class="title">会员等级</view>
+                <view class="wrapper">
+                    <view class="box one">
+                        <i class="iconfont icon-v"></i>
+                        <text>青铜会员</text>
+                    </view>
+                </view>
+                <view class="wrapper">
+                    <view class="box two">
+                        <i class="iconfont icon-v"></i>
+                        <text>白银会员</text>
+                    </view>
+                </view>
+                <view class="wrapper">
+                    <view class="box three">
+                        <i class="iconfont icon-v"></i>
+                        <text>黄金会员</text>
+                    </view>
+                </view>
+                <view class="wrapper">
+                    <view class="box four">
+                        <i class="iconfont icon-v"></i>
+                        <text>铂金会员</text>
+                    </view>
+                </view>
+                <view class="wrapper">
+                    <view class="box five">
+                        <i class="iconfont icon-v"></i>
+                        <text>钻石会员</text>
+                    </view>
+                </view>
+            </view>
+            <view class="right">
+                <view class="title">对应升级积分</view>
+                <view class="wrapper">
+                    <text>0</text>
+                </view>
+                <view class="wrapper">
+                    <text>1000</text>
+                </view>
+                <view class="wrapper">
+                    <text>2000</text>
+                </view>
+                <view class="wrapper">
+                    <text>5000</text>
+                </view>
+                <view class="wrapper">
+                    <text>8000</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '会员等级'
+  };
+  data = {
+    name: '一切取决于我'
+  };
+  components = {};
+  methods = {
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+page{
+    width: 100%;
+    height: 100%;
+    background: #0099ff;
+}
+.vip{
+    width: 100%;
+    height: 100%;
+    background: #0099ff;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    .top{
+        padding: 55rpx 0;
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        .head{
+            width: 128rpx;
+            height: 128rpx;
+            border-radius: 50%;
+            box-shadow: 0 0 10rpx black;
+            image{
+                width: 128rpx;
+                height: 128rpx;
+                border-radius: 50%;
+            }
+        }
+        .integral{
+            display: flex;
+            flex-flow: column;
+            margin-left: 20rpx;
+            text{
+                font-size: 26rpx;
+                color: #fff;
+                font-weight: bold;
+            }
+        }
+        .grade{
+            width: 168rpx;
+            height: 36rpx;
+            background: linear-gradient(#ffd354,#ffba55);
+            position: absolute;
+            right: 0;
+            border-radius: 20rpx;
+            box-shadow: 0 0 2rpx black;
+            text-align: center;
+            color: #fff;
+            font-size: 24rpx;
+            line-height: 36rpx;
+            i{
+                font-size: 24rpx;
+                color: #fff;
+            }
+        }
+    }
+    .progress{
+        width: 100%;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        .branch{
+            width: 88rpx;
+            height: 38rpx;
+            line-height: 38rpx;
+            font-size: 24rpx;
+            color: #a9ddff;
+            text-align: center;
+            border: 1px #fff solid;
+            margin: 6px auto;
+            border-radius: 10rpx;
+        }
+        .text{
+            margin: 20rpx auto;
+            text-align: center;
+            text{
+                font-size: 24rpx;
+                color: #fff;
+            }
+            text:nth-child(1){
+                padding: 10rpx;
+                background: #fff;
+                color: #0099ff;
+                font-size: 24rpx;
+                margin-right: 14rpx;
+                border-radius: 6rpx;
+            }
+        }
+    }
+    .content{
+        width: 100%;
+        background: #fff;
+        border-radius: 20rpx;
+        display: flex;
+        overflow: hidden;
+        .left{
+            width: 50%;
+            border-right: 1px #dcdcdc solid;
+            box-sizing: border-box;
+            .title{
+                width: 100%;
+                padding: 20rpx 0;
+                box-sizing: border-box;
+                background: #eeeeee;
+                font-size: 24rpx;
+                color: #000000;
+                font-weight: bold;
+                text-align: center;
+            }
+            .wrapper{
+                width: 100%;
+                height: 76rpx;
+                display: flex;
+                align-items: center;
+                box-sizing: border-box;
+                border-bottom: 1px #dcdcdc solid;
+                .box{
+                    margin: 0 auto;
+                    width: 168rpx;
+                    height: 36rpx;
+                    border-radius: 20rpx;
+                    line-height: 36rpx;
+                    color: #ffffff;
+                    font-size: 24rpx;
+                    text-align: center;
+                    i{
+                        font-size: 24rpx;
+                        color: #fff;
+                    }
+                }
+                .one{
+                    background: linear-gradient(#fcc183,#f18333);
+                }
+                .two{
+                    background: linear-gradient(#dfdfdf,#cac9c9);  
+                }
+                .three{
+                    background: linear-gradient(#ffd354,#ffba55);
+                }
+                .four{
+                    background: linear-gradient(#fad931,#fadb41);
+                }
+                .five{
+                    background: linear-gradient(#9de3fe,#6cd2fb);
+                }
+            }
+        }
+        .right{
+            width: 50%;
+            .title{
+                width: 100%;
+                padding: 20rpx 0;
+                box-sizing: border-box;
+                background: #eeeeee;
+                font-size: 24rpx;
+                color: #000000;
+                font-weight: bold;
+                text-align: center;
+            }
+            .wrapper{
+                width: 100%;
+                height: 76rpx;
+                line-height: 76rpx;
+                box-sizing: border-box;
+                border-bottom: 1px #dcdcdc solid;
+                text-align: center;
+                color: #000;
+                font-size: 24rpx;
+            }
+        }
+    }
+}
+</style>

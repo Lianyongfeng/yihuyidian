@@ -1,0 +1,346 @@
+<template>
+    <view class='discount-wrapper'>
+        <view class='vip-wrapper' >
+            <view class='tags'>会员卡</view>
+            <view class='discount-vip' wx:for="{{vip}}" style="background:url({{item.bg}}) center center;background-size:cover;">
+                <view><image src="{{item.logo}}"/></view>
+                <view class="vip-page">
+                    <view>{{item.name}}</view>
+                     <view>{{item.text}}</view>
+                </view>
+            </view>
+        </view>
+         <view class='voucher-wrapper' >
+            <view class='tags'>代金券</view>
+            <view class='discount-voucher' wx:for="{{voucher}}" style="background:url({{item.img}}) center center;background-size:cover;">
+                <view class='voucher-box'>
+                    <view class='money'>
+                        <text>￥</text>
+                        <text>{{item.money}}</text>
+                    </view>
+                    <view class="voucher-page">
+                        <view>{{item.sum}}</view>
+                        <view>{{item.date}}</view>
+                    </view>
+                    <view class='voucher-pay' bindtap='pay'>购买</view>
+                </view>
+                <view class='name'>
+                    <image src='../../../common/image/voucher-logo.png'/>
+                    <text>御可贡茶</text>
+                </view>
+            </view>
+        </view>
+        <view class='coupon-wrapper' >
+            <view class='tags'>优惠券</view>
+            <view class='discount-coupon' wx:for="{{coupon}}" style="background:url({{item.couponImg}}) center center;background-size:cover;">
+                <view class='coupon-box'>
+                    <view class='money'>
+                        <text>￥</text>
+                        <text>{{item.couponMoney}}</text>
+                        <text>{{item.range}}</text>
+                    </view>
+                    <view class="coupon-page">
+                        <view>{{item.type}}</view>
+                        <view>{{item.couponDate}}</view>
+                    </view>
+                    <view class='coupon-receive' bindtap='addCard'>领取</view>
+                </view>
+                <view class='name'>
+                    <image src='../../../common/image/voucher-logo.png'/>
+                    <text>御可贡茶</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class discount extends wepy.component {
+  config = {
+    navigationBarTitleText: ''
+  };
+  data = {
+    vip: [
+      {
+        logo: '../../../common/image/gongcha-logo.png',
+<<<<<<< HEAD
+        bg: '../../../common/image/vip-bg.png',
+=======
+        bg: 'https://1h1d.cdn.jihuliwu.cn/images/vip-bg.png',
+>>>>>>> 2019.2.12
+        name: '御可贡茶VIP会员优惠卡',
+        text: '持有此卡的用户到御可贡茶消费可享9折优惠'
+      }
+    ],
+    voucher: [
+      {
+        img: '../../../common/image/voucher-bg.png',
+        money: 85,
+        sum: '100元代金券',
+        date: '购买截止：2018-05-30'
+      }
+    ],
+    coupon: [
+      {
+        couponImg: '../../../common/image/voucher-bg.png',
+        couponMoney: 50,
+        range: '满400元可用',
+        type: '商品优惠使用劵',
+        couponDate: '2018-05-30前有效'
+      },
+      {
+        couponImg: '../../../common/image/voucher-bg.png',
+        couponMoney: 50,
+        range: '满400元可用',
+        type: '商品优惠使用劵',
+        couponDate: '2018-05-30前有效'
+      }
+    ]
+  };
+  events = {};
+  watch = {};
+  methods = {
+    pay: function() {
+      wx.requestPayment({
+        timeStamp: '',
+        nonceStr: '',
+        package: '',
+        signType: 'MD5',
+        paySign: '',
+        success(res) {},
+        fail(res) {}
+      });
+    },
+    addCard: function() {
+      wx.addCard({
+        cardList: [
+          {
+            cardId: '',
+            cardExt:
+              '{"code": "", "openid": "", "timestamp": "", "signature":""}'
+          },
+        ],
+        success(res) {
+          console.log(res.cardList); // 卡券添加结果
+        }
+      });
+    }
+  };
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.discount-wrapper {
+  width: 100%;
+  height: 100%;
+  background: #eeeeee;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+}
+.discount-wrapper .vip-wrapper .tags {
+  font-size: 26rpx;
+  color: #6b6b6b;
+  padding: 30rpx 0 20rpx 0;
+  box-sizing: border-box;
+}
+.discount-wrapper .vip-wrapper .discount-vip {
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+}
+.discount-wrapper .vip-wrapper .discount-vip image {
+  width: 62rpx;
+  height: 62rpx;
+  z-index: 10;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+}
+.discount-wrapper .vip-wrapper .discount-vip .vip-page {
+  margin-left: 20rpx;
+  width: 290rpx;
+}
+.discount-wrapper .vip-wrapper .discount-vip .vip-page view:nth-child(1) {
+  font-size: 28rpx;
+  color: #fff;
+  padding-top: 36rpx;
+  box-sizing: border-box;
+}
+.discount-wrapper .vip-wrapper .discount-vip .vip-page view:nth-child(2) {
+  font-size: 22rpx;
+  padding-top: 30rpx;
+  box-sizing: border-box;
+  color: #fff;
+}
+.discount-wrapper .voucher-wrapper .tags {
+  font-size: 26rpx;
+  color: #6b6b6b;
+  padding: 30rpx 0 20rpx 0;
+  box-sizing: border-box;
+}
+.discount-wrapper .voucher-wrapper .discount-voucher {
+  width: 100%;
+  height: 190rpx;
+}
+.discount-wrapper .voucher-wrapper .discount-voucher .voucher-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 20rpx;
+  box-sizing: border-box;
+}
+.discount-wrapper .voucher-wrapper .discount-voucher .voucher-box .money {
+  color: #ff3a3a;
+}
+.discount-wrapper
+  .voucher-wrapper
+  .discount-voucher
+  .voucher-box
+  .money
+  text:nth-child(1) {
+  font-size: 38rpx;
+}
+.discount-wrapper
+  .voucher-wrapper
+  .discount-voucher
+  .voucher-box
+  .money
+  text:nth-child(2) {
+  font-size: 54rpx;
+}
+.discount-wrapper
+  .voucher-wrapper
+  .discount-voucher
+  .voucher-box
+  .voucher-page
+  view:nth-child(1) {
+  font-size: 26rpx;
+  color: #000000;
+}
+.discount-wrapper
+  .voucher-wrapper
+  .discount-voucher
+  .voucher-box
+  .voucher-page
+  view:nth-child(2) {
+  font-size: 22rpx;
+  color: #999999;
+}
+.discount-wrapper .voucher-wrapper .discount-voucher .voucher-box .voucher-pay {
+  width: 112rpx;
+  height: 48rpx;
+  text-align: center;
+  line-height: 48rpx;
+  color: #fff;
+  font-size: 26rpx;
+  background: #ff3a3a;
+  border-radius: 20rpx;
+}
+.discount-wrapper .voucher-wrapper .discount-voucher .name {
+  margin-top: 30rpx;
+  padding-left: 40rpx;
+  box-sizing: border-box;
+}
+.discount-wrapper .voucher-wrapper .discount-voucher .name image {
+  width: 22rpx;
+  height: 22rpx;
+  margin-right: 10rpx;
+}
+.discount-wrapper .voucher-wrapper .discount-voucher .name text {
+  font-size: 22rpx;
+  color: #999999;
+}
+.discount-wrapper .coupon-wrapper .tags {
+  font-size: 26rpx;
+  color: #6b6b6b;
+  padding: 30rpx 0 20rpx 0;
+  box-sizing: border-box;
+}
+.discount-wrapper .coupon-wrapper .discount-coupon {
+  width: 100%;
+  height: 190rpx;
+  margin-bottom: 26rpx;
+}
+.discount-wrapper .coupon-wrapper .discount-coupon .coupon-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 10rpx;
+  box-sizing: border-box;
+}
+.discount-wrapper .coupon-wrapper .discount-coupon .coupon-box .money {
+  color: #ff3a3a;
+}
+.discount-wrapper
+  .coupon-wrapper
+  .discount-coupon
+  .coupon-box
+  .money
+  text:nth-child(1) {
+  font-size: 38rpx;
+}
+.discount-wrapper
+  .coupon-wrapper
+  .discount-coupon
+  .coupon-box
+  .money
+  text:nth-child(2) {
+  font-size: 54rpx;
+}
+.discount-wrapper
+  .coupon-wrapper
+  .discount-coupon
+  .coupon-box
+  .money
+  text:nth-child(3) {
+  display: block;
+  font-size: 22rpx;
+  color: #999999;
+}
+.discount-wrapper
+  .coupon-wrapper
+  .discount-coupon
+  .coupon-box
+  .coupon-page
+  view:nth-child(1) {
+  font-size: 26rpx;
+  color: #000000;
+}
+.discount-wrapper
+  .coupon-wrapper
+  .discount-coupon
+  .coupon-box
+  .coupon-page
+  view:nth-child(2) {
+  font-size: 22rpx;
+  color: #999999;
+}
+.discount-wrapper .coupon-wrapper .discount-coupon .coupon-box .coupon-receive {
+  width: 112rpx;
+  height: 48rpx;
+  text-align: center;
+  line-height: 48rpx;
+  color: #fff;
+  font-size: 26rpx;
+  background: #ff3a3a;
+  border-radius: 20rpx;
+}
+.discount-wrapper .coupon-wrapper .discount-coupon .name {
+  padding-left: 40rpx;
+  box-sizing: border-box;
+}
+.discount-wrapper .coupon-wrapper .discount-coupon .name image {
+  width: 22rpx;
+  height: 22rpx;
+  margin-right: 10rpx;
+}
+.discount-wrapper .coupon-wrapper .discount-coupon .name text {
+  font-size: 22rpx;
+  color: #999999;
+}
+</style>

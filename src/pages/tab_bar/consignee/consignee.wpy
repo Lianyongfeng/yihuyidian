@@ -1,0 +1,188 @@
+<template>
+    <view class="consignee">
+        <view class="wrapper" wx:for="{{check}}">
+            <view class="name">
+                <text>收货人</text>
+                <text>13546552233</text>
+            </view>
+            <view class="address">广东省广州市番禺区节能科技园23号</view>
+            <view class="bottom">
+                <view class="check" bindtap="checked" data-index="{{index}}">
+                    <view class="{{item.bea==true?'active':''}}"><image src="../../../common/image/choice.png" wx:if="{{item.bea==true}}"/></view>
+                    <text class="{{item.bea==true?'testActive':''}}">默认地址</text>
+                </view>
+                <view class="edit" bindtap="edit">
+                    <i class="iconfont icon-bianji"></i>
+                    <text>编辑</text>
+                </view>
+                <view class="delete" bindtap="delete"  data-index="{{index}}">
+                    <i class="iconfont icon-shanchu1"></i>
+                    <text>删除</text>
+                </view>
+            </view>
+        </view>
+        <view class="add" bindtap="add">
+            <view>添加新地址</view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '地址管理'
+  };
+  data = {
+      check:[
+        {
+          bea:true
+        },
+        {
+          bea:false
+        },
+        {
+          bea:false
+        },
+
+      ]
+  };
+  components = {};
+  methods = {
+      checked:function(e){
+        let index = e.currentTarget.dataset.index
+        let check = this.check
+        for(let i = 0;i<check.length;i++){
+            check[i].bea = false
+        }
+        check[index].bea = true
+        this.check = check
+      },
+      edit:function(){
+        wx.navigateTo({
+            url: '../address/address'
+        });
+      },
+      add:function(){
+        wx.navigateTo({
+            url: '../address/address'
+        });
+      },
+      delete:function(e){
+        let index = e.currentTarget.dataset.index
+        let check = this.check
+        check.splice(index,1)
+        this.check = check
+      }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {
+  }
+}
+</script>
+
+<style lang='less'>
+.consignee{
+    width: 100%;
+    height: 100%;
+    .wrapper{
+        width: 100%;
+        padding: 30rpx 20rpx;
+        box-sizing: border-box;
+        background: #fff;
+        margin-bottom: 20rpx;
+        .name{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            text:nth-child(1){
+                font-size: 28rpx;
+                color: #000;
+            }
+            text:nth-child(2){
+                font-size: 24rpx;
+                color: #000;
+                position: absolute;
+                right: 0;
+            }
+        }
+        .address{
+            width: 100%;
+            padding: 20rpx 0;
+            box-sizing: border-box;
+            border-bottom: 1px #e5e5e5 solid;
+            font-size: 24rpx;
+        }
+        .bottom{
+            width: 100%;
+            margin-top: 20rpx;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .check{
+                flex: 2;
+                display: flex;
+                align-items: center;
+                view{
+                    width: 28rpx;
+                    height: 28rpx;
+                    border-radius: 50%;
+                    border: 2px #999999 solid;
+                    box-sizing: border-box;
+                    margin-right: 10rpx;
+                    image{
+                        width: 28rpx;
+                        height: 28rpx;
+                        border-radius: 50%;
+                        display: block;
+                    }
+                }
+                .active{
+                    border:none;
+                }
+                text{
+                    font-size: 24rpx;
+                    color: #999999;
+                }
+                .testActive{
+                    color: #1782e1;
+                }
+            }
+            .edit,.delete{
+                flex: 1;
+                text-align: right;
+                text{
+                    font-size: 22rpx;
+                    color: #000;
+                }
+                i{
+                    font-size: 28rpx;
+                    margin-right: 6rpx;
+                }
+            }
+        }
+    }
+    .add{
+        position: absolute;
+        bottom: 20rpx;
+        left: 0;
+        width: 100%;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        view{
+            width: 100%;
+            height: 70rpx;
+            background: #0099ff;
+            border-radius: 30rpx;
+            text-align: center;
+            line-height: 70rpx;
+            color: #fff;
+            font-size: 26rpx;
+        }
+    }
+}
+</style>

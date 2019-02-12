@@ -1,0 +1,91 @@
+<template>
+    <view class="nickname">
+        <view class="wrapper">
+            <input type="text" value="{{name}}" bindinput="nickname">
+            <i class="iconfont icon-cha" bindtap="close"></i>
+        </view>
+        <view class="keep" bindtap="keep">
+            <view>保存</view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '修改昵称'
+  };
+  data = {
+    name: '一切取决于我'
+  };
+  components = {};
+  methods = {
+    close: function() {
+      this.name = '';
+    },
+    nickname:function(e){
+        this.name = e.detail.value;
+    },
+    keep: function() {
+        let nickname = this.name
+      wx.setStorageSync('nickname', nickname);
+      wx.navigateTo({
+        url: '../personal/personal',
+      });
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.nickname {
+  width: 100%;
+  height: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  .wrapper {
+    width: 100%;
+    height: 60rpx;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    margin-top: 20rpx;
+    input {
+      width: 650rpx;
+      padding-left: 10rpx;
+      box-sizing: border-box;
+      font-size: 24rpx;
+      color: #333333;
+    }
+    i {
+      font-size: 30rpx;
+      color: #999999;
+    }
+  }
+  .keep {
+    width: 100%;
+    position: fixed;
+    bottom: 20rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    left: 0;
+    view {
+      width: 100%;
+      height: 70rpx;
+      background: #0099ff;
+      color: #fff;
+      text-align: center;
+      line-height: 70rpx;
+      border-radius: 30rpx;
+      margin: 0 auto;
+      font-size: 30rpx;
+    }
+  }
+}
+</style>

@@ -1,0 +1,351 @@
+<template>
+    <view class='goods-wrapper'>
+        <view class='goods-body' wx:for="{{goods}}" wx:for-item='item'>
+            <view class='goods-left' bindtap='wares'>
+                <view class='goods-bg'><image src="{{item.goodsUrl}}"/></view>
+            </view>
+            <view class='goods-right'>
+              <view class='title' bindtap='wares'>{{item.title}}</view>
+              <view wx:for='{{item.num}}' wx:for-item='starItem' class='starWrapper' bindtap='wares'>
+                <view class='star'>
+                  <image src="{{starItem.star > index ?(starItem.star-index <1?halfStar:brightStar) : darkStar}}" wx:for='{{5}}' wx:for-item='imageItem' data-index='{{index}}'/>
+                    <text>{{starItem.star}}</text>
+                    <text>月销{{starItem.mon}}</text>
+                </view>
+              </view>
+              <view class='shop' bindtap='wares'>{{item.shop}}</view>
+              <view class='discount' bindtap='wares'>
+                <view wx:for='{{item.discount}}'  wx:for-item='discountItem'>
+                  <image src='{{discountItem.url}}'/>
+                  <text>{{discountItem.text}}</text>
+                </view>
+              </view>
+              <view class='show-wrapper'>
+                <view wx:for="{{item.show}}" wx:for-item='showItem' class='show'>
+                  <view class="showBg"><image src='{{showItem.showBg}}'/></view>
+                  <text>{{showItem.showText}}</text>
+                </view>
+              </view>
+            </view>
+        </view>
+        <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class retailGoods extends wepy.component {
+  config = {
+    navigationBarTitleText: '',
+     enablePullDownRefresh: true 
+  };
+  data = {
+    isHideLoadMore:false,
+    halfStar: '../../../common/image/half-star.png',
+    brightStar: '../../../common/image/bright-star.png',
+    darkStar: '../../../common/image/dark-star.png',
+    goods: [
+      {
+<<<<<<< HEAD
+        goodsUrl: '../../../common/image/goods-bg1.jpg',
+=======
+        goodsUrl: 'https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg',
+>>>>>>> 2019.2.12
+        title: '贡茶',
+        shop:'品牌旗舰店',
+         show:[
+          {
+<<<<<<< HEAD
+            showBg:'../../../common/image/show-bg1.jpg',
+            showText:'可比克'
+          },
+          {
+            showBg:'../../../common/image/show-bg2.jpg',
+            showText:'豌豆'
+          },
+          {
+            showBg:'../../../common/image/show-bg3.jpg',
+=======
+            showBg:'https://1h1d.cdn.jihuliwu.cn/images/show-bg1.jpg',
+            showText:'可比克'
+          },
+          {
+            showBg:'https://1h1d.cdn.jihuliwu.cn/images/show-bg2.jpg',
+            showText:'豌豆'
+          },
+          {
+            showBg:'https://1h1d.cdn.jihuliwu.cn/images/show-bg3.jpg',
+>>>>>>> 2019.2.12
+            showText:'小拉面'
+          }
+        ],
+        num: [
+          {
+            star: '3.5',
+            mon: '1000'
+          }
+        ],
+        discount: [
+          {
+            url: '../../../common/image/manjian.png',
+            text: '满20减12，满40减23，满89减34'
+          },
+          {
+            url: '../../../common/image/huiyuan.png',
+            text: '持有会员卡可以9折优惠购买（不与其他活动同享）'
+          },
+          {
+            url: '../../../common/image/shoudan.png',
+            text: '新用户下单立减15元（不与其他活动同享）'
+          },
+          {
+            url: '../../../common/image/anquan.png',
+            text: '该用户已提交食品安全证书'
+          }
+        ]
+      },
+      {
+<<<<<<< HEAD
+        goodsUrl: '../../../common/image/goods-bg1.jpg',
+=======
+        goodsUrl: 'https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg',
+>>>>>>> 2019.2.12
+        title: '贡茶',
+        shop:'品牌旗舰店',
+        show:[
+          {
+<<<<<<< HEAD
+            showBg:'../../../common/image/show-bg1.jpg',
+            showText:'可比克'
+          },
+          {
+            showBg:'../../../common/image/show-bg2.jpg',
+            showText:'豌豆'
+          },
+          {
+            showBg:'../../../common/image/show-bg3.jpg',
+=======
+            showBg:'https://1h1d.cdn.jihuliwu.cn/images/show-bg1.jpg',
+            showText:'可比克'
+          },
+          {
+            showBg:'https://1h1d.cdn.jihuliwu.cn/images/show-bg2.jpg',
+            showText:'豌豆'
+          },
+          {
+            showBg:'https://1h1d.cdn.jihuliwu.cn/images/show-bg3.jpg',
+>>>>>>> 2019.2.12
+            showText:'小拉面'
+          }
+        ],
+        num: [
+          {
+            star: '5.0',
+            mon: '1000'
+          }
+        ],
+        discount: [
+          {
+            url: '../../../common/image/manjian.png',
+            text: '满20减12，满40减23，满89减34'
+          },
+          {
+            url: '../../../common/image/huiyuan.png',
+            text: '持有会员卡可以9折优惠购买（不与其他活动同享）'
+          },
+          {
+            url: '../../../common/image/shoudan.png',
+            text: '新用户下单立减15元（不与其他活动同享）'
+          },
+          {
+            url: '../../../common/image/anquan.png',
+            text: '该用户已提交食品安全证书'
+          }
+        ]
+      }
+    ]
+  };
+  components = {};
+  methods = {
+    onReachBottom:function(e) {
+      setTimeout(() => {
+      this.setData({
+        isHideLoadMore: true,
+        goods: [
+      {
+<<<<<<< HEAD
+        goodsUrl: '../../../common/image/goods-bg1.jpg',
+=======
+        goodsUrl: 'https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg',
+>>>>>>> 2019.2.12
+        title: '贡茶',
+        qisong: '10',
+        peisong: '3',
+        renjun: '20',
+        time: '20分钟',
+        distance: '300m',
+        num: [
+          {
+            star: '3.5',
+            mon: '1000'
+          }
+        ],
+        discount: [
+          {
+            url: '../../../common/image/manjian.png',
+            text: '满20减12，满40减23，满89减34'
+          },
+          {
+            url: '../../../common/image/huiyuan.png',
+            text: '持有会员卡可以9折优惠购买（不与其他活动同享）'
+          },
+          {
+            url: '../../../common/image/shoudan.png',
+            text: '新用户下单立减15元（不与其他活动同享）'
+          },
+          {
+            url: '../../../common/image/anquan.png',
+            text: '该用户已提交食品安全证书'
+          }
+        ]
+      },
+      {
+        goodsUrl: '../../../common/image/goods-bg1.jpg',
+        title: '贡茶',
+        qisong: '10',
+        peisong: '3',
+        renjun: '20',
+        time: '20分钟',
+        distance: '300m',
+        num: [
+          {
+            star: '5.0',
+            mon: '1000'
+          }
+        ],
+        discount: [
+          {
+            url: '../../../common/image/manjian.png',
+            text: '满20减12，满40减23，满89减34'
+          },
+          {
+            url: '../../../common/image/huiyuan.png',
+            text: '持有会员卡可以9折优惠购买（不与其他活动同享）'
+          },
+          {
+            url: '../../../common/image/shoudan.png',
+            text: '新用户下单立减15元（不与其他活动同享）'
+          },
+          {
+            url: '../../../common/image/anquan.png',
+            text: '该用户已提交食品安全证书'
+          }
+        ]
+      }
+      
+    ]
+      })
+    }, 1000)
+    },
+    wares:function(){
+       wx.navigateTo({
+        url: '../../../pages/tab_bar/wares/wares'
+      });
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.goods-wrapper {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+}
+.goods-wrapper .goods-body {
+  width: 100%;
+  padding: 30rpx 0;
+  box-sizing: border-box;
+  border-bottom: 1px #efefef solid;
+  display: flex;
+}
+.goods-wrapper .goods-body .goods-left .goods-bg image {
+  width: 125rpx;
+  height: 120rpx;
+}
+.goods-wrapper .goods-body .goods-right {
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+.goods-wrapper .goods-body .goods-right .title {
+  font-size: 30rpx;
+  color: #2b2b2b;
+  font-weight: bold;
+  height: 40rpx;
+}
+.goods-wrapper .goods-body .goods-right .starWrapper .star {
+  height: 40rpx;
+}
+.goods-wrapper .goods-body .goods-right .starWrapper .star image {
+  width: 20rpx;
+  height: 20rpx;
+  margin-right: 5rpx;
+}
+.goods-wrapper .goods-body .goods-right .starWrapper .star text {
+  color: #6b6b6b;
+  font-size: 22rpx;
+  margin: 0 10rpx;
+}
+.goods-wrapper .goods-body .discount view {
+  display: flex;
+  align-items: center;
+  margin-top: 10rpx;
+}
+.goods-wrapper .goods-body .discount image {
+  width: 50rpx;
+  height: 30rpx;
+}
+.goods-wrapper .goods-body .discount text {
+  font-size: 22rpx;
+  color: #6b6b6b;
+  margin-left: 14rpx;
+}
+.goods-wrapper .goods-body .shop{
+  font-size: 22rpx;
+  color: #6b6b6b;
+  padding-top: 20rpx;
+}
+.goods-wrapper .goods-body .show-wrapper{
+  width: 520rpx;
+  display: flex;
+}
+.goods-wrapper .goods-body .show-wrapper .show{
+  text-align: center;
+  margin-right: 30rpx;
+  margin-top: 30rpx;
+}
+.goods-wrapper .goods-body .show-wrapper .show .showBg{
+  width: 150rpx;
+  height: 150rpx;
+  border: 1px #eeeeee solid;
+}
+.goods-wrapper .goods-body .show-wrapper .show .showBg image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.goods-wrapper .goods-body .show-wrapper .show text{
+  font-size: 26rpx;
+}
+
+</style>

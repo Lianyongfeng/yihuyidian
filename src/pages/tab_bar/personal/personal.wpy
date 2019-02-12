@@ -1,0 +1,176 @@
+<template>
+    <view class="personal">
+        <view class="wrapper">
+            <view><text>头像</text></view>
+            <view class="header"><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"></view>
+            <view><i class="iconfont icon-jiantou"></i></view>
+        </view>
+        <view class="wrapper" bindtap="nickname">
+            <view><text>昵称</text></view>
+            <view><text>{{nickname}}</text></view>
+            <view><i class="iconfont icon-jiantou"></i></view>
+        </view>
+         <view class="wrapper" bindtap="vip">
+            <view><text>等级</text></view>
+            <view class="vip">
+                <i class="iconfont icon-v"></i>
+                <text>黄金会员</text>
+            </view>
+            <view><i class="iconfont icon-jiantou"></i></view>
+        </view>
+        <view class="wrapper">
+            <view><text>手机号</text></view>
+            <view><text>15917900205</text></view>
+            <view><i class="iconfont icon-jiantou"></i></view>
+        </view>
+        <view class="wrapper" bindtap="consignee">
+            <view><text>地址管理</text></view>
+            <view><text></text></view>
+            <view><i class="iconfont icon-jiantou"></i></view>
+        </view>
+        <view class="cancellation" bindtap="cancellation">
+            <text>注销账号</text>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '个人中心'
+  };
+  data = {
+      nickname:'一切取决于我'
+  };
+  components = {};
+  methods = {
+    cancellation:function(){
+        let bea = false
+        wx.setStorageSync("bea", bea);
+        wx.switchTab({
+            url: '../my/my', 
+            success (res) {
+                let page = getCurrentPages().pop()
+                if (page == undefined || page == null) {
+                    return
+                }
+                page.onLoad()
+            }
+        })
+    },
+    nickname:function(){
+        wx.navigateTo({
+            url: '../nickname/nickname'
+        });
+    },
+    vip:function(){
+        wx.navigateTo({
+            url: '../vip/vip'
+        });
+    },
+    consignee:function(){
+        wx.navigateTo({
+            url: '../consignee/consignee'
+        });
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {
+         var that = this
+            wx.getStorage({
+      key: 'nickname',
+      success: function(res) {
+        console.log(res.data);
+        that.nickname = res.data;
+      },
+      fail: function(res) {
+        console.log(res);
+      },
+      complete: function(res) {
+        console.log(res);
+      }
+    });
+  }
+}
+</script>
+
+<style lang='less'>
+    .personal{
+        width: 100%;
+        height: 100%;
+        .wrapper{
+            width: 100%;
+            padding: 20rpx;
+            box-sizing: border-box;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px #eeeeee solid;
+            position: relative;
+            view:nth-child(1){
+                font-size: 28rpx;
+                color: #000000;
+                font-weight: bold;
+            }
+            view:nth-child(2){
+                margin-right: 20rpx;
+                text{
+                    font-size: 28rpx;
+                    color: #999999;
+                }
+            }
+            .header{
+                width: 90rpx;
+                height: 90rpx;
+                border-radius: 50%;
+                image{
+                    width: 90rpx;
+                    height: 90rpx;
+                    border-radius: 50%;
+                }
+            }
+            .vip{
+                width: 190rpx;
+                height: 44rpx;
+                border-radius: 20rpx;
+                background: linear-gradient(#ffd354,#ffba55);
+                color: #fff;
+                padding:0 10rpx;
+                box-sizing: border-box;
+                font-size: 28rpx;
+                text-align: center;
+                i{
+                    font-size: 28rpx;
+                    color: #fff;
+                }
+                text{
+                    color: #fff !important;
+                    margin-left: 5rpx;
+                }
+            }
+            view:nth-child(3){
+                position: absolute;
+                right: 0;
+                i{
+                  font-size: 30rpx;
+                  color: #999999;
+                }
+            }
+        }
+        .cancellation{
+            margin-top: 16rpx;
+            width: 100%;
+            padding: 20rpx;
+            box-sizing: border-box;
+            background: #fff;
+            color: #ff3c3c;
+            font-size: 28rpx;
+            text-align: center;
+        }
+    }
+</style>

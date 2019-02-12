@@ -1,0 +1,250 @@
+<template>
+    <view class='container'>
+        <view class='header'>
+              <form class='searchForm' bindsubmit='searchSubmitFn'>
+                <view class='left'>
+                  <image src='../../../common/image/search.png'>
+                  <input placeholder='搜索商家、商品名称' value="{{searchValue}}" name='input' focus="{{focus}}">
+                  <image src='../../../common/image/fork.png' bindtap='clearInput' class='fork'>
+                </view>
+                <button formType='submit' class='searchBtn'>搜索</button>
+              </form>
+        </view>
+        <view class='history'>
+          <view class='title'>
+              <text>历史搜索</text>
+              <image src='../../../common/image/delete.png'  bindtap='historyDelFn'>  
+            </view>
+            <view class='name' >
+              <block wx:for="{{searchRecord}}" wx:key='{{item}}'>
+                <view class='text'>{{item.value}}</view>
+              </block>
+               <view class='noHistoryItem' wx:if="{{searchRecord.length==0}}">你还没有搜索记录</view>
+            </view>
+        </view>
+        <view class='hot'>
+           <view class='title'>
+              <text>热门搜索</text>  
+            </view>
+            <view class='name' >
+              <block wx:for="{{hot}}" wx:key='{{item}}'>
+                <view class='text'>{{item}}</view>
+              </block>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '搜索'
+  };
+  data = {
+    focus: 'true',
+    inputVal: '',
+    searchRecord: [],
+    searchValue:'',
+    hot:[
+      '扬州炒饭',
+      '麻辣烫',
+      '水煮鱼',
+      '隆江猪脚饭',
+      '潮味汤粉王',
+      '肠粉',
+      '肯德基'
+    ]
+  };
+  components = {};
+  methods = {
+    searchSubmitFn: function(e) {
+      var that = this;
+      var inputVal = e.detail.value.input;
+      var searchRecord = this.data.searchRecord;
+      if (inputVal == '') {
+      } else {
+        if (searchRecord.length < 5) {
+          searchRecord.unshift({
+            value: inputVal,
+            id: searchRecord.length
+          });
+        } else {
+          searchRecord.pop();
+          searchRecord.unshift({
+            value: inputVal,
+            id: searchRecord.length
+          });
+        }
+        wx.setStorageSync('searchRecord', searchRecord);
+      }
+    },
+    historyDelFn: function(res) {
+      var that = this;
+      var searchRecord = this.data.searchRecord;
+      wx.showModal({
+        title: '提示',
+        content: '是否删除历史搜索',
+        success: function(res) {
+          wx.clearStorageSync('searchRecord');
+          that.setData({
+            searchRecord: []
+          });
+        }
+      });
+    },
+    clearInput:function(){
+      var that = this;
+      that.setData({
+        searchValue:''
+      })
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  openHistorySearch() {
+    var that = this;
+    that.setData({
+      searchRecord: wx.getStorageSync('searchRecord')
+    });
+  }
+  onLoad(options) {
+    var that = this;
+    that.openHistorySearch();
+  }
+  onShow() {}
+  onHide() {}
+}
+</script>
+
+<style lang='less'>
+.container {
+  width: 100%;
+  height: 100%;
+  background: #eeeeee;
+}
+.header {
+  width: 100%;
+  background: #0099ff;
+  height: 90rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.header .searchForm {
+  width: 100%;
+  display: flex;
+  height: 70rpx;
+  position: relative;
+  align-items: center;
+}
+.header .searchForm .left {
+  display: flex;
+  background: #fff;
+  width: 620rpx;
+  height: 70rpx;
+  border-radius: 50rpx;
+  align-items: center;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.header .searchForm .left image {
+  width: 24rpx;
+  height: 24rpx;
+}
+.header .searchForm .left .fork{
+  position: absolute;
+  right: 20rpx;
+  z-index: 10;
+}
+.header .searchForm .left input {
+  width: 620rpx;
+  height: 100%;
+  font-size: 26rpx;
+  margin-left: 10rpx;
+}
+.header .searchForm .searchBtn {
+  flex: none;
+  position: absolute;
+  font-size: 26rpx;
+  color: #fff;
+  background: none;
+  border: none;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  padding: 0;
+  width: 70rpx;
+}
+.header .searchForm .searchBtn::after {
+  border: none;
+}
+.history {
+  width: 100%;
+  height: 220rpx;
+  background: #fff;
+  overflow: hidden;
+}
+.history .title {
+  width: 100%;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  border-bottom: 1px #ededed solid;
+  font-size: 28rpx;
+  color: #6b6b6b;
+  position: relative;
+}
+.history .title image {
+  width: 26rpx;
+  height: 26rpx;
+  position: absolute;
+  right: 16rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.history .name {
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  font-size: 26rpx;
+}
+.history .name .text {
+  padding: 5rpx 10rpx;
+  box-sizing: border-box;
+  border: 1px #ededed solid;
+  display: inline-block;
+  border-radius: 30rpx;
+  margin: 10rpx;
+}
+.hot {
+ width: 100%;
+  height: 220rpx;
+  background: #fff;
+  overflow: hidden;
+  margin-top: 10rpx;
+}
+.hot .title{
+  width: 100%;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  border-bottom: 1px #ededed solid;
+  font-size: 28rpx;
+  color: #6b6b6b;
+  position: relative;
+}
+.hot .name {
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+  font-size: 26rpx;
+}
+.hot .name .text {
+  padding: 5rpx 10rpx;
+  box-sizing: border-box;
+  border: 1px #ededed solid;
+  display: inline-block;
+  border-radius: 30rpx;
+  margin: 10rpx;
+}
+</style>

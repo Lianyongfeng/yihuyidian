@@ -1,0 +1,86 @@
+<template>
+    <view class='article-wrapper'>
+        <view class='article-pages' wx:for="{{pages}}" bindtap="articleDetails">
+          <view class="article-title">{{item.title}}</view>
+          <view class="article-time">{{item.time}}</view>
+          <view class="article-text">{{item.text}}</view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class article extends wepy.component {
+  config = {
+    navigationBarTitleText: ''
+  };
+  data = {
+    pages:[
+      {
+        title:'周杰伦土味歌词 网友:我怕他下次写《我爱喝奶茶》',
+        time:'2018-05-15 11:49:19',
+        text:'5月15日，网友敲碗期待的周杰伦新曲《不爱我就拉倒》上线，周董亲自参与作词作曲，MV还复刻中学时代的中分造型。然而歌曲一出网友便集体开启吐槽模式，直呼歌词太过“土味”... 还齐呼叫方文山“回来作词”！'
+      },
+      {
+        title:'周杰伦土味歌词 网友:我怕他下次写《我爱喝奶茶》',
+        time:'2018-05-15 11:49:19',
+        text:'5月15日，网友敲碗期待的周杰伦新曲《不爱我就拉倒》上线，周董亲自参与作词作曲，MV还复刻中学时代的中分造型。然而歌曲一出网友便集体开启吐槽模式，直呼歌词太过“土味”... 还齐呼叫方文山“回来作词”！'
+      },
+      {
+        title:'周杰伦土味歌词 网友:我怕他下次写《我爱喝奶茶》',
+        time:'2018-05-15 11:49:19',
+        text:'5月15日，网友敲碗期待的周杰伦新曲《不爱我就拉倒》上线，周董亲自参与作词作曲，MV还复刻中学时代的中分造型。然而歌曲一出网友便集体开启吐槽模式，直呼歌词太过“土味”... 还齐呼叫方文山“回来作词”！'
+      }
+    ]
+  };
+  events = {};
+  watch = {};
+  methods = {
+    articleDetails:function () {
+      wx.navigateTo({
+        url: '../../../pages/tab_bar/articleDetails/articleDetails'
+      });
+    }
+  };
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.article-wrapper{
+  width: 100%;
+  height: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  background: #eeeeee;
+  overflow: hidden;
+}
+.article-wrapper .article-pages{
+  width: 100%;
+  height: 220rpx;
+  background: #fff;
+  margin-top: 24rpx;
+  padding: 16rpx;
+  box-sizing: border-box;
+}
+.article-wrapper .article-pages .article-title{
+  font-size: 28rpx;
+  color: #000000;
+}
+.article-wrapper .article-pages .article-time{
+  font-size: 20rpx;
+  color: #999999;
+}
+.article-wrapper .article-pages .article-text{
+  font-size: 24rpx;
+  color: #2b2b2b;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; 
+  overflow: hidden;
+}
+</style>
