@@ -30,11 +30,7 @@
             </view>
         </view>
         <view class="shop-bg">
-<<<<<<< HEAD
            <navigator><image src="../../../common/image/shop-bg1.jpg" mode="widthFix"/><navigator/>
-=======
-           <navigator><image src="https://1h1d.cdn.jihuliwu.cn/images/shop-bg1.jpg" mode="widthFix"/><navigator/>
->>>>>>> 2019.2.12
         </view>
     </view>
 </template>
@@ -47,21 +43,12 @@ export default class shop extends wepy.component {
   };
   data = {
     swiperImg: [
-<<<<<<< HEAD
       '../../../common/image/shop-swiper-bg1.jpg',
       '../../../common/image/shop-swiper-bg1.jpg',
       '../../../common/image/shop-swiper-bg1.jpg'
     ],
     shopBg:[
          '../../../common/image/shop-bg1.jpg'
-=======
-      'https://1h1d.cdn.jihuliwu.cn/images/shop-swiper-bg1.jpg',
-      'https://1h1d.cdn.jihuliwu.cn/images/shop-swiper-bg1.jpg',
-      'https://1h1d.cdn.jihuliwu.cn/images/shop-swiper-bg1.jpg'
-    ],
-    shopBg:[
-         'https://1h1d.cdn.jihuliwu.cn/images/shop-bg1.jpg'
->>>>>>> 2019.2.12
     ],
     indicatorDots: true,
     autoplay: true,
