@@ -73,19 +73,19 @@
              <view class="wrapper">
                 <view class="title">我的资产</view>
                 <view class="box">
-                    <view>
+                    <view bindtap="voucher">
                         <i class="iconfont icon-youhuiquan"></i>
                         <text>抵用券</text>
                     </view>
-                     <view>
+                     <view bindtap="vipCard">
                         <i class="iconfont icon-huiyuan1"></i>
                         <text>会员卡</text>
                     </view>
-                     <view>
+                     <view bindtap="wallet">
                         <i class="iconfont icon-qianbao"></i>
                         <text>钱包</text>
                     </view>
-                     <view>
+                     <view bindtap="distribution">
                         <i class="iconfont icon-iconfontfenxiao"></i>
                         <text>分销</text>
                     </view>
@@ -94,15 +94,15 @@
              <view class="wrapper">
                 <view class="title">更多</view>
                 <view class="box">
-                    <view>
+                    <view bindtap="openshop">
                         <i class="iconfont icon-shangdian"></i>
                         <text>我要开店</text>
                     </view>
-                     <view>
+                     <view bindtap="service">
                         <i class="iconfont icon-kefu"></i>
                         <text>客服中心</text>
                     </view>
-                     <view>
+                     <view bindtap="about">
                         <i class="iconfont icon-shuoming"></i>
                         <text>关于</text>
                     </view>
@@ -172,11 +172,46 @@
                     url: '../order/order'
                 });
             },
+            voucher:function(){
+                wx.navigateTo({
+                    url: '../voucher/voucher'
+                });
+            },
+            vipCard:function(){
+                 wx.navigateTo({
+                    url: '../vipCard/vipCard'
+                });
+            },
+            about:function(){
+                 wx.navigateTo({
+                    url: '../about/about'
+                });
+            },
+            wallet:function(){
+                wx.navigateTo({
+                    url: '../wallet/wallet'
+                });
+            },
             order_index:function(e){
                 this.index =  e.currentTarget.dataset.index
                 wx.setStorageSync('index', this.index);
                  wx.navigateTo({
                     url: '../order/order'
+                });
+            },
+            distribution:function(){
+                wx.navigateTo({
+                    url: '../distribution/distribution'
+                });
+            },
+            openshop:function(){
+                 wx.navigateTo({
+                    url: '../openshop/openshop'
+                });
+            },
+            service:function(){
+                 wx.navigateTo({
+                    url: '../service/service'
                 });
             }
         };

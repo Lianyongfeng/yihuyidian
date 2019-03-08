@@ -38,7 +38,7 @@ export default class article extends wepy.component {
   methods = {
     articleDetails:function () {
       wx.navigateTo({
-        url: '../../../pages/tab_bar/articleDetails/articleDetails'
+        url: '../../../pages/module_retail/articleDetails/articleDetails'
       });
     }
   };

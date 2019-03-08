@@ -1,0 +1,43 @@
+<template lang="wxml">
+  	<view class="starbox">
+      <block wx:for='{{5}}' wx:key>
+        <image src="{{score > index ?(score-index <1?halfStar:brightStar) : darkStar}}"   data-index='{{index}}'/>
+      </block> 
+  	</view>
+   
+</template>
+<script>
+import wepy from 'wepy';
+export default class Com extends wepy.component {
+    components = {};
+
+    data = {
+    	    halfStar: '../../../assets/images/half-star.png',
+          brightStar: '../../../assets/images/bright-star.png',
+          darkStar: '../../../assets/images/dark-star.png',
+    };
+    methods = {};
+      
+    events = {};
+    props = {
+       score:String
+	};
+
+	onLoad () {
+	    console.log(this); // 输出 “mytitle”
+	}
+    // Other properties
+}
+</script>
+
+<style>
+   .starbox{
+   	  display: flex;
+
+   }
+   .starbox image{
+      width:20rpx;
+      height:20rpx;
+      margin-right:5rpx;
+   }
+</style>

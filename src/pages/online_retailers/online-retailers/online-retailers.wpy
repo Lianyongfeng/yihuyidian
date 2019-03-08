@@ -1,0 +1,401 @@
+<!-- <style lang="less"> -->
+<style>
+
+  .container{
+    background: #eeeeee
+  }
+  .or-top{
+     background: #0099ff; 
+     padding: 3% 3%;
+     width: 100%;
+     display: flex;
+     justify-content: space-between;
+     box-sizing: border-box;
+     align-items: center;
+  }
+
+  .view-search{
+     display: flex;
+     padding-left: 30rpx;
+     padding-right: 30rpx;
+     font-size: 28rpx;
+     align-items: center;
+     vertical-align: middle;
+     width: 80%;
+     height: 60rpx;
+     line-height: 60rpx;
+     box-sizing: border-box;
+     border-radius: 60rpx;
+     background: #fff;
+  }
+     .or-top .iconfont2{font-size: 40rpx;color: #fff;}
+     .view-search icon{
+        color: #999 !important;
+        display: block;
+        vertical-align: top;
+        font-size: 40rpx;
+        margin-right: 20rpx;
+     }
+     .view-search input{
+        width: 80%;
+     }
+     .or-top .rt{
+        height: 60rpx;
+        line-height: 1;
+        color: #fff;
+     }
+     .or-top .rt view{font-size: 40rpx;line-height: 1;display: inline;vertical-align: top;}
+     .or-top .rt text{
+        display: block;
+        font-size: 20rpx;
+     }
+     .shop-type{
+        padding:0 3% ;
+        width: 100%;
+        box-sizing: border-box;
+        background: #0099ff; 
+        display: flex;
+        color: #fff;
+        align-items: center;
+        padding-bottom: 3%;
+     }
+     
+     .shop-type .img,.shop-type .img image{width: 120rpx;height: 120rpx;}
+     .star-view text{padding:0 4rpx;}
+     .shop-type .shop-msg{
+      line-height: 1.6;
+      width: 70%;
+      box-sizing: border-box;
+      padding:0 3%;}
+     .shop-type .fans{display: flex;align-items: center;}
+     .shop-type button{width: 120rpx;height: 50rpx;font-size: 28rpx;line-height: 50rpx;text-align: center;
+      border-radius: 30rpx;background: #f0384c;color: #fff;}
+     
+      
+
+      .or-nav{display: flex;width: 100%;position: relative;background: #ffffff;}
+      .or-nav>view{flex: 1;font-size: 28rpx;text-align: center;padding: 20rpx 0;color: #999;}
+      .or-nav .iconfont2{
+         font-size: 60rpx;
+         color: #999;
+      }
+      
+      .or-nav .navbar__slider{ 
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 5rpx;
+          background: #0099ff; 
+          width: 20%;
+          padding: 0 ;
+          -webkit-transition:-webkit-transform .3s;
+          transition:-webkit-transform .3s;
+          transition:transform .3s;
+          transition:transform .3s,-webkit-transform .3s;
+      }
+      .weui-bar__item_on,
+      .weui-bar__item_on .iconfont2{
+         color: #0099ff !important; 
+      }
+      .or-bot-container,.or-bot-container .item{width: 100%;}
+       .banner,.banner swiper {
+        height:270rpx;
+        width: 100%;
+      }
+
+
+      .shop-notice{
+         width: 100%;
+         padding:0 3% ;
+         font-size: 24rpx;
+         background: #fff;
+         color: #000;
+         margin-bottom: 20rpx;
+         box-sizing: border-box;
+      }
+      .shop-notice .item{
+         padding: 20rpx 0;
+         line-height: 1.6;
+         border-bottom: 1rpx solid #eeeeee;
+      }
+
+      .shop-notice .item text{
+         vertical-align: middle;
+      }
+      .shop-notice .item image{
+        width: 28rpx;
+        height: 28rpx;
+        margin-right: 10rpx;
+        vertical-align: middle;
+      }
+
+      .shop-img{
+        background: #fff;
+      }
+
+      .star-view{display: flex;align-items: center;}
+      
+
+      .more {
+        display: none;
+      }
+
+      .more-active {
+        width: 210rpx;
+        height: 310rpx;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAE3CAYAAADfZx/HAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkJDMEJEMEIzRTNGMTExRTg5Q0EwRjAwQTNFMTIzODU1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkJDMEJEMEI0RTNGMTExRTg5Q0EwRjAwQTNFMTIzODU1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QkMwQkQwQjFFM0YxMTFFODlDQTBGMDBBM0UxMjM4NTUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QkMwQkQwQjJFM0YxMTFFODlDQTBGMDBBM0UxMjM4NTUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7CHfvpAAAErklEQVR42uzby04TYRiA4R6AhsIkqDuiKy/AoJGFmpiY6IKT3oYJC5d6Aa5d6ML74A5cookX4FZd6aYtbSA9+P1kQIQU2qaNoTxP8mcKIU4y9M33dxiLvV6vANOuXq9vZlm2M6l/vygkrkBExTh8i3UnYtqbxDlKLjNXwEqs27GeTuoEQuIqWC8Wi4dHIcHoXlQqlXRcy7d5QoIhPx8txzRamZ2dLZRKpeX41n0hwfDWZmZmDqdQHNNhQ0gwvM1yuVw4EdJEPie5/c00b+vm4/B7cXFxPr/ZUGg0GvGW793KsuyHiQSDeRLT6DiifCqlL7Zs7WBwG/l27mRIE9ne2doxrdu6NHm+LywsLJdKf+dFer/H9q4VL2/E9q5lIsH5VtLt7pMRHU6O2Oal7V68fGZrBxdbP72tO7W92xASXGzrgpDG+pSDkJjGz0fpaYZ7R38/OvOmj+1e/pTDXSFBf8dPM/STT6XnQoL+NvpNo1Mhje02uNvfTNu27szTDP3kTznczLLsp4kE/zrzNMM5Uyn90OZYJ1KUnP4X4Xas1VhVvw8uqaVKpXJ9bm7uwh9st9uFVqtVi5e/hjxHM9ZurA8xzb4ehxQRvYyC38fJy/1uGcJlkabRIBMp6Xa7I50jRXhwcNCJfrYjpo/FWq32IE76qVqtlk//FRg4P8Jms5liepzKeROjUEQw7A2GaCa1Ey9fp3oe2s7BaPJ2HqWQrg26nwTOfh4LS/ZzMI5tnksAQgIhgZAAIYGQQEggJEBIICQQEggJEBIICYQEQgKEBEICIYGQACGBkEBIICRASCAkEBIgJBASCAmEBAgJhARCAiEBQgIhgZBASICQQEggJBASICQQEggJhAQICYQEQgIhAUICIYGQACGBkEBIICRASCAkEBIICRASCAmEBEIChARCAiGBkAAhgZBASCAkQEggJBASCAkQEggJhAQICYQEQgIhAUICIYGQQEiAkEBIICQQEiAkEBIICYQECAmEBEICIQFCAiGBkAAhgZBASCAkQEggJBASCAkQEggJhARCAoQEQgIhgZAAIYGQQEggJEBIICQQEggJEBIICYQECAmEBEICIQFCAiGBkEBIgJBASCAkEBIgJBASCAmEBAgJhARCAiEBQgIhgZBASICQQEggJEBIICQQEggJEBIICYQEQgKEBEICIYGQACGBkEBIICRASCAkEBIICRASCAmEBAgJhARCAiEBQgIhgZBASICQQEggJBASICQQEggJhAQICYQEQgIhAUICIYGQQEiAkEBIICRASCAkEBIICRASCAmEBEIChARCAiGBkAAhgZBASCAkQEggJBASCAkQEggJhARCAoQEQgIhAUICIYGQQEiAkEBIICQQEiAkEBIICYQECAmEBEICIQFCAiGBkEBIgJBASCAkEJJLAEICIYGQACGBkEBIICRASCAkEBIICRASCAmEBEIChARCAiGBkAAhwf8Kqd7r9VwJGEHeTiOF9KXT6bgiMIK8nc8ppHf7+/sFUwmGn0apndRQKcuynW63+7bZbBba7bagYICAUiupmdROaqh4FE69Xt+Kw6tYq7EWXC7oay/WbppEKaL0jT8CDACnC8t1+btiYgAAAABJRU5ErkJggg==);
+        position: fixed;
+        z-index: 10;
+        right: 10rpx;
+        top: 80rpx;
+        background-size: cover;
+        font-size: 26rpx;
+        color: #000;
+      }
+      
+     .more-active view {
+        padding-left: 20rpx;
+        box-sizing: border-box;
+        width: 100%;
+        height: 70rpx;
+        line-height: 70rpx;
+        border-bottom: 1px #eeeeee solid;
+      }
+      
+
+       .more-active view:nth-child(1) {
+          margin-top: 20rpx;
+        }
+        .more-active view:nth-child(4) {
+          border: none;
+        }
+         .more-active view button {
+          background: #fff;
+          width: 100%;
+          height: 70rpx;
+          padding: 0;
+          margin: 0;
+          font-size: 26rpx;
+          line-height: 70rpx;
+          border: none;
+          text-align: left;
+          display: initial;
+        }
+        .more-active view button::after {
+          border: 0;
+        }
+        .container{
+          height: 100%;
+        }
+</style>
+<template>
+  <view class="container"   catchtouchmove="{{moreClass == 'more-active'?'move':''}}">
+      <view class="or-top">
+         <view class="view-search" bindtap="search">
+              <icon class="iconfont2 icon-fangdajing"></icon>
+              <input placeholder="搜索店内商品名称">
+         </view>
+         <view class="rt">
+             <view class="iconfont2 icon-gengduo"></view>
+             <text>分类</text>
+         </view>
+
+         <view class="iconfont2 icon-gengduo1" bindtap='more'>
+         </view>
+
+         <view class='{{moreClass}}'>
+              <view>
+                <navigator url = "../home/home" open-type = "switchTab">首页</navigator>
+              </view>
+              <view>
+                <button open-type='share'>分享</button>
+              </view>
+              <view>
+                 <navigator url = "../home/home" open-type = "switchTab">客服</navigator>
+              </view>
+             <view>
+               <navigator url = "../home/home" open-type = "switchTab">消息</navigator>
+             </view> 
+         </view>
+      </view>
+      <view class="shop-type">
+          <view class="img">
+              <image src="../../../assets/images/durex.jpg">
+          </view>
+          <view class="shop-msg">
+                <view class="fz28">durex杜蕾斯</view>
+                <view class="fz20 star-view"> <star score="3.5"></star><text>5.0</text><text>月销1000</text></view>
+                <view class="fz28">品牌旗舰店</view>
+          </view> 
+          <view class="fans">
+              <view class="pr20">
+                   <view clsas="fz28">10.0</view>
+                   <view class="fz24">万粉丝</view>
+              </view>
+              <button>关注</button>
+          </view>
+      </view>
+      <view class="or-nav" >
+         <block wx:for="{{nav}}" wx:key>
+          <view id="{{index}}" bindtap="tabClick" class="{{activeIndex == index ? 'weui-bar__item_on' : ''}}">
+          <view class="iconfont2 {{item.icon}}"></view>
+          {{item.name}}</view>
+         </block>
+         <view class="navbar__slider" style="transform: translateX({{activeIndex*100}}%"></view>
+      </view>
+      <view class="or-bot-container">
+          <view class="item" wx:if="{{activeIndex==0}}">
+               <view class='banner' >
+                  <swiper indicator-dots="false" indicator-active-color="#2a8ce5" autoplay="true" interval="5000" duration="1000">
+                    <block wx:for="{{bannerData}}" wx:key="key">
+                      <swiper-item>
+                        <navigator class="coin_record" hover-class="none" open-type="navigate" url="{{item.ad_link}}">
+                          <image src="{{item.ad_code}}"  style="width: 100%;" class="slide-image" mode="widthFix" />
+                        </navigator>
+                      </swiper-item>
+                    </block>
+                  </swiper>
+                </view>
+                <view class="shop-notice">
+                   <view class="item">
+                       公告:欢迎光临，用餐高峰期请提前下单，谢谢。
+                   </view>
+                    <view class="item">
+                       <view><image src="../../../assets/images/minus.png"><text>满999立加1元，满999立加1元，满999立加1元</text></view>
+                       <view><image src="../../../assets/images/minus.png"><text>会员可7折购买全部商品</text></view>
+                   </view>
+                      <view class="item">
+                      <image src="../../../assets/images/1_08.png"><text>广东省广州市番禺区天安节能科技园</text>
+                      </view>
+                      <view class="item">
+                      <image src="../../../assets/images/1_11.png"><text>020-88888888</text>
+                      </view>
+                      <view class="item">
+                      <image src="../../../assets/images/1_14.png"><text>营业时间：  9：00-22:00</text>
+                   </view>
+                </view>
+                <view class="shop-img">
+                   <image src="http://test.jihuliwu.cn/hzy/img/product.jpg"  style="width: 100%;" class="slide-image" mode="widthFix" />
+                </view>
+          </view>
+          <view class="item" wx:if="{{activeIndex==1}}">
+                <orProduct></orProduct>
+          </view>
+
+          <view class="item" wx:if="{{activeIndex==2}}">
+                <advanceSale></advanceSale>
+          </view>
+
+           <view class="item" wx:if="{{activeIndex==3}}">
+                <orCoupon></orCoupon>
+          </view>
+           <view class="item" wx:if="{{activeIndex==4}}">
+               <article></article>
+          </view>
+
+     
+     
+     </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import star from '../../../components/star';
+  import orProduct from '../../../components/online-com/orProduct';
+  import advanceSale from '../../../components/online-com/advance-sale';
+  import orCoupon from '../../../components/online-com/orCoupon';
+  import article from '../../../components/article/article';
+
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '电商',
+      enablePullDownRefresh:true,
+      onReachBottomDistance:0,
+    }
+    components = {
+      star: star,
+      orProduct:orProduct,
+      advanceSale:advanceSale,
+      orCoupon:orCoupon,
+      article:article
+    }
+
+    data = {
+      moreClass: 'more',
+      activeIndex:0,
+      bannerData:[{
+        ad_link:"#1",
+        ad_code:"../../../assets/images/banner.jpg"
+      },
+      {
+        ad_link:"#1",
+        ad_code:"../../../assets/images/banner.jpg"
+      }],
+      nav:[{
+        name:"店铺",
+        icon:"icon-shumogongjuicon-"
+      },{
+        name:"商品",
+        icon:"icon-shangpin"
+      },{
+        name:"预售",
+        icon:"icon-sales_gray"
+      },{
+        name:"优惠",
+        icon:"icon-youhui"
+      },{
+        name:"文章",
+        icon:"icon-wenzhang"
+      }],
+      
+
+    }
+
+    computed = {
+     
+    }
+     methods = {
+        onPageScroll:function(e){
+          // console.log(e);//{scrollTop:99}
+        },
+        more: function() {
+          if (this.moreClass == 'more-active') {
+            this.moreClass = 'more';
+          } else {
+            this.moreClass = 'more-active';
+          }
+        },
+       tabClick:function(e){
+          this.activeIndex=e.currentTarget.id;    
+
+       },
+       search:function(){
+        wx.navigateTo({
+          url: './online/or-search'
+        })
+       },
+      onReachBottom:function(e) {
+         if(this.activeIndex==1){
+          this.$invoke("orProduct","addproduct","")
+         }
+          if(this.activeIndex==2){
+          this.$invoke("advanceSale","addproduct","")
+         }
+         
+       }
+     }
+   
+    events = {
+      
+    }
+
+    onLoad() {
+       wx.setNavigationBarTitle({
+         title: 'durex杜蕾斯' 
+       })
+      
+    }
+  }
+</script>

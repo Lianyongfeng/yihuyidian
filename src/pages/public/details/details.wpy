@@ -1,0 +1,296 @@
+<template>
+    <view class='details'>
+        <view class="bg">
+            <image src='https://1h1d.cdn.jihuliwu.cn/images/show-bg2.jpg'>
+        </view>
+        <view class="name">
+            <view class="left">
+                <view>芋头鲜奶果冻奶茶</view>
+                <view>
+                    <text>月售</text>
+                    <text>2333</text>
+                </view>
+                <view>
+                    <text>￥12.0</text>
+                    <text>起</text>
+                </view>
+            </view>
+            <view class="right">
+                <button open-type="share"><i class="iconfont icon-fenxiang"></i></button>
+                <view class='control'>
+                    <view wx:if="{{number > 0}}" bindtap='substanceSign'>
+                      <i class="iconfont icon-jianhao"></i>
+                    </view>
+                    <view wx:if="{{number > 0}}" >{{number}}</view>
+                   <view  bindtap='substanceAdd'>
+                     <i class="iconfont icon-jiahao-copy"></i>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="shop">
+            <view class="shop-img">
+                <image src="../../../common/image/substance-shop-bg.jpg" />
+            </view>
+            <view class="shop-name">
+                <view>
+                  贡茶
+                </view>
+                <view>
+                  <image src="{{shopStars > index ?(shopStars-index < 1 ? halfStar:brightStar) : darkStar}}" wx:for="{{5}}" data-index='{{index}}'/>
+                  <text>{{shopStars}}</text>
+                </view>
+            </view>
+            <view class="shop-join"><navigator url="../../../pages/module_retail/wares/wares" open-type="redirect" hover-class="other-navigator-hover">进店</navigator></view>
+        </view>
+        <view class="evaluate">
+            <view class="evaluate-title">
+                商品评价({{evaluate.length}})
+            </view>
+            <view wx:if="{{evaluate.length <=0}}" class="no-evaluate">暂无用户评价</view>
+            <view wx:for="{{evaluate}}" wx:for-item="evaluateItem" wx:if="{{evaluate.length > 0}}" class="evaluateItem-content">
+                <view>
+                    <image src="{{evaluateItem.usePic}}">
+                </view>
+                <view>
+                    <view>{{evaluateItem.useName}}</view>
+                    <view>{{evaluateItem.useAssess}}</view>
+                    <view>{{evaluateItem.useTime}}</view>
+                </view>
+            </view>
+            <view class="more">查看更多</view>
+        </view>
+        <shopcart :carArray.sync="carArray" :cartShow="cartShow" :cartAdd="cartAdd" :flavorFork="flavorFork" :calTotalPrice="calTotalPrice" :cartSign="cartSign" :totalPrice.sync="totalPrice" :totalCount.sync="totalCount" :foods.sync="foods"/>
+    </view>
+    
+</template>
+
+<script>
+import wepy from 'wepy';
+import shopcart from '../../../components/shopcart/shopcart';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '商品详情'
+  };
+  data = {
+    halfStar: '../../../common/image/half-star.png',
+    brightStar: '../../../common/image/bright-star.png',
+    darkStar: '../../../common/image/dark-star.png',
+    number:1,
+    shopStars:3.5,
+    evaluate:[
+        {
+            usePic:'../../../common/image/usePic1.png',
+            useName:'李二',
+            useAssess:'非常好',
+            useTime:'2018-05-20'
+        },
+        {
+            usePic:'../../../common/image/usePic1.png',
+            useName:'李三',
+            useAssess:'非常好',
+            useTime:'2018-05-20'
+        },
+        {
+            usePic:'../../../common/image/usePic1.png',
+            useName:'张飒',
+            useAssess:'非常好',
+            useTime:'2018-05-20'
+        }
+    ]
+  };
+  components = {
+      shopcart:shopcart
+  };
+  methods = {
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.details{
+    width: 100%;
+    padding-bottom: 90rpx;
+    box-sizing: border-box;
+    .bg{
+        width: 100%;
+        height: 750rpx;
+        image{
+            width: 100%;
+            height: 750rpx;
+        }
+    }
+    .name{
+        width: 100%;
+        background: #fff;
+        padding: 16rpx 20rpx;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        .left{
+            line-height: 100%;
+            view:nth-child(1){
+                font-size: 26rpx;
+                font-weight: bold;
+            }
+            view:nth-child(2){
+                text{
+                    color: #999999;
+                    font-size: 22rpx;
+                    margin-right: 5rpx;
+                }
+            }
+            view:nth-child(3){
+                color: #e91919;
+                text:nth-child(1){
+                    font-size: 26rpx;
+                }
+                text:nth-child(2){
+                    font-size: 22rpx;
+                }
+            }
+        }
+        .right{
+            position: relative;
+            button {
+                width: 32rpx;
+                height: 32rpx;
+                background: none;
+                padding: 0;
+                margin: 0;
+                border: none;
+                border-radius: 0;
+                line-height: 100%;
+                position: absolute;
+                right: 0;
+                i{
+                    font-size: 32rpx;
+                    color: #000000;
+                }
+            }
+            button::after{
+                border: none;
+            }
+            .control{
+                margin-top: 60rpx;
+                display: flex;
+                view{
+                    margin: 0 5rpx;
+                    font-size: 32rpx;
+                    i{
+                        color: #0099ff;
+                        font-size: 32rpx;
+                    }
+                }
+            }
+        }
+    }
+    .shop{
+        width: 100%;
+        padding: 20rpx;
+        background: #fff;
+        box-sizing: border-box;
+        margin-top: 16rpx;
+        display: flex;
+        align-items: center;
+        position: relative;
+        .shop-img{
+            width: 66rpx;
+            height: 66rpx;
+            image{
+                width: 66rpx;
+                height: 66rpx;
+            }
+        }
+        .shop-name{
+            font-size: 26rpx;
+            color: #000000;
+            line-height: 100%;
+            margin-left: 20rpx;
+            view:nth-child(1){
+                margin: 10rpx 0;
+            }
+            image{
+                width: 18rpx;
+                height: 18rpx;
+            }
+            text{
+                font-size: 22rpx;
+                color: #999999;
+                margin-left: 10rpx;
+            }
+        }
+        .shop-join{
+            width: 110rpx;
+            height: 44rpx;
+            line-height: 44rpx;
+            font-size: 24rpx;
+            color: #fff;
+            background: #0099ff;
+            text-align: center;
+            border-radius: 30rpx;
+            position: absolute;
+            right: 20rpx;
+            bottom: 20rpx;
+        }
+    }
+    .evaluate{
+        width: 100%;
+        padding: 20rpx;
+        margin-top: 16rpx;
+        background: #fff;
+        box-sizing: border-box;
+        .evaluate-title{
+            font-size: 26rpx;
+            color: #888888;
+        }
+        .no-evaluate{
+            font-size: 26rpx;
+            text-align: center;
+            color: #000000;
+        }
+        .evaluateItem-content{
+            display: flex;
+            padding-top: 20rpx;
+            padding-bottom: 40rpx;
+            box-sizing: border-box;
+            margin-top: 12rpx;
+            view:nth-child(1) image{
+                width: 50rpx;
+                height: 50rpx;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            view:nth-child(2){
+                font-size: 26rpx;
+                color: #000000;
+                margin-left: 24rpx;
+                view:nth-child(2){
+                    color: #6b6b6b;
+                    font-size: 24rpx;
+                }
+                view:nth-child(3){
+                    color: #999999;
+                    font-size: 22rpx;
+                }
+            }
+        }
+    }
+    .more{
+        border: 1px #0099ff solid;
+        border-radius: 20rpx;
+        width: 200rpx;
+        height: 46rpx;
+        line-height: 46rpx;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 24rpx;
+        color: #0099ff;
+    }
+}
+</style>

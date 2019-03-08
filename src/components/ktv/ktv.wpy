@@ -1,0 +1,414 @@
+<template>
+    <view class="live">
+        <view class="nav">
+            <view wx:for="{{Arr}}" data-index="{{index}}" wx:for-index="index" class="{{index==active?'active':''}}" bindtap="nav">
+                <view>{{item.week}}</view>
+                <view>{{item.date}}</view>
+            </view>
+        </view>
+        <view class="tag">
+            <view>免费取消</view>
+            <view>闪电确认</view>
+            <view>大床</view>
+            <view>双床</view>
+            <view>含早</view>
+            <view>信用住</view>
+        </view>
+        <view class="content">
+            <view class="wrapper">
+                <view class="top">
+                    <view class="left" bindtap="hotelDetails">
+                        <image src="https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png" />
+                        <text>大包间</text>
+                    </view>
+                    <view class="right" bindtap="down1">
+                        <text>￥</text>
+                        <text>268.0</text>
+                        <text>起</text>
+                        <i class="iconfont {{ic1}}"></i>
+                    </view>
+                </view>
+                <view class="body" wx:if="{{ic1=='icon-shangla'}}">
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                </view>
+            </view>
+            <view class="wrapper">
+                <view class="top">
+                    <view class="left" bindtap="hotelDetails">
+                        <image src="https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png" />
+                        <text>大包间</text>
+                    </view>
+                    <view class="right" bindtap="down2">
+                        <text>￥</text>
+                        <text>268.0</text>
+                        <text>起</text>
+                        <i class="iconfont {{ic2}}"></i>
+                    </view>
+                </view>
+                <view class="body" wx:if="{{ic2=='icon-shangla'}}">
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                </view>
+            </view>
+            <view class="wrapper">
+                <view class="top">
+                    <view class="left" bindtap="hotelDetails">
+                        <image src="https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png" />
+                        <text>大包间</text>
+                    </view>
+                    <view class="right" bindtap="down3">
+                        <text>￥</text>
+                        <text>268.0</text>
+                        <text>起</text>
+                        <i class="iconfont {{ic3}}"></i>
+                    </view>
+                </view>
+                <view class="body" wx:if="{{ic3=='icon-shangla'}}">
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class live extends wepy.component {
+  config = {
+    navigationBarTitleText: '',
+    enablePullDownRefresh: true
+  };
+  data = {
+    ic1:'icon-select',
+    ic2:'icon-select',
+    ic3:'icon-select',
+    dateArr: [],
+    active:0,
+    Arr: [
+      {
+        date: '03-04',
+        week: '星期一'
+      },
+      {
+        date: '03-05',
+        week: '星期二'
+      },
+      {
+        date: '03-06',
+        week: '星期三'
+      },
+      {
+        date: '03-07',
+        week: '星期四'
+      },
+      {
+        date: '03-08',
+        week: '星期五'
+      },
+      {
+        date: '03-09',
+        week: '星期六'
+      },
+      {
+        date: '03-10',
+        week: '星期日'
+      }
+    ],
+  };
+  components = {};
+  props = {
+    title: {
+      type: String
+    }
+  };
+  methods = {
+      nav:function(e){
+        this.active = e.currentTarget.dataset.index
+      },
+      down1:function(){
+        if(this.ic1 == 'icon-shangla'){
+          this.ic1 = 'icon-select'
+        }else{
+          this.ic1 = 'icon-shangla'
+        }
+      },
+      down2:function(){
+        if(this.ic2 == 'icon-shangla'){
+          this.ic2 = 'icon-select'
+        }else{
+          this.ic2 = 'icon-shangla'
+        }
+      },
+      down3:function(){
+        if(this.ic3 == 'icon-shangla'){
+          this.ic3 = 'icon-select'
+        }else{
+          this.ic3 = 'icon-shangla'
+        }
+      },
+      hotelDetails(){
+        wx.navigateTo({
+          url: '../../public/hotelDetails/hotelDetails'
+        });
+      }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {
+    this.dateArr[0] = this.getDay(0);
+    this.dateArr[1] = this.getDay(1);
+    this.dateArr[2] = this.getDay(2);
+    this.dateArr[3] = this.getDay(3);
+    this.dateArr[4] = this.getDay(4);
+    this.dateArr[5] = this.getDay(5);
+    this.dateArr[6] = this.getDay(6);
+    this.Arr[0].date = this.dateArr[0].split('+')[0];
+    this.Arr[0].week = this.dateArr[0].split('+')[1];
+    this.Arr[1].date = this.dateArr[1].split('+')[0];
+    this.Arr[1].week = this.dateArr[1].split('+')[1];
+    this.Arr[2].date = this.dateArr[2].split('+')[0];
+    this.Arr[2].week = this.dateArr[2].split('+')[1];
+    this.Arr[3].date = this.dateArr[3].split('+')[0];
+    this.Arr[3].week = this.dateArr[3].split('+')[1];
+    this.Arr[4].date = this.dateArr[4].split('+')[0];
+    this.Arr[4].week = this.dateArr[4].split('+')[1];
+    this.Arr[5].date = this.dateArr[5].split('+')[0];
+    this.Arr[5].week = this.dateArr[5].split('+')[1];
+    this.Arr[6].date = this.dateArr[6].split('+')[0];
+    this.Arr[6].week = this.dateArr[6].split('+')[1];
+    // console.log(this.Arr)
+    this.Arr = this.Arr
+  }
+  onShow() {
+  }
+  getDay(day) {
+    var today = new Date();
+    var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+    today.setTime(targetday_milliseconds); //注意，这行是关键代码
+    var tYear = today.getFullYear();
+    var tMonth = today.getMonth();
+    var tDate = today.getDate();
+    var tweek = today.getDay();
+    var weekDay = [
+      '星期天',
+      '星期一',
+      '星期二',
+      '星期三',
+      '星期四',
+      '星期五',
+      '星期六'
+    ];
+    tMonth = this.doHandleMonth(tMonth + 1);
+    tDate = this.doHandleMonth(tDate);
+    return +tMonth + '-' + tDate + '+' + weekDay[tweek];
+  }
+  doHandleMonth(month) {
+    var m = month;
+    if (month.toString().length == 1) {
+      m = '0' + month;
+    }
+    return m;
+  }
+}
+</script>
+
+<style lang='less'>
+.live {
+  width: 100%;
+  .nav {
+    margin-top: 16rpx;
+    background: #fff;
+    width: 100%;
+    padding: 10rpx 20rpx;
+    box-sizing: border-box;
+    border-bottom: 1px #eeeeee solid;
+    display: flex;
+    justify-content: space-between;
+    view{
+        font-size: 24rpx;
+        text-align: center;
+    }
+    .active{
+        color: #0099ff;
+    }
+  }
+  .tag{
+      width: 100%;
+      padding: 20rpx;
+      box-sizing: border-box;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      flex-flow: wrap;
+      view{
+          padding: 14rpx 26rpx;
+          box-sizing: border-box;
+          border-radius: 10rpx;
+          border: 1px #eeeeee solid;
+          color: #000000;
+          font-size: 24rpx;
+          margin-top: 10rpx;
+      }
+  }
+  .content{
+    width: 100%;
+    .wrapper{
+      margin-top: 16rpx;
+      .top{
+        background: #ffffff;
+        display: flex;
+        height: 190rpx;
+        justify-content: space-between;
+        .left{
+          display: flex;
+          image{
+            width: 190rpx;
+            height: 190rpx;
+          }
+          text{
+            color: #000000;
+            font-size: 26rpx;
+            padding-left: 20rpx;
+            box-sizing: border-box;
+          }
+        }
+        .right{
+          padding-right: 20rpx;
+          box-sizing: border-box;
+          align-self: flex-end;
+          display: flex;
+          align-items: center;
+          text:nth-child(1){
+            color: #e61919;
+            font-size: 24rpx;
+          }
+          text:nth-child(2){
+            color: #e61919;
+            font-size: 28rpx;
+          }
+          text:nth-child(3){
+            padding-left: 10rpx;
+            padding-right: 20rpx;
+            box-sizing: border-box;
+            color: #999999;
+            font-size: 22rpx;
+          }
+          i{
+            font-size: 40rpx;
+            color: #0099ff;
+          }
+
+        }
+      }
+      .body{
+        background: #eeeeee;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        .box{
+          display: flex;
+          justify-content: space-between;
+          padding: 20rpx 0;
+          box-sizing: border-box;
+          align-items: center;
+          border-bottom: 1px #c9c9c9 solid;
+          .left{
+            text{
+              padding-left: 10rpx;
+              box-sizing: border-box;
+              color: #000000;
+              font-size: 24rpx;
+              font-weight: bold;
+            }
+          }
+          .right{
+            display: flex;
+            align-items: center;
+            text{
+              font-size: 24rpx;
+              font-weight: bold;
+              color: #e61919;
+            }
+            button{
+              height: 40rpx;
+              width: 120rpx;
+              line-height: 40rpx;
+              text-align: center;
+              color: #fff;
+              font-size: 22rpx;
+              background: #0099ff;
+              border-radius: 20rpx;
+              margin-left: 20rpx;
+            }
+          } 
+        }
+        >view:last-child{
+          border: none;
+        }
+      }
+    }
+  }
+}
+</style>

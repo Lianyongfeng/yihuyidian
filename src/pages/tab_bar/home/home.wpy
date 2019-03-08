@@ -174,15 +174,51 @@ export default class Example extends wepy.page {
     },
     search: function() {
       wx.navigateTo({
-        url: '../search/search'
+        url: '../../public/search/search'
       });
     },
     jump: function(e) {
       var value = e.currentTarget.dataset.text;
-      if (value == '零售') {
+      if (value == '特价') {
         wx.navigateTo({
-          url: '../retail/retail'
+          url: '../../public/group/group?type=1'
         });
+      }else if(value == '团购'){
+         wx.navigateTo({
+          url: '../../public/group/group?type=2'
+         });
+      }else if(value == '美食'){
+         wx.navigateTo({
+          url: '../../public/retail/retail?type=3'
+         });
+      }else if(value == '娱乐'){
+         wx.navigateTo({
+          url: '../../public/retail/retail?type=4'
+         });
+      }else if(value == '住宿'){
+         wx.navigateTo({
+          url: '../../public/retail/retail?type=5'
+         });
+      }else if(value == '生鲜'){
+         wx.navigateTo({
+          url: '../../public/retail/retail?type=6'
+         });
+      }else if(value == '零售'){
+         wx.navigateTo({
+          url: '../../public/retail/retail?type=7'
+         });
+      }else if(value == '电商'){
+         wx.navigateTo({
+          url: '../../public/retail/retail?type=8'
+         });
+      }else if(value == '详细分类'){
+         wx.navigateTo({
+          url: '../../tab_bar/all/all?type=9'
+         });
+      }else if(value == '频道定制'){
+         wx.navigateTo({
+          url: '../../customized/customized?type=10'
+         });
       }
     }
   };

@@ -10,7 +10,7 @@
             </view>
         </view>
         <tabs/>
-        <retailGoods/>
+        <retailGoods :title.sync="type"/>
     </view>
 </template>
 
@@ -20,9 +20,11 @@ import Tabs from '../../../components/tabs/tabs';
 import retailGoods from '../../../components/retailGoods/retailGoods';
 export default class Example extends wepy.page {
   config = {
-    navigationBarTitleText: '零售'
+    navigationBarTitleText: ''
   };
-  data = {};
+  data = {
+    type:''
+  };
   components = {
     tabs: Tabs,
     retailGoods:retailGoods
@@ -30,14 +32,57 @@ export default class Example extends wepy.page {
   methods = {
     search: function() {
       wx.navigateTo({
-        url: '../search/search'
+        url: '../../public/search/search'
       });
     }
   };
   events = {};
   watch = {};
   computed = {};
-  onLoad() {}
+  onLoad(options) {
+    this.type = options.type
+    if(this.type==1){
+      wx.setNavigationBarTitle({
+        title: '特价' 
+      })
+    }else if(this.type==2){
+      wx.setNavigationBarTitle({
+        title: '团购' 
+      })
+    }else if(this.type==3){
+      wx.setNavigationBarTitle({
+        title: '美食' 
+      })
+    }else if(this.type==4){
+      wx.setNavigationBarTitle({
+        title: '娱乐' 
+      })
+    }else if(this.type==5){
+      wx.setNavigationBarTitle({
+        title: '住宿' 
+      })
+    }else if(this.type==6){
+      wx.setNavigationBarTitle({
+        title: '生鲜' 
+      })
+    }else if(this.type==7){
+      wx.setNavigationBarTitle({
+        title: '零售' 
+      })
+    }else if(this.type==8){
+      wx.setNavigationBarTitle({
+        title: '电商' 
+      })
+    }else if(this.type==9){
+      wx.setNavigationBarTitle({
+        title: '详细分类' 
+      })
+    }else if(this.type==10){
+      wx.setNavigationBarTitle({
+        title: '频道定制' 
+      })
+    }
+  }
   onShow() {}
 }
 </script>

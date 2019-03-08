@@ -1,0 +1,353 @@
+<template>
+    <view class='shopcart'>
+        <!-- 购物车 -->
+        <view class='cart'>
+          <view class="cart-logo {{totalPrice!=0?'cart-logo-active':''}}" bindtap='cartMore'>
+            <image src='{{totalPrice==0?cartLogo:cartLogoActive}}'/>
+            <view class='totalCount' hidden="{{totalCount==0}}">{{totalCount}}</view>
+          </view>
+          <view class='total' bindtap='cartMore'>
+            <view hidden="{{totalPrice==0}}">￥{{totalPrice}}</view>
+            <view hidden="{{totalPrice==0}}">{{peisong}}</view>
+            <view hidden="{{totalPrice!=0}}">{{no}}</view>
+            </view>
+          <view class="settlement {{totalPrice!=0?'settlement-active':''}}" bindtap="settlement">去结算</view>
+        </view>
+        <!-- 购物车详情 -->
+        <view class='{{cartMoreClass}}'>
+          <view class='cart-wrapper'>
+            <view class='title'>
+              <view>购物车</view>
+              <view class='del' bindtap='delCart'>
+                  <i class="iconfont icon-shanchu"></i>
+                  <text>删除</text>
+              </view>
+            </view>
+            <scroll-view class='content' scroll-y='true'>
+              <view wx:for="{{carArray}}" class='single-wrapper' hidden='{{item.number<=0}}'>
+                <view>
+                  {{item.name}}
+
+                </view>
+                <view wx:if="{{item.number > 0}}" class='price'>
+                  <text>￥{{item.price*item.number}}</text>
+                </view>
+                <view class='control'>
+                  <view catchtap='shopSign' data-item-index="{{item.index}}" data-parentIndex="{{item.parentIndex}}">
+                    <i class="iconfont icon-jianhao"></i>
+                  </view>
+                  <view>{{item.number}}</view>
+                  <view catchtap='shopAdd' data-item-index="{{item.index}}" data-parentIndex="{{item.parentIndex}}">
+                    <i class="iconfont icon-jiahao-copy"></i>
+                  </view>
+                </view>
+              </view>
+            </scroll-view>
+          </view>
+          <view class='cart-none' bindtap='cartMore'></view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class foods extends wepy.component {
+  config = {
+    navigationBarTitleText: '商品详情'
+  };
+  data = {
+    cartMoreClass: 'cart-more',
+    cartLogo: '../../../common/image/cart.png',
+    cartLogoActive: '../../../common/image/cart-active.png',
+    peisong: '配送费￥5',
+    no: '为选购商品',
+    show:'flavor-wrapper',
+    hide:'flavor-none',
+    fold: false,
+    settlement: 'settlement',
+  };
+  components = {
+  };
+  methods = {
+    // 购物车显示
+    cartMore: function(e) {
+      // if (!this.data.totalCount) {
+      //   return;
+      // }
+      this.fold = !this.fold;
+      var fold = this.fold;
+      this.cartShow(fold);
+    },
+     shopAdd: function(e) {
+      this.cartAdd(e);
+      this.flavorFork(e)
+      this.calTotalPrice();
+    },
+    shopSign: function(e) {
+      this.cartSign(e);
+      this.flavorFork(e)
+       this.calTotalPrice();
+    },
+    // 清空购物车
+    delCart: function(e) {
+      this.cartMoreClass = 'cart-more';
+      this.totalPrice = 0;
+      this.totalCount = 0;
+      this.carArray = [];
+      var foods = this.data.foods;
+      for (var i = 0; i < foods.length; i++) {
+        for (var j = 0; j < foods[i].details.length; j++) {
+          if (foods[i].details[j].number != 0) {
+            foods[i].details[j].number = 0;
+          }
+        }
+      }
+    },
+    settlement:function(){
+       wx.setStorage({
+         key:'key',
+         data:this.carArray,
+         success:function(res){
+          wx.navigateTo({
+            url: '../../../pages/module_retail/settlement/settlement'
+          });
+         }
+       })
+    }
+  };
+  props = {
+    carArray:{
+        type:Array,
+        default:null,
+        twoWay:true
+    },
+    totalPrice:{
+        type:Number,
+        default:0,
+        twoWay:true
+    },
+    totalCount:{
+        type:Number,
+        default:0,
+        twoWay:true
+    },
+    cartShow: {
+      type: Function,
+      default: null,
+    },
+    cartAdd: {
+      type: Function,
+      default: null,
+    },
+    flavorFork: {
+      type: Function,
+      default: null,
+    },
+    calTotalPrice: {
+      type: Function,
+      default: null,
+    },
+    cartSign: {
+      type: Function,
+      default: null,
+    }
+
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {
+     console.log(this)
+    console.log(this.cartShow)
+  }
+  onShow() {
+    
+  }
+}
+</script>
+
+<style lang='less'>
+.shopcart{
+    width: 100%;
+    position: fixed;
+    .cart {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 90rpx;
+        background: #47464b;
+        z-index: 100;
+        overflow: hidden;
+        display: flex;
+        .cart-logo {
+            width: 140rpx;
+            height: 100%;
+            background: #3d3d3d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            .totalCount {
+                width: 30rpx;
+                height: 30rpx;
+                border-radius: 50%;
+                background: #e31c1c;
+                font-size: 18rpx;
+                line-height: 30rpx;
+                text-align: center;
+                color: #fff;
+                position: absolute;
+                right: 24rpx;
+                top: 14rpx;
+            }
+            image {
+                width: 51rpx;
+                height: 51rpx;
+            }
+        }
+        .cart-logo-active {
+            background: #0099ff;
+        }
+        .total {
+            width: 400rpx;
+            height: 100%;
+            display: flex;
+            color: #6b6b6b;
+            font-size: 24rpx;
+            padding-left: 20rpx;
+            padding-top: 8rpx;
+            padding-bottom: 8rpx;
+            box-sizing: border-box;
+            flex-flow: wrap;
+            align-items: center;
+            view {
+                width: 100%;
+            }
+            view:nth-child(1) {
+                font-size: 32rpx;
+                line-height: 32rpx;
+                color: #fff;
+            }
+            view:nth-child(2) {
+                font-size: 20rpx;
+                color: #fff;
+            }
+        }
+        .settlement {
+            width: 220rpx;
+            height: 100%;
+            background: #535257;
+            display: flex;
+            font-size: 28rpx;
+            color: #888888;
+            line-height: 90rpx;
+            justify-content: center;
+            align-items: center;
+        }
+        .settlement-active { 
+            background: #37ca72;
+            color: #fff;
+        }
+    }
+    .cart-more {
+        height: 0;
+        display: none;
+    }
+    .cart-more-active {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 30;
+        background: rgba(0, 0, 0, 0.3);
+        .cart-none {
+            width: 100%;
+            height: 100%;
+        }
+        .cart-wrapper {
+            width: 100%;
+            background: #fff;
+            position: fixed;
+            bottom: 90rpx;
+            left: 0;
+            .title {
+                width: 100%;
+                padding: 20rpx;
+                box-sizing: border-box;
+                background: #ecf0f3;
+                font-size: 28rpx;
+                color: #000000;
+                position: relative;
+                .del {
+                    position: absolute;
+                    right: 20rpx;
+                    top: 20rpx;
+                    text {
+                        color: #999999;
+                        font-size: 22rpx;
+                        margin-left: 10rpx;
+                    }
+                    .iconfont {
+                        color: #999999;
+                        font-size: 32rpx;
+
+                    }
+                }
+            }
+            .content {
+                padding: 0 20rpx;
+                box-sizing: border-box;
+                width: 100%;
+                max-height: 600rpx;
+                .single-wrapper {
+                    padding: 30rpx 0;
+                    box-sizing: border-box;
+                    border-bottom: 1px #eeeeee solid;
+                    width: 100%;
+                    overflow: hidden;
+                    > view {
+                        float: left;
+                    }
+                    view:nth-child(1) {
+                        width: 440rpx;
+                        font-size: 26rpx;
+                        color: #333333;
+                        height: 40rpx;
+                    }
+                    .price {
+                        width: 120rpx;
+                        height: 40rpx;
+                        padding: 0 20rpx;
+                        box-sizing: border-box;
+                        font-size: 28rpx;
+                        color: #ea2a2a;
+                    }
+                    .control {
+                        font-size: 28rpx;
+                        color: #333333;
+                        height: 40rpx;
+                        overflow: hidden;
+                        .iconfont {
+                            color: #0099ff;
+                            font-size: 32rpx;
+                        }
+                        > view {
+                            float: left;
+                            width: 40rpx;
+                            height: 100%;
+                            line-height: 40rpx;
+                        }
+                        > view:nth-child(2) {
+                            width: auto;
+                            padding: 0 20rpx;
+                            box-sizing: border-box;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+</style>

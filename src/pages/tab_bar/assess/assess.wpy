@@ -31,15 +31,24 @@
           <view class="describe">
             <view class="text">描述相符</view>
             <view>
-                <image wx:for="{{num}}" bindtap="describe" src="{{imgIndex<activeIndex?activeImg:img}}"  data-index="index"/>
+                <image wx:for="{{5}}"  bindtap="describe" src="{{index<activeIndex?activeImg:img}}" data-index='{{index}}'/>
             </view>
           </view>
           <view class="logistics">
             <view class="text">物流服务</view>
+             <view>
+                <image wx:for="{{5}}"  bindtap="logistics" src="{{index<logisticsIndex?activeImg:img}}" data-index='{{index}}'/>
+            </view>
           </view>
           <view class="service">
             <view class="text">服务态度</view>
+             <view>
+                <image wx:for="{{5}}"  bindtap="service" src="{{index<serviceIndex?activeImg:img}}" data-index='{{index}}'/>
+            </view>
           </view>
+      </view>
+      <view class="tijiao">
+          <view>提交</view>
       </view>
   </view>
 </template>
@@ -55,6 +64,8 @@ export default class Example extends wepy.page {
       img:'../../../common/image/assess-star.png',
       activeImg:'../../../common/image/assess-star-active.png',
       activeIndex:0,
+      logisticsIndex:0,
+      serviceIndex:0,
       num:[
           {},{},{},{},{}
       ]
@@ -65,8 +76,14 @@ export default class Example extends wepy.page {
           this.index =  e.currentTarget.dataset.index
       },
       describe:function(e){
-          this.activeIndex =  e.currentTarget.dataset.index
-           console.log(this.activeIndex)
+          this.activeIndex =   e.currentTarget.dataset.index + 1
+          console.log(this.activeIndex)
+      },
+      logistics:function(e){
+          this.logisticsIndex =   e.currentTarget.dataset.index + 1
+      },
+      service:function(e){
+          this.serviceIndex =   e.currentTarget.dataset.index + 1
       }
   };
   events = {};
@@ -163,12 +180,78 @@ export default class Example extends wepy.page {
                 margin-left: 20rpx;
             }
         }
+        .describe{
+            display: flex;
+            width: 100%;
+            align-content: center;
+            margin-top: 30rpx;
+            .text{
+                font-size: 24rpx;
+
+            }
+            view:nth-child(2){
+                margin-left: 40rpx;
+                width: 360rpx;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+        .logistics{
+            display: flex;
+            width: 100%;
+            align-content: center;
+            margin-top: 30rpx;
+            .text{
+                font-size: 24rpx;
+
+            }
+            view:nth-child(2){
+                margin-left: 40rpx;
+                width: 360rpx;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+        .service{
+            display: flex;
+            width: 100%;
+            align-content: center;
+            margin-top: 30rpx;
+            .text{
+                font-size: 24rpx;
+
+            }
+            view:nth-child(2){
+                margin-left: 40rpx;
+                width: 360rpx;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
         view{
                 image{
                     width: 36rpx;
                     height: 36rpx;
                 }
             }
+    }
+    .tijiao{
+        width: 100%;
+        position: fixed;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        bottom: 20rpx;
+        left: 0;
+        view{
+            width: 100%;
+            height: 70rpx;
+            background: #0099ff;
+            border-radius: 30rpx;
+            text-align: center;
+            line-height: 70rpx;
+            font-size: 30rpx;
+            color: #fff;
+        }
     }
 }
 </style>

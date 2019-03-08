@@ -1,0 +1,377 @@
+<template>
+    <view class="live">
+        <view class="nav">
+            <view class="left">
+                <view class="tips">选择日期</view>
+                <picker mode="date" value="{{date}}"  end="{{date2}}" bindchange="bindDateChange">  
+                  <view class="picker">  
+                    {{date}}  
+                  </view>  
+                </picker>  
+                <view class="tips">入住</view>
+            </view>
+            <view class="right">
+              <picker mode="date" value="{{date2}}" start="{{date}}" end="2050-01-01" bindchange="bindDateChange2">  
+                <view class="picker">  
+                  {{date2}}  
+                </view>  
+              </picker>        
+              <view class="tips">离开</view>
+            </view>
+        </view>
+        <view class="tag">
+            <view>免费取消</view>
+            <view>闪电确认</view>
+            <view>大床</view>
+            <view>双床</view>
+            <view>含早</view>
+            <view>信用住</view>
+        </view>
+        <view class="content">
+            <view class="wrapper">
+                <view class="top">
+                    <view class="left" bindtap="hotelDetails">
+                        <image src="https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png" />
+                        <text>大包间</text>
+                    </view>
+                    <view class="right" bindtap="down1">
+                        <text>￥</text>
+                        <text>268.0</text>
+                        <text>起</text>
+                        <i class="iconfont {{ic1}}"></i>
+                    </view>
+                </view>
+                <view class="body" wx:if="{{ic1=='icon-shangla'}}">
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                </view>
+            </view>
+            <view class="wrapper">
+                <view class="top">
+                    <view class="left" bindtap="hotelDetails">
+                        <image src="https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png" />
+                        <text>大包间</text>
+                    </view>
+                    <view class="right" bindtap="down2">
+                        <text>￥</text>
+                        <text>268.0</text>
+                        <text>起</text>
+                        <i class="iconfont {{ic2}}"></i>
+                    </view>
+                </view>
+                <view class="body" wx:if="{{ic2=='icon-shangla'}}">
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                </view>
+            </view>
+            <view class="wrapper">
+                <view class="top">
+                    <view class="left" bindtap="hotelDetails">
+                        <image src="https://1h1d.cdn.jihuliwu.cn/images/kbk-bg.png" />
+                        <text>大包间</text>
+                    </view>
+                    <view class="right" bindtap="down3">
+                        <text>￥</text>
+                        <text>268.0</text>
+                        <text>起</text>
+                        <i class="iconfont {{ic3}}"></i>
+                    </view>
+                </view>
+                <view class="body" wx:if="{{ic3=='icon-shangla'}}">
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                  <view class="box">
+                    <view class="left">
+                      <text>双床/大床</text>
+                      <text>无早</text>
+                      <text>不可取消</text>
+                    </view>
+                    <view class="right">
+                      <text>￥268.0</text>
+                      <button>预定</button>
+                    </view>
+                  </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class live extends wepy.component {
+  config = {
+    navigationBarTitleText: '',
+    enablePullDownRefresh: true
+  };
+  data = {
+    ic1:'icon-select',
+    ic2:'icon-select',
+    ic3:'icon-select',
+    active:0,
+    date:'2019-3-7',
+    date2:'2019-3-7'
+  };
+  components = {};
+  props = {
+    title: {
+      type: String
+    }
+  };
+  methods = {
+      down1:function(){
+        if(this.ic1 == 'icon-shangla'){
+          this.ic1 = 'icon-select'
+        }else{
+          this.ic1 = 'icon-shangla'
+        }
+      },
+      down2:function(){
+        if(this.ic2 == 'icon-shangla'){
+          this.ic2 = 'icon-select'
+        }else{
+          this.ic2 = 'icon-shangla'
+        }
+      },
+      down3:function(){
+        if(this.ic3 == 'icon-shangla'){
+          this.ic3 = 'icon-select'
+        }else{
+          this.ic3 = 'icon-shangla'
+        }
+      },
+      bindDateChange(e) {
+        console.log(e.detail.value)
+        this.date=e.detail.value
+      },
+      bindDateChange2(e) {
+        this.date2= e.detail.value
+      },
+      hotelDetails(){
+        wx.navigateTo({
+          url: '../../public/hotelDetails/hotelDetails'
+        });
+      }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {
+    // let that = this
+    // var myDate = new Date();
+    // var mon = myDate.getMonth() + 1;
+    // var day = myDate.getDate()
+    // that.date = mon +'月'+day+'日'
+    // that.date2 = mon +'月'+day+'日'
+  }
+  onShow() {
+  }
+}
+</script>
+
+<style lang='less'>
+.live {
+  width: 100%;
+  .nav {
+    margin-top: 16rpx;
+    background: #fff;
+    width: 100%;
+    padding: 10rpx 20rpx;
+    box-sizing: border-box;
+    border-bottom: 1px #eeeeee solid;
+    display: flex;
+    justify-content: space-between;
+    .left{
+      display: flex;
+      flex: 1.2;
+      justify-content: space-between;
+      .tips{
+        color: #999999;
+        font-size: 24rpx;
+      }
+      .picker{
+        color: #000;
+        font-size: 24rpx;
+      }
+    }
+    .right{
+      display: flex;
+      flex: 0.8;
+      justify-content: space-between;
+      .tips{
+        color: #999999;
+        font-size: 24rpx;
+      }
+      .picker{
+        color: #000;
+        font-size: 24rpx;
+        margin-left: 40rpx;
+      }
+    }
+  }
+  .tag{
+      width: 100%;
+      padding: 20rpx;
+      box-sizing: border-box;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      flex-flow: wrap;
+      view{
+          padding: 14rpx 26rpx;
+          box-sizing: border-box;
+          border-radius: 10rpx;
+          border: 1px #eeeeee solid;
+          color: #000000;
+          font-size: 24rpx;
+          margin-top: 10rpx;
+      }
+  }
+  .content{
+    width: 100%;
+    .wrapper{
+      margin-top: 16rpx;
+      .top{
+        background: #ffffff;
+        display: flex;
+        height: 190rpx;
+        justify-content: space-between;
+        .left{
+          display: flex;
+          image{
+            width: 190rpx;
+            height: 190rpx;
+          }
+          text{
+            color: #000000;
+            font-size: 26rpx;
+            padding-left: 20rpx;
+            box-sizing: border-box;
+          }
+        }
+        .right{
+          padding-right: 20rpx;
+          box-sizing: border-box;
+          align-self: flex-end;
+          display: flex;
+          align-items: center;
+          text:nth-child(1){
+            color: #e61919;
+            font-size: 24rpx;
+          }
+          text:nth-child(2){
+            color: #e61919;
+            font-size: 28rpx;
+          }
+          text:nth-child(3){
+            padding-left: 10rpx;
+            padding-right: 20rpx;
+            box-sizing: border-box;
+            color: #999999;
+            font-size: 22rpx;
+          }
+          i{
+            font-size: 40rpx;
+            color: #0099ff;
+          }
+
+        }
+      }
+      .body{
+        background: #eeeeee;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        .box{
+          display: flex;
+          justify-content: space-between;
+          padding: 20rpx 0;
+          box-sizing: border-box;
+          align-items: center;
+          border-bottom: 1px #c9c9c9 solid;
+          .left{
+            text{
+              padding-left: 10rpx;
+              box-sizing: border-box;
+              color: #000000;
+              font-size: 24rpx;
+              font-weight: bold;
+            }
+          }
+          .right{
+            display: flex;
+            align-items: center;
+            text{
+              font-size: 24rpx;
+              font-weight: bold;
+              color: #e61919;
+            }
+            button{
+              height: 40rpx;
+              width: 120rpx;
+              line-height: 40rpx;
+              text-align: center;
+              color: #fff;
+              font-size: 22rpx;
+              background: #0099ff;
+              border-radius: 20rpx;
+              margin-left: 20rpx;
+            }
+          } 
+        }
+        >view:last-child{
+          border: none;
+        }
+      }
+    }
+  }
+}
+</style>

@@ -1,0 +1,427 @@
+<template>
+    <view class='wares-wrapper'>
+        <view class='header'>
+             <view class='content' bindtap='search'>
+                <image src='../../../common/image/search.png'>
+                <input placeholder='搜索商家、商品名称'>
+            </view>
+            <view class='right' bindtap='more'>
+                <image src='../../../common/image/more-logo.png'>
+            </view>
+            <view class='{{moreClass}}'>
+              <view>
+                <navigator url = "../home/home" open-type = "switchTab">首页</navigator>
+              </view>
+              <view>
+                <button open-type='share'>分享</button>
+              </view>
+              <view>
+                 <navigator url = "../home/home" open-type = "switchTab">客服</navigator>
+              </view>
+             <view>
+               <navigator url = "../home/home" open-type = "switchTab">消息</navigator>
+             </view> 
+            </view>
+            <view class='tips' wx:for='{{tips}}'>
+                <view class='tips-bg'>
+                    <image src='{{item.img}}'/>
+                </view>
+                <view class='tips-text'>
+                  <view class='tips-tags'>{{item.tags}}</view>
+                  <view class='star'>
+                    <image src="{{item.score > index ?(item.score - index <1?halfStar:brightStar) : darkStar}}" wx:for='{{5}}' wx:for-item='imageItem'  data-index='{{index}}'/>
+                    <text>{{item.score}}</text>
+                    <text>月销{{item.mon}}</text>
+                  </view>
+                  <view class='tips-name'>
+                    <text>{{item.name}}</text>
+                    <text>起送{{item.qisong}}</text>
+                  </view>
+                </view>
+                 <view class='tips-fans'>
+               <view class='tips-num'>
+                 <text>{{item.fans}}</text>
+                 <text>万粉丝</text>
+                </view>
+               <view class='tips-follow' bindtap='follow' style="background:{{bgcolor}}">{{follow}}</view>
+            </view>
+            </view>
+        </view>
+        <view class='wares'>
+          <view class='wares-nav' >
+            <view wx:for='{{waresNav}}' class="{{index==navNum?'active':''}}">
+              <image src="{{index==navNum?item.active:item.dark}}" data-index='{{index}}' bindtap='waresNav'/>
+              <text data-index='{{index}}' bindtap='waresNav'>{{item.text}}</text>
+            </view>
+          </view>
+          <shop data-index='{{navNum}}' hidden='{{navNum!=0}}'/>
+          <hotel data-index='{{navNum}}' hidden='{{navNum!=1}}'/>
+          <discount data-index='{{navNum}}' hidden='{{navNum!=2}}'/>
+          <article data-index='{{navNum}}' hidden='{{navNum!=3}}'/>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import hotel from '../../../components/hotel/hotel';
+import shop from '../../../components/shop/shop';
+import discount from '../../../components/discount/discount';
+import article from '../../../components/article/article';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '贡茶'
+  };
+  data = {
+    scrollTop:0,
+    id: 'null',
+    navNum:0,
+    navClass:'',
+    moreClass: 'more',
+    follow: '关注',
+    bgcolor: '#f0384c',
+    halfStar: '../../../common/image/half-star.png',
+    brightStar: '../../../common/image/bright-star.png',
+    darkStar: '../../../common/image/dark-star.png',
+    tips: [
+      {
+        img: 'https://1h1d.cdn.jihuliwu.cn/images/wares-bg1.jpg',
+        tags: '零售',
+        score: '3.2',
+        mon: '1000',
+        name: '超市',
+        qisong: '￥20',
+        fans: '20.0'
+      }
+    ],
+    waresNav: [
+      {
+        dark: '../../../common/image/business-logo.png',
+        active: '../../../common/image/business-logo-active.png',
+        text: '店铺'
+      },
+      {
+        dark: '../../../common/image/yuding.png',
+        active: '../../../common/image/yuding-active.png',
+        text: '预定'
+      },
+      {
+        dark: '../../../common/image/coupon-logo.png',
+        active: '../../../common/image/coupon-logo-active.png',
+        text: '优惠'
+      },
+      {
+        dark: '../../../common/image/page-logo.png',
+        active: '../../../common/image/page-logo-active.png',
+        text: '文章'
+      }
+    ]
+  };
+  components = {
+    hotel: hotel,
+    shop:shop,
+    discount:discount,
+    article:article
+  };
+  methods = {
+    search: function() {
+      wx.navigateTo({
+        url: '../../tab_bar/search/search'
+      });
+    },
+    more: function() {
+      if (this.moreClass == 'more-active') {
+        this.moreClass = 'more';
+      } else {
+        this.moreClass = 'more-active';
+      }
+    },
+    follow: function() {
+      if (this.follow == '已关注') {
+        this.follow = '关注';
+        this.bgcolor = '#f0384c';
+      } else {
+        this.follow = '已关注';
+        this.bgcolor = '#bbb';
+      }
+    },
+    onShareAppMessage: function(res) {
+      if (res.from === 'button') {
+      }
+      return {
+        title: '店铺分享',
+        desc: '店铺分享',
+        path: 'pages/module_retail/wares/wares',
+        success: function(res) {
+          console.log('成功', res);
+        }
+      };
+    },
+    waresNav:function(e){
+      var index = e.currentTarget.dataset.index
+      var waresNav = this.data.waresNav
+      console.log(index);
+      this.navNum = index
+      for(let i = 0;i<waresNav.length;i++){
+        if(i==this.navNum){
+          console.log(i);
+          
+        }
+      }
+    },
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+  onPageScroll(ev) {
+    // if (ev.scrollTop >150) {
+    //   console.log(ev.scrollTop)
+    //   this.setData({
+    //     waresN:'wares-nav-fixed',
+    //      foodsNav: 'foods-nav-fixed'
+    //   })
+    // }else{
+    //    this.setData({
+    //     waresN:'wares-nav',
+    //      foodsNav: 'foods-nav'
+    //   })
+    // }
+  }
+}
+</script>
+
+<style lang='less'>
+.wares-wrapper {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  overflow: hidden;
+}
+.wares-wrapper .header {
+  height: 250rpx;
+  width: 100%;
+  background: #0099ff;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: wrap;
+  position: relative;
+}
+.wares-wrapper .header .content {
+  display: flex;
+  align-items: center;
+  width: 650rpx;
+  height: 70rpx;
+  background: #fff;
+  border-radius: 50rpx;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  margin-left: 10rpx;
+}
+.wares-wrapper .header .content image {
+  width: 24rpx;
+  height: 24rpx;
+}
+.wares-wrapper .header .content input {
+  font-size: 24rpx;
+  margin-left: 10rpx;
+}
+.wares-wrapper .header .right image {
+  width: 34rpx;
+  height: 10rpx;
+  vertical-align: middle;
+  margin-left: 10rpx;
+}
+.wares-wrapper .header .more {
+  display: none;
+}
+.wares-wrapper .header .more-active {
+  width: 210rpx;
+  height: 310rpx;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAE3CAYAAADfZx/HAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkJDMEJEMEIzRTNGMTExRTg5Q0EwRjAwQTNFMTIzODU1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkJDMEJEMEI0RTNGMTExRTg5Q0EwRjAwQTNFMTIzODU1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QkMwQkQwQjFFM0YxMTFFODlDQTBGMDBBM0UxMjM4NTUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QkMwQkQwQjJFM0YxMTFFODlDQTBGMDBBM0UxMjM4NTUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7CHfvpAAAErklEQVR42uzby04TYRiA4R6AhsIkqDuiKy/AoJGFmpiY6IKT3oYJC5d6Aa5d6ML74A5cookX4FZd6aYtbSA9+P1kQIQU2qaNoTxP8mcKIU4y9M33dxiLvV6vANOuXq9vZlm2M6l/vygkrkBExTh8i3UnYtqbxDlKLjNXwEqs27GeTuoEQuIqWC8Wi4dHIcHoXlQqlXRcy7d5QoIhPx8txzRamZ2dLZRKpeX41n0hwfDWZmZmDqdQHNNhQ0gwvM1yuVw4EdJEPie5/c00b+vm4/B7cXFxPr/ZUGg0GvGW793KsuyHiQSDeRLT6DiifCqlL7Zs7WBwG/l27mRIE9ne2doxrdu6NHm+LywsLJdKf+dFer/H9q4VL2/E9q5lIsH5VtLt7pMRHU6O2Oal7V68fGZrBxdbP72tO7W92xASXGzrgpDG+pSDkJjGz0fpaYZ7R38/OvOmj+1e/pTDXSFBf8dPM/STT6XnQoL+NvpNo1Mhje02uNvfTNu27szTDP3kTznczLLsp4kE/zrzNMM5Uyn90OZYJ1KUnP4X4Xas1VhVvw8uqaVKpXJ9bm7uwh9st9uFVqtVi5e/hjxHM9ZurA8xzb4ehxQRvYyC38fJy/1uGcJlkabRIBMp6Xa7I50jRXhwcNCJfrYjpo/FWq32IE76qVqtlk//FRg4P8Jms5liepzKeROjUEQw7A2GaCa1Ey9fp3oe2s7BaPJ2HqWQrg26nwTOfh4LS/ZzMI5tnksAQgIhgZAAIYGQQEggJEBIICQQEggJEBIICYQEQgKEBEICIYGQACGBkEBIICRASCAkEBIgJBASCAmEBAgJhARCAiEBQgIhgZBASICQQEggJBASICQQEggJhAQICYQEQgIhAUICIYGQACGBkEBIICRASCAkEBIICRASCAmEBEIChARCAiGBkAAhgZBASCAkQEggJBASCAkQEggJhAQICYQEQgIhAUICIYGQQEiAkEBIICQQEiAkEBIICYQECAmEBEICIQFCAiGBkAAhgZBASCAkQEggJBASCAkQEggJhARCAoQEQgIhgZAAIYGQQEggJEBIICQQEggJEBIICYQECAmEBEICIQFCAiGBkEBIgJBASCAkEBIgJBASCAmEBAgJhARCAiEBQgIhgZBASICQQEggJEBIICQQEggJEBIICYQEQgKEBEICIYGQACGBkEBIICRASCAkEBIICRASCAmEBAgJhARCAiEBQgIhgZBASICQQEggJBASICQQEggJhAQICYQEQgIhAUICIYGQQEiAkEBIICRASCAkEBIICRASCAmEBEIChARCAiGBkAAhgZBASCAkQEggJBASCAkQEggJhARCAoQEQgIhAUICIYGQQEiAkEBIICQQEiAkEBIICYQECAmEBEICIQFCAiGBkEBIgJBASCAkEJJLAEICIYGQACGBkEBIICRASCAkEBIICRASCAmEBEIChARCAiGBkAAhwf8Kqd7r9VwJGEHeTiOF9KXT6bgiMIK8nc8ppHf7+/sFUwmGn0apndRQKcuynW63+7bZbBba7bagYICAUiupmdROaqh4FE69Xt+Kw6tYq7EWXC7oay/WbppEKaL0jT8CDACnC8t1+btiYgAAAABJRU5ErkJggg==);
+  position: fixed;
+  z-index: 10;
+  right: 10rpx;
+  top: 60rpx;
+  background-size: cover;
+  font-size: 26rpx;
+  color: #000;
+}
+.wares-wrapper .header .more-active view {
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  width: 100%;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-bottom: 1px #eeeeee solid;
+}
+.wares-wrapper .header .more-active view:nth-child(1) {
+  margin-top: 20rpx;
+}
+.wares-wrapper .header .more-active view:nth-child(4) {
+  border: none;
+}
+.wares-wrapper .header .more-active view button {
+  background: #fff;
+  width: 100%;
+  height: 70rpx;
+  padding: 0;
+  margin: 0;
+  font-size: 26rpx;
+  line-height: 70rpx;
+  border: none;
+  text-align: left;
+  display: initial;
+}
+.wares-wrapper .header .more-active view button::after {
+  border: 0;
+}
+.wares-wrapper .header .tips {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+.wares-wrapper .header .tips .tips-bg image {
+  width: 125rpx;
+  height: 125rpx;
+}
+.wares-wrapper .header .tips .tips-text {
+  color: #fff;
+  padding-left: 28rpx;
+  box-sizing: border-box;
+}
+.wares-wrapper .header .tips .tips-text .tips-tags {
+  font-size: 26rpx;
+}
+.wares-wrapper .header .tips .tips-text .star {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.wares-wrapper .header .tips .tips-text .star image {
+  width: 20rpx;
+  height: 20rpx;
+  margin-right: 5rpx;
+}
+.wares-wrapper .header .tips .tips-text .star text {
+  font-size: 22rpx;
+  margin: 0 10rpx;
+}
+.wares-wrapper .header .tips .tips-text .tips-name {
+  font-size: 26rpx;
+}
+.wares-wrapper .header .tips .tips-text .tips-name text:nth-child(1) {
+  padding-right: 20rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.wares-wrapper .header .tips .tips-text .tips-name text:nth-child(2) {
+  padding-left: 20rpx;
+  box-sizing: border-box;
+}
+.wares-wrapper .header .tips .tips-text .tips-name text:nth-child(1)::before {
+  content: '';
+  width: 1px;
+  height: 26rpx;
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  top: 0;
+}
+.wares-wrapper .header .tips .tips-fans {
+  color: #fff;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20rpx;
+}
+.wares-wrapper .header .tips .tips-fans .tips-num {
+  font-size: 22rpx;
+  display: flex;
+  flex-flow: column;
+}
+.wares-wrapper .header .tips .tips-fans .tips-num text:nth-child(1) {
+  font-size: 30rpx;
+  margin-right: 20rpx;
+}
+.wares-wrapper .header .tips .tips-fans .tips-follow {
+  width: 120rpx;
+  height: 50rpx;
+  border-radius: 30rpx;
+  background: #f0384c;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 50rpx;
+}
+.wares-wrapper .wares {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.wares-wrapper .wares .wares-nav {
+  width: 100%;
+  display: flex;
+  height: 130rpx;
+  border-bottom: 1px #eeeeee solid;
+  background: #fff;
+  box-sizing: border-box;
+}
+.wares-wrapper .wares .wares-nav-fixed {
+  width: 100%;
+  display: flex;
+  height: 130rpx;
+  border-bottom: 1px #eeeeee solid;
+  background: #fff;
+  position: fixed;
+  z-index: 10;
+  box-sizing: border-box;
+}
+.wares-wrapper .wares .wares-nav view {
+  // height: 100%;
+  width: 188rpx;
+  display: flex;
+  height: 130rpx;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  box-sizing: border-box;
+}
+.wares-wrapper .wares .wares-nav .active{
+  border-bottom: 2px #0099ff solid;
+  box-sizing: border-box;
+}
+.wares-wrapper .wares .wares-nav .active text{
+  color: #0099ff;
+}
+.wares-wrapper .wares .wares-nav image {
+  width: 46rpx;
+  height: 46rpx;
+}
+.wares-wrapper .wares .wares-nav view text {
+  text-align: center;
+  font-size: 24rpx;
+  margin-top: 10rpx;
+  color: #666666;
+}
+.wares-wrapper .wares .wares-nav-fixed view {
+  height: 100%;
+  width: 188rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+.wares-wrapper .wares .wares-nav-fixed image {
+  width: 46rpx;
+  height: 46rpx;
+}
+.wares-wrapper .wares .wares-nav-fixed view text {
+  text-align: center;
+  font-size: 24rpx;
+  margin-top: 10rpx;
+  color: #666666;
+}
+</style>

@@ -1,0 +1,266 @@
+<template lang="wxml">
+    <view class="product-nav">
+        <view class="active">综合</view>
+        <view>人气</view>
+        <view>上新</view>
+        <view>团购</view>
+        <view>价格<image src="../../assets/images/2-1_03.png" mode="widthFix"></view>
+        <view bindtap="changshape"><text class="iconfont {{block?'icon-gengduo':'icon-jifenfenlei'}}"></text></view>
+    </view>
+  	<view class="probox {{block?'':'slip'}}">
+  		 <!--  <image src=""> -->
+        <navigator wx:for="{{productArr}}" url="../../public/details/details">
+                <image src="{{item.images}}" mode="widthFix">
+                <view class="tit">
+                    KY润滑油房事女用高潮液男用夫妻情趣用品人体
+                    KY润滑油房事女用高潮液男用夫妻情趣用品人体
+                   
+                </view>
+                <view class="num">
+                   <text class="price">￥{{item.price}}</text>
+                   <text class="sell">月销{{item.price}}份</text>
+                </view>
+                 
+
+                <view class="slip-rt">
+                    <view>
+                          <view class="slip-tit">
+                              KY润滑油房事女用高潮液男用夫妻情趣用品人体
+                              KY润滑油房事女用高潮液男用夫妻情趣用品人体
+                          </view>
+                          <text class="sell">月销{{item.price}}份</text>
+                    </view>
+                    
+                    <text class="price">￥{{item.price}}</text>
+                </view>
+                       
+                  
+                     
+        </navigator> 
+  	</view>
+    <view class="weui-loadmore "  wx:if="{{isHideLoadMore}}">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+     
+</template>
+<script>
+import wepy from 'wepy';
+export default class Com extends wepy.component {
+    config = {
+     navigationBarTitleText: '',
+    
+
+    };
+    components = {};
+   
+    data = {
+      isHideLoadMore:false,
+      addflag:true,
+      block:true,
+      model:[{
+           images:"http://test.jihuliwu.cn/hzy/img/product2.jpg",
+           title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+           msell:20000,
+           price:100
+         },
+         {
+           images:"http://test.jihuliwu.cn/hzy/img/product1.jpg",
+           title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+           msell:20000,
+           price:100
+      }],
+      productArr:[{
+         images:"http://test.jihuliwu.cn/hzy/img/product2.jpg",
+         title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+         msell:20000,
+         price:100
+       },
+       {
+         images:"http://test.jihuliwu.cn/hzy/img/product1.jpg",
+         title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+         msell:20000,
+         price:100
+       },{
+         images:"http://test.jihuliwu.cn/hzy/img/product2.jpg",
+         title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+         msell:20000,
+         price:100
+       },
+       {
+         images:"http://test.jihuliwu.cn/hzy/img/product1.jpg",
+         title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+         msell:20000,
+         price:100
+       }]
+    };
+    methods = {
+      changshape:function(){
+        this.block=!this.block;
+        
+      },
+      addproduct:function(){
+          this.isHideLoadMore=true;
+         
+          if(this.addflag){
+            console.log("到底了")
+            this.addflag=false;
+            setTimeout(() => {  
+            this.addflag=true;
+            this.isHideLoadMore=false;
+            this.productArr=this.productArr.concat(this.model)
+            this.$apply(); 
+            },1000)
+          }
+      }
+    };
+      
+    events = {};
+    props = {
+      
+	  };
+
+	onLoad () {
+   
+	}
+    // Other properties
+}
+</script>
+
+<style>
+   .product-nav{
+      display: flex;
+      align-items: center;
+      background: #fff;
+      color: #333;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+   }
+   .product-nav .iconfont{
+       color: #333;
+      font-size: 30rpx;
+      border-left: 1px solid #e5e5e5;
+      padding: 4rpx 0;
+      padding-left: 20rpx;
+   }
+   .product-nav image{
+      width: 18rpx;
+      margin-left: 10rpx;
+   }
+   .product-nav>view{
+      flex: 1;
+      text-align: center;
+      font-size: 28rpx;
+      line-height: 80rpx;
+      
+   }
+
+   .product-nav>view.active{
+     color: #0099ff;
+   }
+   .probox{
+     width: 100%;
+     box-sizing: border-box;
+     padding: 3% 3%;
+     display: flex;
+     flex-wrap: wrap;
+   }
+
+   .probox navigator{
+     display: block;
+     width: 49%;
+     background: #fff;
+     margin-bottom:2%;
+
+   }
+   .probox navigator:nth-child(odd){
+     margin-right: 2%;
+   }
+
+   .probox image{
+     width: 100%;
+   }
+
+   .probox  .tit{
+     height: 70rpx;
+     font-size: 24rpx;
+     overflow: hidden;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    padding: 0 10rpx;
+    padding-top: 10rpx;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    display: -webkit-box;
+    display: box;
+   }
+
+   .probox .num{
+    display: flex;
+    width: 100%;
+    line-height: 1.4;
+    padding:  10rpx;
+    box-sizing: border-box;
+    justify-content: space-between;
+   }
+
+
+   .probox .price{
+      font-size: 28rpx;
+      color:#e61919;
+   }
+
+
+    .probox .sell{
+      font-size: 24rpx;
+      color:#999;
+   }
+
+   .weui-loadmore{
+     margin:0;
+     padding-bottom: 30rpx;
+   }
+
+
+   .slip navigator{
+     width: 100%;
+     margin-right: 0 !important;
+   }
+
+   .slip image{
+     width: 30%;
+   }
+   .slip-rt{display: none;}
+   .slip  .num,.slip  .tit{
+     display: none;
+   }
+
+   .slip .slip-rt{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 20rpx;
+      font-size: 28rpx;
+      width: 70%;
+      box-sizing: border-box;
+   }
+
+   .slip .slip-tit{
+       height: 70rpx;
+       font-size: 24rpx;
+       overflow: hidden;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      padding: 0 10rpx;
+      padding-top: 10rpx;
+      -webkit-box-orient: vertical;
+      box-orient: vertical;
+      display: -webkit-box;
+      display: box;
+   }
+
+    .slip navigator {
+      display: flex;
+    }
+</style>

@@ -1,0 +1,134 @@
+<template>
+  <view class="billDetails">
+      <view class="top">
+          <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg" /></view>
+          <view>金拱门</view>
+          <view>-233.00</view>
+          <view>交易成功</view>
+      </view>
+      <view class="body" bindtap="date">
+          <view class="wrapper">
+              <text>商品说明</text>
+              <text>超值实惠量多人气炸鸡全家桶</text>
+          </view>
+          <view class="wrapper">
+              <text>账单分类</text>
+              <text>支出-饮食</text>
+          </view>
+          <view class="wrapper">
+              <text>创建时间</text>
+              <text>2018-05-01  12:30</text>
+          </view>
+          <view class="wrapper">
+              <text>订单号</text>
+              <text>2018050121001004850518752414</text>
+          </view>
+          <view class="wrapper">
+              <text>商品编号</text>
+              <text>180251519198181</text>
+          </view>
+      </view>
+    <view class="footer">
+        <view class="wrapper">
+            <text>联系商铺</text>
+            <i class="iconfont icon-jiantou"></i>
+        </view>
+        <view class="wrapper">
+            <text>售后服务</text>
+            <i class="iconfont icon-jiantou"></i>
+        </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '钱包'
+  };
+  data = {};
+  components = {};
+  methods = {
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.billDetails{
+    width: 100%;
+    .top{
+        width: 100%;
+        padding: 40rpx 0;
+        box-sizing: border-box;
+        background: #fff;
+        view{
+            width: 100%;
+            text-align: center;
+            image{
+                width: 146rpx;
+                height: 146rpx;
+                border-radius: 50%;
+            }
+        }
+        view:nth-child(2){
+            font-size: 28rpx;
+            color: #000000;
+        }
+        view:nth-child(3){
+            font-size: 38rpx;
+            color: #000000;
+        }
+        view:nth-child(4){
+            font-size: 26rpx;
+            color: #999999;
+        }
+    }
+    .body{
+        padding: 0 20rpx;
+        background: #fff;
+        box-sizing: border-box;
+        .wrapper{
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 30rpx;
+            box-sizing: border-box;
+            text:nth-child(1){
+                font-size: 26rpx;
+                color: #999999;
+            }
+            text:nth-child(2){
+                font-size: 24rpx;
+                color: #000000;
+            }
+        }
+    }
+    .footer{
+        margin-top: 20rpx;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        background: #fff;
+        .wrapper{
+            padding: 20rpx 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            text{
+                font-size: 24rpx;
+                color: #000000;
+            }
+            i{
+                color: #000000;
+                font-size: 30rpx;
+            }
+
+
+        }
+    }
+}
+</style>

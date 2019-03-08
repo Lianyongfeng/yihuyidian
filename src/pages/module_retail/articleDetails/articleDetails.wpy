@@ -47,7 +47,7 @@ export default class Example extends wepy.page {
       return {
         title: '文章分享',
         desc: '文章分享',
-        path: 'pages/tab_bar/articleDetails/articleDetails',
+        path: 'pages/module_retail/articleDetails/articleDetails',
         success: function(res) {
           console.log('成功', res);
         }

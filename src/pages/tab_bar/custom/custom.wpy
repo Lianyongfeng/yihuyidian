@@ -1,0 +1,167 @@
+<template>
+    <view class="custom">
+        <view class="top">
+            <view class="left" bindtap="fDate">{{fDate}}</view>
+            <view class="center">至</view>
+            <view class="right" bindtap="lDate">{{lDate}}</view>
+        </view>
+        <view class="body">
+            <view class="title">
+                <view>5月</view>
+                <view>
+                    <text>收益</text>
+                    <text>￥2222.0</text>
+                </view>
+            </view>
+            <view class="box">
+                <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                <view>+233.00</view>
+            </view>
+        </view>
+        <view class="body">
+            <view class="title">
+                <view>5月</view>
+                <view>
+                    <text>收益</text>
+                    <text>￥2222.0</text>
+                </view>
+            </view>
+            <view class="box">
+                <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                <view>+233.00</view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '收益明细',
+  };
+  data = {
+      fDate:'选择起始日期',
+      lDate:'选择最终日期'
+  };
+  components = {};
+  methods = {
+      fDate:function(){
+          wx.redirectTo({
+            url: '../date/date'
+        });
+         wx.removeStorageSync("fDate")
+      },
+      lDate:function(){
+           wx.redirectTo({
+            url: '../date/date',
+        });
+        wx.removeStorageSync("lDate")
+      }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {
+      if(wx.getStorageSync('fDate')==''){
+           this.fDate = '选择起始日期'
+      }else{
+        this.fDate =  wx.getStorageSync('fDate')
+      }
+      if(wx.getStorageSync('lDate')==''){
+        this.fDate = '选择最终日期'
+      }else{
+        this.lDate =  wx.getStorageSync('lDate')
+      }
+  }
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.custom{
+    .top{
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        height: 68rpx;
+        align-items: center;
+        .left,.right{
+            color: #0099ff;
+            font-size: 22rpx;
+        }
+        .center{
+            color: #999999;
+            font-size: 22rpx;
+        }
+    }
+    .body{
+        .title{
+            width: 100%;
+            padding: 0 20rpx;
+            box-sizing: border-box;
+            height: 64rpx;
+            background: #eeeeee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            view:nth-child(1){
+                font-size: 28rpx;
+                color: #333333;
+            }
+            view:nth-child(2){
+                text:nth-child(1){
+                    color: #333333;
+                    font-size: 28rpx;
+                }
+                text:nth-child(2){
+                    color: #f62a2a;
+                    font-size: 28rpx;
+                }
+            }
+        }
+         .box{
+            width: 100%;
+            padding: 20rpx;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px #e5e5e5 solid;
+            image{
+                width: 90rpx;
+                height: 90rpx;
+                border-radius: 50%;
+            }
+            view:nth-child(2){
+                margin-left: 30rpx;
+                text{
+                    display: block;
+                }
+                text:nth-child(1){
+                    font-size: 26rpx;
+                    color: #000000;
+                }
+                 text:nth-child(2){
+                    font-size: 20rpx;
+                    color: #999999;
+                }
+            }
+            view:nth-child(3){
+               position: absolute;
+               right: 20rpx;
+               font-size: 28rpx;
+               color: #000000;
+            }
+         }
+    }
+}
+</style>

@@ -137,6 +137,11 @@ export default class retailGoods extends wepy.component {
     ]
   };
   components = {};
+  props = {
+    title:{
+      type:String
+    },
+  };
   methods = {
     onReachBottom:function(e) {
       setTimeout(() => {
@@ -215,15 +220,31 @@ export default class retailGoods extends wepy.component {
     }, 1000)
     },
     wares:function(){
-       wx.navigateTo({
-        url: '../../../pages/tab_bar/wares/wares'
+      console.log(this.title)
+      if(this.title==7||this.title==3||this.title==1||this.title==6){
+         wx.navigateTo({
+        url: '../../../pages/module_retail/wares/wares'
       });
+      }else if(this.title==8){
+         wx.navigateTo({
+        url: '../../../pages/online_retailers/online-retailers/online-retailers'
+      });
+      }else if(this.title==4){
+         wx.navigateTo({
+        url: '../../../pages/entertainment/sing/sing'
+      });
+      }else if(this.title==5){
+         wx.navigateTo({
+        url: '../../../pages/bide/live/live'
+      });
+      }
     }
   };
   events = {};
   watch = {};
   computed = {};
-  onLoad() {}
+  onLoad() {
+  }
   onShow() {}
 }
 </script>

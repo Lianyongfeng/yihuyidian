@@ -126,7 +126,7 @@ export default class Example extends wepy.page {
   methods = {
     search: function() {
       wx.navigateTo({
-        url: '../search/search'
+        url: '../../tab_bar/search/search'
       });
     },
     more: function() {
@@ -151,7 +151,7 @@ export default class Example extends wepy.page {
       return {
         title: '店铺分享',
         desc: '店铺分享',
-        path: 'pages/tab_bar/wares/wares',
+        path: 'pages/module_retail/wares/wares',
         success: function(res) {
           console.log('成功', res);
         }

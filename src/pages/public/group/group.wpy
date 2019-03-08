@@ -1,0 +1,132 @@
+<template>
+    <view class='retail'>
+        <view class='header'>
+            <view class='content' bindtap='search'>
+                <image src='../../../common/image/search.png'>
+                <input placeholder='搜索商家、商品名称'>
+            </view>
+            <view class='right' bindtap='shop'>
+                <image src='../../../common/image/shop-logo.png'>
+            </view>
+        </view>
+        <tabs/>
+        <groupBuying :title.sync="type"/>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import Tabs from '../../../components/tabs/tabs';
+import groupBuying from '../../../components/groupBuying/groupBuying';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: ''
+  };
+  data = {
+    type:''
+  };
+  components = {
+    tabs: Tabs,
+    groupBuying:groupBuying
+  };
+  methods = {
+    search: function() {
+      wx.navigateTo({
+        url: '../../public/search/search'
+      });
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad(options) {
+    this.type = options.type
+    if(this.type==1){
+      wx.setNavigationBarTitle({
+        title: '特价' 
+      })
+    }else if(this.type==2){
+      wx.setNavigationBarTitle({
+        title: '团购' 
+      })
+    }else if(this.type==3){
+      wx.setNavigationBarTitle({
+        title: '美食' 
+      })
+    }else if(this.type==4){
+      wx.setNavigationBarTitle({
+        title: '娱乐' 
+      })
+    }else if(this.type==5){
+      wx.setNavigationBarTitle({
+        title: '住宿' 
+      })
+    }else if(this.type==6){
+      wx.setNavigationBarTitle({
+        title: '生鲜' 
+      })
+    }else if(this.type==7){
+      wx.setNavigationBarTitle({
+        title: '零售' 
+      })
+    }else if(this.type==8){
+      wx.setNavigationBarTitle({
+        title: '电商' 
+      })
+    }else if(this.type==9){
+      wx.setNavigationBarTitle({
+        title: '详细分类' 
+      })
+    }else if(this.type==10){
+      wx.setNavigationBarTitle({
+        title: '频道定制' 
+      })
+    }
+  }
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.retail {
+  width: 100%;
+  height: 100%;
+}
+.retail .header {
+  width: 100%;
+  background: #0099ff;
+  height: 90rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.retail .header .content {
+  display: flex;
+  align-items: center;
+  width: 630rpx;
+  height: 70rpx;
+  background: #fff;
+  border-radius: 50rpx;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  margin-left: 10rpx;
+}
+.retail .header .content image {
+  width: 24rpx;
+  height: 24rpx;
+}
+.retail .header .content input {
+  font-size: 24rpx;
+  margin-left: 10rpx;
+}
+.retail .header .right image {
+  width: 44rpx;
+  height: 44rpx;
+  vertical-align: middle;
+  margin-left: 10rpx;
+}
+.retail .tabs-wrapper{
+    margin-top: 0;
+}
+</style>

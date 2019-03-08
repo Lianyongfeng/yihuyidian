@@ -60,12 +60,12 @@ export default class Example extends wepy.page {
       },
       edit:function(){
         wx.navigateTo({
-            url: '../address/address'
+            url: '../../module_retail/address/address'
         });
       },
       add:function(){
         wx.navigateTo({
-            url: '../address/address'
+            url: '../../module_retail/address/address'
         });
       },
       delete:function(e){

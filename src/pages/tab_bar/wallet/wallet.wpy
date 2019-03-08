@@ -1,0 +1,110 @@
+<template>
+  <view class="wallet">
+    <view class="top">
+      <view>余额账户（元）</view>
+      <view>8888.0</view>
+    </view>
+    <view class="content">
+      <view bindtap="bill">
+        <i class="iconfont icon-zhangdan"></i>
+        <text>账单</text>
+      </view>
+      <view>
+        <i class="iconfont icon-chongzhi"></i>
+        <text>充值</text>
+      </view>
+      <view>
+        <i class="iconfont icon-tixian"></i>
+        <text>提现</text>
+      </view>
+      <view>
+        <i class="iconfont icon-saoyisao"></i>
+        <text>扫一扫</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '钱包'
+  };
+  data = {};
+  components = {};
+  methods = {
+    bill: function() {
+      wx.navigateTo({
+        url: '../bill/bill'
+      });
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.wallet {
+  .top {
+    width: 100%;
+    height: 180rpx;
+    background: #0099ff;
+    color: #fff;
+    padding: 30rpx 20rpx;
+    box-sizing: border-box;
+    view:nth-child(1) {
+      font-size: 22rpx;
+    }
+    view:nth-child(2) {
+      font-size: 60rpx;
+    }
+  }
+  .content {
+    width: 100%;
+    view {
+      width: 100%;
+      padding: 0 20rpx;
+      height: 90rpx;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px #e5e5e5 solid;
+      background: #fff;
+      .icon-zhangdan {
+        font-size: 40rpx;
+        color: #1782e1;
+      }
+      .icon-chongzhi {
+        font-size: 32rpx;
+        color: #e13d17;
+      }
+      .icon-tixian {
+        font-size: 30rpx;
+        color: #ff9c00;
+      }
+      .icon-saoyisao {
+        font-size: 32rpx;
+        color: #22a0b7;
+      }
+      text {
+        padding-left: 20rpx;
+        box-sizing: border-box;
+        font-size: 24rpx;
+        color: #000000;
+      }
+    }
+    view:nth-child(4),
+    view:nth-child(3) {
+      border: none;
+    }
+    view:nth-child(4) {
+      margin-top: 14rpx;
+    }
+  }
+}
+</style>

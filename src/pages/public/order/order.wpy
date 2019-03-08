@@ -1,0 +1,240 @@
+<template>
+    <view class='reserve'>
+        <view class="top">
+            <view class="box">
+                <view class="name">豪华双人房（浪漫海洋房中式主题房热带雨林房3选1）</view>
+                <view class="text">入住当天12点前可免费取消</view>
+            </view>
+        </view>
+        <view class="information">
+            <view class="shop">
+                <view class="left">
+                    <image src="../../../common/image/gongcha-logo.png">
+                    <text>希尔顿</text>
+                </view>
+                <view class="right">订单号：1219966656754409604</view>
+            </view>
+            <view class="date-wrapper">
+                <view>
+                    <text>05-20</text>
+                    <text>入住</text>
+                </view>
+                <view>
+                    <text>06-06</text>
+                    <text>离开</text>
+                </view>
+                <view>共17晚</view>
+            </view>
+            <view class="arrive">
+                <view>预定到店</view>
+                <view>05月20日 12:00 前</view>
+            </view>
+            <view class="num">
+                <view>房间数</view>
+                <view>1间</view>
+            </view>
+            <view class="userName">
+                <view>预定人</view>
+                <view>李某某</view>
+            </view>
+            <view class="userPhone">
+                <view>联系电话</view>
+                <view>15917900105</view>
+            </view>
+            <view class="price">
+                <text>实付</text>
+                <text>￥5576.0</text>
+            </view>
+        </view>
+        <view class="time">
+            <view>创建时间</view>
+            <view>2018-05-19 12:30</view>
+        </view>
+        <view class="code">
+            <image src="../../../common/image/code.png"/> 
+        </view>
+        <view class="cancel">
+            <view>取消订单</view>
+        </view>
+    </view>
+
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '订单详情'
+  };
+  data = {
+  };
+  components = {};
+  methods = {
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+@blue:#0099ff;
+@white:#fff;
+@gray:#999999;
+.reserve{
+    padding-bottom: 90rpx;
+    box-sizing: border-box;
+    .top{
+        width: 100%;
+        padding: 20rpx;
+        box-sizing: border-box;
+        background: @blue;
+        .box{
+            width: 100%;
+            padding: 20rpx;
+            box-sizing: border-box;
+            background: @white;
+            .name{
+                color: #000000;
+                font-size: 26rpx;
+            }
+            .text{
+                font-size: 20rpx;
+                color: #999999;
+            }
+        }
+    }
+    .information{
+        width: 100%;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        background:@white;
+        .shop{
+            display: flex;
+            padding: 20rpx 0;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: space-between;
+            .left{
+                display: flex;
+                align-items: center;
+                image{
+                    width: 56rpx;
+                    height: 56rpx;
+                    border-radius: 50%;
+                }
+                text{
+                    padding-left: 20rpx;
+                    box-sizing: border-box;
+                    font-size: 24rpx;
+                    color: #6b6b6b;
+                }
+            }
+            .right{
+                font-size: 22rpx;
+                color: #0099ff;
+            }
+        }
+        >view{
+            border-bottom: 1px #dcdcdc solid;
+        }
+        .date-wrapper{
+            display: flex;
+            padding: 20rpx 0;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: space-between;
+            view{
+                font-size: 24rpx;
+                color: #000000;
+                text:nth-child(2){
+                    padding-left: 30rpx;
+                    box-sizing: border-box;
+                    font-size: 22rpx;
+                    color: @gray;
+                }
+            }
+        }
+        .arrive,.num,.userName,.userPhone{
+            display: flex;
+            padding: 20rpx 0;
+            box-sizing: border-box;
+            justify-content: space-between;
+            align-items: center;
+            view:nth-child(1){
+                font-size: 24rpx;
+                color: @gray;
+            }
+            view:nth-child(2){
+                font-size: 24rpx;
+                color: #000;
+            }
+        }
+        .price{
+            width: 100%;
+            text-align: right;
+            padding: 20rpx;
+            box-sizing: border-box;
+            text:nth-child(1){
+                font-size: 24rpx;
+                color: #000000;
+            }
+            text:nth-child(2){
+                font-size: 34rpx;
+                color: #e02020;
+                padding-left: 20rpx;
+                box-sizing: border-box;
+            }
+        }
+    }
+    .time{
+        display: flex;
+        padding: 20rpx;
+        box-sizing: border-box;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        margin: 16rpx 0;
+        view:nth-child(1){
+            font-size: 24rpx;
+            color: @gray;
+        }
+        view:nth-child(2){
+            font-size: 24rpx;
+            color: #000;
+        }
+    }
+    .code{
+        padding: 20rpx 0;
+        box-sizing: border-box;
+        background: #fff;
+        text-align: center;
+        image{
+            width: 230rpx;
+            height: 230rpx;
+        }
+    }
+    .cancel{
+        width: 100%;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        height: 66rpx;
+        position: fixed;
+        left: 0;
+        bottom: 20rpx;
+        view{
+            width: 100%;
+            height: 66rpx;
+            background: @blue;
+            color: #fff;
+            font-size: 26rpx;
+            text-align: center;
+            line-height: 66rpx;
+            border-radius: 30rpx;
+        }
+    }
+        
+}
+</style>

@@ -1,0 +1,53 @@
+<template>
+    <view class="about">
+        <image src="../../../common/image/logo.png">
+        <view class="name">一户一店</view>
+        <view class="banben">v9.2.6-b626-.28989.05031549</view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '关于',
+  };
+  data = {
+  };
+  components = {};
+  methods = {
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.about{
+    width: 100%;
+    margin-top: 240rpx;
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    image{
+        width: 150rpx;
+        height: 150rpx;
+        border-radius: 20rpx;
+    }
+    view{
+        width: 100%;
+        text-align: center;
+    }
+    .name{
+        font-size: 24rpx;
+        color: #000000;
+    }
+    .banben{
+        font-size: 22rpx;
+        color: #999999;
+    }
+}
+</style>

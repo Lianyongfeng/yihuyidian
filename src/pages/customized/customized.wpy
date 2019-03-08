@@ -1,0 +1,196 @@
+<template>
+    <view class='customized'>
+        <view class="wrapper" wx:for="{{goods}}">
+            <view class="left">
+                <view class="bg" style='background:{{item.background}};'>
+                    <image src="{{item.url}}">
+                </view>
+                <view class="name">
+                    <view>{{item.classify}}</view>
+                    <view>{{item.text}}</view>
+                </view>
+            </view>
+            <view class="right">
+                <switch bindchange="switch2Change" color="#2884e0"/>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: ''
+  };
+  data = {
+    type:'',
+    goods: [
+          {
+            classify: '特价',
+            url: '../../../common/image/tj.png',
+            background: 'linear-gradient(#ff8b56, #ff5f3c)',
+            text:'有着特殊价格的商品集合地'
+          },
+          {
+            classify: '团购',
+            url: '../../../common/image/tg.png',
+            background: 'linear-gradient(#a981f0, #574aca)',
+            text:'东西要拼着买才划算'
+          },
+          {
+            classify: '美食',
+            url: '../../../common/image/ms.png',
+            background: 'linear-gradient(#ff9240, #ff7d28)',
+            text:'感受吃货向往的生活'
+          },
+          {
+            classify: '娱乐',
+            url: '../../../common/image/yl.png',
+            background: 'linear-gradient(#52c2f4, #1982dd)',
+            text:'是时候放松一下了'
+          },
+          {
+            classify: '住宿',
+            url: '../../../common/image/zs.png',
+            background: 'linear-gradient(#9a8781, #916a5d)',
+            text:'这才是回“家”的诱惑'
+          },
+          {
+            classify: '生鲜',
+            url: '../../../common/image/sx.png',
+            background: 'linear-gradient(#9fee3d, #64d420)',
+            text:'买水果，抢“鲜”一步'
+          },
+          {
+            classify: '零售',
+            url: '../../../common/image/ls.png',
+            background: 'linear-gradient(#34e8d1, #19c6b0)',
+            text:'在你身边的便利店'
+          },
+          {
+            classify: '电商',
+            url: '../../../common/image/ds.png',
+            background: 'linear-gradient(#f87069, #e9362e)',
+            text:'总有一款是你想要的'
+          },
+        ]
+  };
+  components = {};
+  methods = {
+    search: function() {
+      wx.navigateTo({
+        url: '../../public/search/search'
+      });
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad(options) {
+    this.type = options.type
+    if(this.type==1){
+      wx.setNavigationBarTitle({
+        title: '特价' 
+      })
+    }else if(this.type==2){
+      wx.setNavigationBarTitle({
+        title: '团购' 
+      })
+    }else if(this.type==3){
+      wx.setNavigationBarTitle({
+        title: '美食' 
+      })
+    }else if(this.type==4){
+      wx.setNavigationBarTitle({
+        title: '娱乐' 
+      })
+    }else if(this.type==5){
+      wx.setNavigationBarTitle({
+        title: '住宿' 
+      })
+    }else if(this.type==6){
+      wx.setNavigationBarTitle({
+        title: '生鲜' 
+      })
+    }else if(this.type==7){
+      wx.setNavigationBarTitle({
+        title: '零售' 
+      })
+    }else if(this.type==8){
+      wx.setNavigationBarTitle({
+        title: '电商' 
+      })
+    }else if(this.type==9){
+      wx.setNavigationBarTitle({
+        title: '详细分类' 
+      })
+    }else if(this.type==10){
+      wx.setNavigationBarTitle({
+        title: '频道定制' 
+      })
+    }
+  }
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.customized{
+    .wrapper{
+        display: flex;
+        padding: 30rpx 20rpx;
+        box-sizing: border-box;
+        justify-content: space-between;
+        border:1px #e5e5e5 solid;
+        .left{
+            display: flex;
+            align-items: center;
+            .bg{
+                width: 92rpx;
+                height: 92rpx;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                image{
+                    width: 60rpx;
+                    height: 60rpx;
+                }
+            }
+            .name{
+                padding-left: 30rpx;
+                box-sizing: border-box;
+                view:nth-child(1){
+                    color: #000000;
+                    font-size: 26rpx;
+                }
+                view:nth-child(2){
+                    color: #999999;
+                    font-size: 22rpx;
+                }
+            }
+        }
+        .right{
+            .wx-switch-input{
+                width: 70rpx !important;
+                height: 42rpx !important;
+            }
+            /* false的样式 */
+            .wx-switch-input::before{
+                width: 70rpx !important;
+                height: 42rpx !important;
+                background: #bbbbbb;
+                border-color: #bbbbbb;
+            }
+            /* true的样式 */
+            .wx-switch-input::after{
+                width: 36rpx !important;
+                height: 36rpx !important;
+                margin-top: 3rpx;
+                
+            }
+        }
+    }
+}
+</style>

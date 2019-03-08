@@ -1,0 +1,190 @@
+<template>
+    <view class="distribution">
+      <view class="nav">
+          <view data-index="0" class="{{index==0?'active':''}}" bindtap="nav">今日</view>
+          <view data-index="1" class="{{index==1?'active':''}}" bindtap="nav">昨日</view>
+          <view data-index="2" class="{{index==2?'active':''}}" bindtap="nav">本周</view>
+          <view data-index="3" class="{{index==3?'active':''}}" bindtap="nav">本月</view>
+          <view bindtap="custom">自定义</view>
+      </view>
+      <view class="content">
+        <view class="top">
+            <view>总收益（元）</view>
+            <view>520.00</view>
+        </view>
+        <view class="profit">
+            <view class="day">
+                <view>今日收益（元）</view>
+                <view>520.00</view>
+            </view>
+            <view class="month">
+                <view>本月收益（元）</view>
+                <view>520.00</view>
+            </view>
+        </view>
+        <view class="recommend">
+            <view class="shop">
+                <view>推荐开店</view>
+                <view>5</view>
+            </view>
+            <view class="foods">
+                <view>我推荐的商品</view>
+                <view>50</view>
+            </view>
+        </view>
+      </view>
+      <view class="share">
+        <image src="../../../common/image/code.png" />
+        <button open-type="share"><i class="iconfont icon-weixinhaoyou1"></i></button>
+      </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '分销中心',
+  };
+  data = {
+    index:0,
+  };
+  components = {};
+  methods = {
+      nav:function(e){
+        this.index = e.currentTarget.dataset.index
+      },
+      custom:function(){
+        wx.navigateTo({
+            url: '../custom/custom'
+        });
+      },
+      onShareAppMessage: function () {
+    let that =this;
+      return {
+        title: '', // 转发后 所显示的title
+        path: '/pages/tab_bar/distribution/distribution', // 相对的路径
+        success: (res)=>{    // 成功后要做的事情
+          console.log(res.shareTickets[0])
+          // console.log
+         
+          wx.getShareInfo({
+            shareTicket: res.shareTickets[0],
+            success: (res)=> { 
+              that.setData({
+                isShow:true
+              }) 
+              console.log(that.setData.isShow)
+             },
+            fail: function (res) { console.log(res) },
+            complete: function (res) { console.log(res) }
+          })
+        },
+        fail: function (res) {
+          // 分享失败
+          console.log(res)
+        }
+      }
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.distribution{
+    .nav{
+        display: flex;
+        justify-content: space-around;
+        border-bottom: 1px #eeeeee solid;
+        align-items: center;
+        background: #fff;
+        view{
+            height: 100%;
+            font-size: 24rpx;
+            color: #000000;
+            height: 66rpx;
+            box-sizing: border-box;
+            line-height: 66rpx;
+        }
+        .active{
+            border-bottom: 4rpx #0099ff solid;
+            box-sizing: border-box;
+        }
+    }
+    .content{
+        .top{
+            width: 100%;
+            padding: 40rpx 0;
+            box-sizing: border-box;
+            view{
+                text-align: center;
+            }
+            view:nth-child(1){
+                font-size: 24rpx;
+                color: #333333;
+            }
+            view:nth-child(2){
+                font-size: 52rpx;
+                color: #0099ff;
+            }
+        }
+    }
+    .profit{
+        display: flex;
+        padding: 20rpx 0;
+        box-sizing: border-box;
+        border-bottom: 1px #e5e5e5 solid;
+        .day,.month{
+            flex:1;
+            text-align: center;
+            font-size: 26rpx;
+            color: #999999;
+            view:nth-child(2){
+                font-weight: bold;
+            }
+        }
+    }
+    .recommend{
+        display: flex;
+        padding: 20rpx 0;
+        box-sizing: border-box;
+        .shop,.foods{
+            flex:1;
+            text-align: center;
+            view:nth-child(1){
+                color: #999999;
+                font-size: 24rpx;
+            }
+             view:nth-child(2){
+                color: #0099ff;
+                font-size: 38rpx;
+            }
+        }
+        .shop{
+            border-right: 1px #e5e5e5 solid;
+        }
+    }
+    .share{
+        text-align: center;
+        image{
+            width: 350rpx;
+            height: 350rpx;
+        }
+        button{
+        }
+        button::after{
+            border: none;
+        }
+        i{
+            font-size: 80rpx;
+            color: #19d100;
+            display: block;
+        }
+    }
+}
+</style>

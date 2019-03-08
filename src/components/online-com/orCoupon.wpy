@@ -1,0 +1,194 @@
+<template lang="wxml">  
+     <view class="orCoupon">
+         <view class="item">
+             <view class="title">会员卡</view>
+             <view class="img"><image src="http://test.jihuliwu.cn/hzy/img/4_03.png" mode="widthFix"></view>
+         </view>       
+
+          <view class="item">
+             <view class="title">代金券</view>
+              <view class="coupon-item">
+                  <view class="top">
+                      <view class="price">
+                           <view>￥<text>85</text></view>
+                      </view>
+                      <view class="date">
+                           <view class="name">100元代金券</view>
+                           <view>购买截止：2018-05-30</view>
+                      </view>
+                      <view class="buy">购买</view>
+                  </view>
+                  <view class="bot">
+                      <image src="../../assets/images/home.png">durex杜蕾斯
+                  </view>
+              </view>    
+         </view>       
+
+          <view class="item">
+             <view class="title">优惠券</view>
+              <view class="coupon-item">
+                  <view class="top">
+                      <view class="price">
+                           <view>￥<text>85</text></view>
+                      </view>
+                      <view class="date">
+                           <view class="name">100元代金券</view>
+                           <view>2018-05-30前有效</view>
+                      </view>
+                      <view class="buy">购买</view>
+                  </view>
+                  <view class="bot">
+                      <image src="../../assets/images/home.png">durex杜蕾斯
+                  </view>
+              </view>    
+         </view>       
+
+
+     </view>
+</template>
+<script>
+import wepy from 'wepy';
+export default class Com extends wepy.component {
+    config = {
+     navigationBarTitleText: '',
+    
+
+    };
+    components = {};
+   
+    data = {
+       list:[{
+          type:"会员卡",
+          image:"http://test.jihuliwu.cn/hzy/img/4_03.png"
+       },
+       {
+          type:"代金券",
+          image:"http://test.jihuliwu.cn/hzy/img/4_03.png",
+          couponArr:[{
+            money:"85",
+            name:"100元代金券",
+            date:"100000000"
+          }]
+          
+       },
+       {
+          type:"会员卡",
+          image:"http://test.jihuliwu.cn/hzy/img/4_03.png"
+       },
+
+       ]
+    
+    };
+    methods = {
+     
+     
+    };
+      
+    events = {};
+    props = {
+      
+	  };
+
+	onLoad () {
+   
+	}
+    // Other properties
+}
+</script>
+
+<style>
+   .orCoupon{
+      padding: 3%;
+      width: 100%;
+      box-sizing: border-box;
+   }
+   .coupon-item{
+    background: #fff;
+   }
+   .coupon-item .top{
+     width: 100%;
+     padding: 34rpx 0;
+     display: flex;
+     align-items: center;
+     justify-content:space-between;
+     border-bottom: 1px dashed #e5e5e5;
+   }
+   .coupon-item .top .price{
+     width: 24%;
+     color: #ff3a3a;
+     text-align: center;
+     font-size: 28rpx;
+   }
+    .coupon-item .top .buy{
+      margin-right: 3%;
+      width: 120rpx;
+      text-align: center;
+      background: #ff3a3a;
+      line-height: 50rpx;
+      color: #fff;
+      border-radius: 40rpx;
+      font-size: 28rpx;
+    }
+   .coupon-item .top .price text{font-size: 60rpx;font-weight: bold;}
+   .coupon-item .top .name{font-size: 30rpx;color: #000}
+   .coupon-item .top .date{
+      font-size: 24rpx;
+      line-height: 1.4;
+      color: #999999;
+   }
+
+   .coupon-item .bot{
+      line-height: 54rpx;
+      padding: 0 3%;
+      font-size: 24rpx;
+      color: #999;
+      position: relative;
+   }
+
+   .coupon-item .bot:after{
+    content:"";
+    position: absolute;
+    left: -12rpx;
+    top: -12rpx;
+    width: 24rpx;
+    height: 24rpx;
+    display: block;
+    border-radius: 50%;
+    background: #eee;
+   }
+   .coupon-item .bot:before{
+    content:"";
+    position: absolute;
+    right:-12rpx;
+    top: -12rpx;
+    width: 24rpx;
+    height: 24rpx;
+    display: block;
+    border-radius: 50%;
+    background: #eee;
+   }
+
+
+   .orCoupon .title{
+      color: #888;
+      line-height: 2;
+      font-size: 28rpx;
+   }
+   .orCoupon .item{
+    padding-bottom: 30rpx;
+    position: relative;
+   }
+   .orCoupon .item .img{
+      width: 100%;
+   }
+   .orCoupon .item image{
+      color: #888;
+      width: 100%;
+   }
+   .coupon-item .bot image{
+      width: 21rpx;
+      margin-right: 20rpx;
+      height: 23rpx;
+   }
+  
+</style>

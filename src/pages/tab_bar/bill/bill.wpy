@@ -1,0 +1,327 @@
+<template>
+    <view class="bill">
+        <view class="nav">
+            <view class="{{index==0?'active':''}}" data-index="0" bindtap="nav">全部</view>
+            <view class="{{index==1?'active':''}}" data-index="1" bindtap="nav">支出</view>
+            <view class="{{index==2?'active':''}}" data-index="2" bindtap="nav">收益</view>
+            <view class="{{index==3?'active':''}}" data-index="3" bindtap="nav">提现</view>
+        </view>
+        <view class="body" wx:if="{{index==0}}">
+            <view class="wrapper">
+                <view class="title">
+                    <view>本月</view>
+                    <view>
+                        <text>支出￥233.00</text>
+                        <text>收入￥233.00</text>
+                    </view>
+                </view>
+                <view class="box" bindtap="billDetails">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+                 <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+            </view>
+            <view class="wrapper">
+                <view class="title">
+                    <view>5月</view>
+                    <view>
+                        <text>支出￥233.00</text>
+                        <text>收入￥233.00</text>
+                    </view>
+                </view>
+                <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+                 <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+            </view>
+        </view>
+         <view class="body" wx:if="{{index==1}}">
+            <view class="wrapper">
+                <view class="title">
+                    <view>本月</view>
+                    <view>
+                        <text>支出￥233.00</text>
+                        <text>收入￥233.00</text>
+                    </view>
+                </view>
+                <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+                 <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+            </view>
+            <view class="wrapper">
+                <view class="title">
+                    <view>4月</view>
+                    <view>
+                        <text>支出￥233.00</text>
+                        <text>收入￥233.00</text>
+                    </view>
+                </view>
+                <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+                 <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+            </view>
+        </view>
+         <view class="body" wx:if="{{index==2}}">
+            <view class="wrapper">
+                <view class="title">
+                    <view>本月</view>
+                    <view>
+                        <text>支出￥233.00</text>
+                        <text>收入￥233.00</text>
+                    </view>
+                </view>
+                <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+                 <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+            </view>
+            <view class="wrapper">
+                <view class="title">
+                    <view>3月</view>
+                    <view>
+                        <text>支出￥233.00</text>
+                        <text>收入￥233.00</text>
+                    </view>
+                </view>
+                <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+                 <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+            </view>
+        </view>
+         <view class="body" wx:if="{{index==3}}">
+            <view class="wrapper">
+                <view class="title">
+                    <view>本月</view>
+                    <view>
+                        <text>支出￥233.00</text>
+                        <text>收入￥233.00</text>
+                    </view>
+                </view>
+                <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+                 <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+            </view>
+            <view class="wrapper">
+                <view class="title">
+                    <view>1月</view>
+                    <view>
+                        <text>支出￥233.00</text>
+                        <text>收入￥233.00</text>
+                    </view>
+                </view>
+                <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+                 <view class="box">
+                    <view><image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg"/></view>
+                    <view>
+                        <text>收益</text>
+                        <text>05-01 12:30</text>
+                    </view>
+                    <view>+233.00</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '账单'
+  };
+  data = {
+      index:0,
+  };
+  components = {};
+  methods = {
+      nav:function(e){
+          this.index = e.currentTarget.dataset.index
+      },
+      billDetails:function(){
+        wx.navigateTo({
+            url: '../billDetails/billDetails'
+        });
+      }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.bill {
+  .nav {
+    width: 100%;
+    display: flex;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    height: 64rpx;
+    view {
+      margin-right: 60rpx;
+      height: 64rpx;
+      box-sizing: border-box;
+      line-height: 64rpx;
+      font-size: 24rpx;
+      color: #3b3b3b;
+    }
+    .active {
+        border-bottom: 4rpx #0099ff solid;
+    }
+  }
+  .body{
+    width: 100%;
+    .wrapper{
+        width: 100%;
+        .title{
+            width: 100%;
+            display: flex;
+            padding: 0 20rpx;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            background: #eeeeee;
+            height: 70rpx;
+            view:nth-child(1){
+                color: #2b2b2b;
+                font-size: 28rpx;
+            }
+             view:nth-child(2){
+                color: #6b6b6b;
+                font-size: 20rpx;
+            }
+        }
+        .box{
+            width: 100%;
+            padding: 20rpx;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px #e5e5e5 solid;
+            image{
+                width: 90rpx;
+                height: 90rpx;
+                border-radius: 50%;
+            }
+            view:nth-child(2){
+                margin-left: 30rpx;
+                text{
+                    display: block;
+                }
+                text:nth-child(1){
+                    font-size: 26rpx;
+                    color: #000000;
+                }
+                 text:nth-child(2){
+                    font-size: 20rpx;
+                    color: #999999;
+                }
+            }
+            view:nth-child(3){
+               position: absolute;
+               right: 20rpx;
+               font-size: 28rpx;
+               color: #000000;
+            }
+        }
+    }
+  }
+}
+</style>

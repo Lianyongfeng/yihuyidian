@@ -1,0 +1,190 @@
+<template lang="wxml">
+   
+  	<view class="probox slip">
+  		 <!--  <image src=""> -->
+        <navigator wx:for="{{productArr}}"  >
+                <image src="{{item.images}}" mode="widthFix">
+               
+                 
+
+                <view class="slip-rt">
+
+                    <view>
+                          <view class="slip-tit">
+                              KY润滑油房事女用高潮液男用夫妻情趣用品人体
+                              KY润滑油房事女用高潮液男用夫妻情趣用品人体
+                          </view>
+                          <text class="sell">月销{{item.price}}份</text>
+                    </view>
+                    
+                    <view><image src="../../assets/images/3_03.jpg" mode="widthFix"><text class="price">￥{{item.price}}</text></view>
+                </view>
+                       
+                  
+                     
+        </navigator> 
+  	</view>
+    <view class="weui-loadmore "  wx:if="{{isHideLoadMore}}">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+     
+</template>
+<script>
+import wepy from 'wepy';
+export default class Com extends wepy.component {
+    config = {
+     navigationBarTitleText: '',
+    
+
+    };
+    components = {};
+   
+    data = {
+      isHideLoadMore:false,
+      addflag:true,
+      block:true,
+      model:[{
+           images:"http://test.jihuliwu.cn/hzy/img/product2.jpg",
+           title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+           msell:20000,
+           price:100
+         },
+         {
+           images:"http://test.jihuliwu.cn/hzy/img/product1.jpg",
+           title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+           msell:20000,
+           price:100
+      }],
+      productArr:[{
+         images:"http://test.jihuliwu.cn/hzy/img/product2.jpg",
+         title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+         msell:20000,
+         price:100
+       },
+       {
+         images:"http://test.jihuliwu.cn/hzy/img/product1.jpg",
+         title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+         msell:20000,
+         price:100
+       },{
+         images:"http://test.jihuliwu.cn/hzy/img/product2.jpg",
+         title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+         msell:20000,
+         price:100
+       },
+       {
+         images:"http://test.jihuliwu.cn/hzy/img/product1.jpg",
+         title:"KY润滑油房事女用高潮液男用夫妻情趣用品人体",
+         msell:20000,
+         price:100
+       }]
+    };
+    methods = {
+      changshape:function(){
+        this.block=!this.block;
+        
+      },
+      addproduct:function(){
+          this.isHideLoadMore=true;
+         
+          if(this.addflag){
+            console.log("到底了")
+            this.addflag=false;
+            setTimeout(() => {  
+            this.addflag=true;
+            this.isHideLoadMore=false;
+            this.productArr=this.productArr.concat(this.model)
+            this.$apply(); 
+            },1000)
+          }
+      }
+    };
+      
+    events = {};
+    props = {
+      
+	  };
+
+	onLoad () {
+   
+	}
+    // Other properties
+}
+</script>
+
+<style>
+
+   .probox{
+     width: 100%;
+     box-sizing: border-box;
+     padding: 3% 3%;
+     display: flex;
+     flex-wrap: wrap;
+   }
+
+  
+   .probox .price{
+      font-size: 28rpx;
+      color:#e61919;
+   }
+
+
+    .probox .sell{
+      font-size: 24rpx;
+      color:#999;
+   }
+
+   .weui-loadmore{
+     margin:0;
+     padding-bottom: 30rpx;
+   }
+
+
+   .slip navigator{
+     width: 100%;
+     margin-right: 0 !important;
+   }
+
+   .slip image{
+     width: 30%;
+   }
+   .slip-rt{display: none;}
+   .slip  .num,.slip  .tit{
+     display: none;
+   }
+
+   .slip .slip-rt{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 20rpx;
+      font-size: 28rpx;
+      width: 70%;
+      box-sizing: border-box;
+   }
+
+   .slip .slip-tit{
+       height: 70rpx;
+       font-size: 24rpx;
+       overflow: hidden;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      padding: 0 10rpx;
+      padding-top: 10rpx;
+      -webkit-box-orient: vertical;
+      box-orient: vertical;
+      display: -webkit-box;
+      display: box;
+   }
+
+    .slip navigator {
+      display: flex;
+    }
+
+    .slip .slip-rt  image{
+       width: 60rpx ;
+       vertical-align: middle;
+    }
+</style>

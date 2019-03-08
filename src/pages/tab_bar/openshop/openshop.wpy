@@ -1,0 +1,113 @@
+<template>
+    <view class="openshop">
+      <view class="nav">
+          <view data-index="0" class="{{index==0?'active':''}}" bindtap="nav">开店</view>
+          <view data-index="1" class="{{index==1?'active':''}}" bindtap="nav">商品</view>
+      </view>
+      <view class="content" wx:if="{{index==0}}">
+          <view class="box">
+              <view>
+                  <image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg">
+                  <text>家福乐</text>
+              </view>
+              <view>￥5000.00</view>
+          </view>
+      </view>
+      <view class="content" wx:if="{{index==1}}">
+          <view class="box">
+              <view>
+                  <image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg">
+                  <text>家福乐</text>
+              </view>
+              <view>￥5000.00</view>
+          </view>
+          <view class="box">
+              <view>
+                  <image src="https://1h1d.cdn.jihuliwu.cn/images/goods-bg1.jpg">
+                  <text>家福乐</text>
+              </view>
+              <view>￥5000.00</view>
+          </view>
+      </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '我要开店',
+  };
+  data = {
+    index:0,
+  };
+  components = {};
+  methods = {
+      nav:function(e){
+        this.index = e.currentTarget.dataset.index
+      },
+      custom:function(){
+        wx.navigateTo({
+            url: '../custom/custom'
+        });
+      },
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {}
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+.openshop{
+    .nav{
+        display: flex;
+        justify-content: space-around;
+        border-bottom: 1px #eeeeee solid;
+        align-items: center;
+        background: #fff;
+        view{
+            height: 100%;
+            font-size: 24rpx;
+            color: #000000;
+            height: 66rpx;
+            box-sizing: border-box;
+            line-height: 66rpx;
+        }
+        .active{
+            border-bottom: 4rpx #0099ff solid;
+            box-sizing: border-box;
+        }
+    }
+    .content{
+        .box{
+            width: 100%;
+            padding: 10rpx 20rpx;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            view:nth-child(1){
+                display: flex;
+                align-items: center;
+                font-size: 26rpx;
+                color: #000000;
+                image{
+                    width: 90rpx;
+                    height: 90rpx;
+                    border-radius: 50%;
+                }
+                text{
+                    margin-left: 30rpx;
+                }
+            }
+            view:nth-child(2){
+                font-size: 24rpx;
+                color: #e91616;
+            }
+        }
+    }
+}
+</style>

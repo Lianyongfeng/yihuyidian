@@ -1,0 +1,62 @@
+<template>
+  <view class="wrap">
+    <calendar
+      calendar-style="calendar"
+      binddayClick="day"
+      header-style="header"
+      board-style="board"
+      next="{{true}}"
+      prev="{{true}}"
+      show-more-days="{{true}}"
+    />
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Example extends wepy.page {
+  config = {
+    navigationBarTitleText: '钱包',
+    usingComponents: {
+      calendar: 'plugin://calendar/calendar'
+    }
+  };
+  data = {
+    fDate: '',
+    lDate: ''
+  };
+  components = {};
+  methods = {
+    day: function(e) {
+      console.log(e);
+      if (this.fDate == '') {
+        this.fDate =
+          e.detail.year + '年' + e.detail.month + '月' + e.detail.day + '日';
+        wx.redirectTo({
+          url: '../custom/custom' + '?' + 'fDate=' + this.fDate
+        });
+         wx.setStorageSync('fDate', this.fDate)
+      } else {
+        this.lDate =
+          e.detail.year + '年' + e.detail.month + '月' + e.detail.day + '日';
+        wx.redirectTo({
+          url: '../custom/custom' + '?' + 'lDate=' + this.lDate
+        });
+         wx.setStorageSync('lDate', this.lDate)
+      }
+
+    }
+  };
+  events = {};
+  watch = {};
+  computed = {};
+  onLoad() {
+    this.fDate =  wx.getStorageSync('fDate')
+    this.lDate =  wx.getStorageSync('lDate')
+  }
+  onShow() {}
+}
+</script>
+
+<style lang='less'>
+</style>
